@@ -37,6 +37,11 @@ framework built on top of TensorFlow that makes it easy to construct, train and 
 ROS provides a publish subscribe communication framework to build distributed computing system simply and quickly. Here are the steps to build.
 ```
 
+## 6. ROS-Caffe
+```
+Integrate Coffe model into ROS with Classifier API.
+```
+
 ## Getting Started
 * [Quick start guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide)
 * [Hardware Reference Guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/hardware-reference-guide)
