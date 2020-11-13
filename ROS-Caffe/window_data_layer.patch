@@ -1,0 +1,4 @@
+288c288
+<         cv_img = cv::imread(image.first, CV_LOAD_IMAGE_COLOR);
+---
+>         cv_img = cv::imread(image.first, cv::IMREAD_COLOR);
