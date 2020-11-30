@@ -42,6 +42,16 @@ ROS provides a publish subscribe communication framework to build distributed co
 Integrate Coffe model into ROS with Classifier API.
 ```
 
+## 7. Gstreamer-Applications
+```
+The purpose of these samples is helping users to learn how to implement the functions of gstreamer on the Qualcomm platform.
+```
+
+## 8. Gstreamer-TFlite
+```
+This sample code implements an example of object detection by utilizing Qualcomm's TFLite Gstreamer plugins.
+```
+
 ## Getting Started
 * [Quick start guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide)
 * [Hardware Reference Guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/hardware-reference-guide)
