@@ -52,6 +52,11 @@ The purpose of these samples is helping users to learn how to implement the func
 This sample code implements an example of object detection by utilizing Qualcomm's TFLite Gstreamer plugins.
 ```
 
+## 9. C2D-Samples
+```
+C2D-Sample-code shows picture color-format, picture rotate, picture scale-resize by C2D-Convert-API.
+```
+
 ## Getting Started
 * [Quick start guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide)
 * [Hardware Reference Guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/hardware-reference-guide)
