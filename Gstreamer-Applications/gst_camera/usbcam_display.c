@@ -11,7 +11,7 @@
  * The purpose is helping users to learn how to implement the
  * USB camera display on weston with gstreamer on the
  * Qualcomm platform through this sample app.
- * 
+ *
  * This sample should be run in weston display.
  */
 
@@ -24,7 +24,7 @@ static gboolean bus_callback(GstBus *bus, GstMessage *msg, gpointer data)
     GMainLoop *loop = (GMainLoop *)data;
 
     int type = GST_MESSAGE_TYPE(msg);
-    
+
     if (type == GST_MESSAGE_ERROR) {
         gchar  *debug;
         GError *error;
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 {
     GMainLoop *loop;
 
-    GstElement *pipeline, *source, *videoconv, *framefilter, *sink;
+    GstElement *pipeline, *source, *videoconv, *videorate, *framefilter, *sink;
     GstBus *bus;
     guint bus_id;
 
@@ -59,6 +59,7 @@ int main(int argc, char *argv[])
     pipeline    = gst_pipeline_new("video-display");
     source      = gst_element_factory_make("v4l2src",      "v4l2-source");
     videoconv   = gst_element_factory_make("videoconvert", "video-convert");
+    videorate   = gst_element_factory_make("videorate",    "video-rate");
     framefilter = gst_element_factory_make("capsfilter",   "frame-filter");
     sink        = gst_element_factory_make("waylandsink",  "display");
 
@@ -66,7 +67,7 @@ int main(int argc, char *argv[])
     // we add videoconvert to convert the format from different usb camera input.
 
 
-    if (!pipeline || !source || !videoconv || !framefilter || !sink) {
+    if (!pipeline || !source || !videoconv || !videorate || !framefilter || !sink) {
         g_printerr ("Create element failed.\n");
         return -1;
     }
@@ -82,8 +83,8 @@ int main(int argc, char *argv[])
     bus_id = gst_bus_add_watch(bus, bus_callback, loop);
     gst_object_unref(bus);
 
-    gst_bin_add_many(GST_BIN(pipeline), source, videoconv, framefilter, sink, NULL);
-    gst_element_link_many(source, videoconv, framefilter, sink, NULL);
+    gst_bin_add_many(GST_BIN(pipeline), source, videoconv, videorate, framefilter, sink, NULL);
+    gst_element_link_many(source, videoconv, videorate, framefilter, sink, NULL);
 
     gst_element_set_state(pipeline, GST_STATE_PLAYING);
     g_print("Start\n");
