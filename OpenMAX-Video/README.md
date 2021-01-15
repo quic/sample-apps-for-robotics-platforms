@@ -14,7 +14,7 @@ Please connected the RJ45 or WiFi refer to the WiFi document.
 $ adb root
 $ adb shell
 $ cd /data/
-$ git clone https://github.qualcomm.com/Robotics/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
+$ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
 ```
 ## Set up Environment
 ```

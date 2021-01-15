@@ -7,7 +7,9 @@ SUBDIRS = \
 	gst_encode_decode \
 	gst_gui_app \
 	gst_streaming \
-	gst_transform
+	gst_transform \
+	gst_alsa/src \
+	gst_tflite/src
 
 .PHONY: all clean
 
