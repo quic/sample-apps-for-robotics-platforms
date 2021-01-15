@@ -9,7 +9,7 @@ OpenCL-Sample-code shows OpenCL from three examples.
 ```
 $ adb shell
 $ cd home
-$ git clone https://github.qualcomm.com/Robotics/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
+$ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
 $ cd OpenCL-Application
 ```
 ## FFT

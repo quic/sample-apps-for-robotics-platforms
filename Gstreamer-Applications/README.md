@@ -8,6 +8,8 @@ The purpose of these samples is helping users to learn how to implement the func
 + Video streaming
 + Video transform
 + GUI application
++ Gst AlsaPlugin
++ Gst TFlite
 
 ## Get Started
 
@@ -58,7 +60,7 @@ $ make
 Please see detail in each folder.
 
 gst_audio/
- 
+
 + audio_record
 + audio_playback
 
@@ -85,6 +87,14 @@ gst_streaming/
 gst_transform/
 
 + transform_display
+
+gst_alsa/
+
++ gst_audio_sample
+
+gst_tflite/
+
++ tflite_object_detection
 
 ## License
 This is licensed under the BSD 3-Clause-Clear “New” or “Revised” License. Check out the [LICENSE](LICENSE) for more details.

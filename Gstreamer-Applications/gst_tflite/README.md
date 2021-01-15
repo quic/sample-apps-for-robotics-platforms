@@ -2,15 +2,9 @@
 
 ## 1. Init and set up the environment
 
-1. Download source code
-```
-   $ adb shell
-   $ cd /data
-   $ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
-```
 2. Run the script: install.sh
 ```
-   $ cd Gstreamer-TFlite
+   $ cd /data/Gstreamer-Application/gst_tflite
    $ sh install.sh
 ```
 3. Start the weston display server:
@@ -28,7 +22,7 @@
 ## 2. Compile the tflite demo app
 
 ```shell
-    sh-4.4# cd /data/Gstreamer-TFlite
+    sh-4.4# cd /data/Gstreamer-Application/gst_tflite/src
     sh-4.4# make
 ```
 
