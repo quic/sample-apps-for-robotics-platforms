@@ -21,17 +21,17 @@ $ apt-get install gcc
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Information/src
+$ cd /home/Device-info
+$ mkdir bin
+$ cd src
 $ make
 ```
 
 ## 2. Execute test routine
 
-You can either compile or execute the test program directly in the folder /data/Platform/bin/
-
 ```shell
 $ adb shell
-$ cd /home/RB5-Information/bin
+$ cd /home/Device-info/bin
 $ ./qrb5165_info
 ```
 
