@@ -24,19 +24,19 @@ If you have access to GCC version information, then GCC installed successfully.
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/src
+$ cd /home/GPIO-samples
+$ mkdir bin
+$ cd src
 $ make
 ```
 
 ## 2. Execution and description of test procedure
 
-You can either compile or execute the test program directly in the folder /data/Platform/bin/
-
    ###     1. LED light controlling
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/bin
+$ cd /home/GPIO-samples/bin
 $ ./qrb5165_platform -led red 255
 ```
 
@@ -48,7 +48,7 @@ The third parameter could be 0-255 (0 is to turn off the LED, other values contr
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/bin
+$ cd /home/GPIO-samples/bin
 $ ./qrb5165_platform -gpio out 144 0
 $ ./qrb5165_platform -gpio in 144
 ```
@@ -65,7 +65,7 @@ The value of the GPIO input or output is displayed in the console after executio
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/bin
+$ cd /home/GPIO-samples/bin
 $ ./qrb5165_platform -irq 144
 ```
 
@@ -83,7 +83,7 @@ The snapshot after execution is shown below:
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/bin
+$ cd /home/GPIO-samples/bin
 $ ./qrb5165_platform -button
 ```
 Then you can press any button to test it
@@ -100,7 +100,7 @@ The snapshot after execution is shown below:
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/bin
+$ cd /home/GPIO-samples/bin
 $ ./qrb5165_platform -pwm 1 1000 500
 ```
 
@@ -114,7 +114,7 @@ The fourth parameter could be high level time in ns, must be less than the perio
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/bin
+$ cd /home/GPIO-samples/bin
 $ ./qrb5165_platform -regulator bobc1-pm8150a_bob 1
 ```
 
@@ -132,7 +132,7 @@ The third parameter could be 0 or 1 (0 is disable the regulator, 1 is enable the
 
 ```shell
 $ adb shell
-$ cd /home/RB5-Platform/bin
+$ cd /home/GPIO-samples/bin
 $ ./qrb5165_platform -temp
 ```
 
