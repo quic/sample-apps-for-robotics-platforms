@@ -7,6 +7,7 @@ The tts node requires an IAM User with the polly:SynthesizeSpeech permission pol
 
 1.	Setup AWS service permissions on AWS Dashboard
 Add **“polly:SynthesizeSpeech”** permission to the IAM user
+
 	i.  Select the IAM user created earlier, click Add permission, then tap Attach existing policies directly and then select the Create policy and paste the JSON snippet given below 
 
 	```
@@ -32,6 +33,7 @@ Add **“polly:SynthesizeSpeech”** permission to the IAM user
     Once the permission is set, open a terminal in Qualcomm Robotics RB5 and follow the steps below.
 
 2.	Clone the tts-ros2 app
+
 	i.  Create a ROS workspace and a source directory
 
 	```
@@ -57,6 +59,7 @@ Add **“polly:SynthesizeSpeech”** permission to the IAM user
 	```
 
 4.	Execute the tss-ros2 app
+
 	i. Being in the same terminal and directory, enter the command 
 	```
     ros2 launch tts tts.launch.py 
@@ -71,10 +74,10 @@ Add **“polly:SynthesizeSpeech”** permission to the IAM user
 5.  Tts-ros2 application execution outputs
 	
 	Terminal 1: node launch 
-	!![image text](image/TTS_Screenshot_1.PNG)
+	![image text](image/TTS_Screenshot_1.PNG)
 
 	Terminal 2: Sending text request and audio file creation 
-	!![image text](image/TTS_Screenshot_2.PNG)
+	![image text](image/TTS_Screenshot_2.PNG)
 
 For more information on colcon bundle and bundle installation please read:
 https://github.com/aws-robotics/tts-ros2

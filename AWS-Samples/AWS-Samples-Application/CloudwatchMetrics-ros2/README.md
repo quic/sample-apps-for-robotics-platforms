@@ -4,6 +4,7 @@ The cloudwatch_metrics_collector ROS Node publishes your robot's metrics to the 
 The CloudwatchMetrics-ros2 node requires an IAM User with the cloudwatch:PutMetricData permission policy.  
 
 1. Add “cloudwatch:PutMetricData” permission to the IAM user
+
     i) Select the IAM user created earlier, click Add permission, then tap Attach existing policies directly and then select the Create policy and paste the JSON snippet given below.
     ```
         {
@@ -67,16 +68,16 @@ The CloudwatchMetrics-ros2 node requires an IAM User with the cloudwatch:PutMetr
 5. Cloudwatchmetrics-ros2 application execution outputs
 
     Terminal 1: Node launch
-    [Node launch](image/CloudwatchMetrics_Screenshot_1.PNG)
+    ![Terminal](image/CloudwatchMetrics_Screenshot_1.PNG)
 
     Terminal 2: Sending test metric
-    [Test metrics](image/CloudwatchMetrics_Screenshot_2.PNG)
+    ![Terminal](image/CloudwatchMetrics_Screenshot_2.PNG)
     
     Terminal 3: AWS Cloudwatch Metric Dashboard showing sent test metric
-    [AWS Dashboard](image/CloudwatchMetrics_Screenshot_3.PNG)
+    ![AWS Dashboard](image/CloudwatchMetrics_Screenshot_3.PNG)
 
     Terminal 4: AWS Cloudwatch Metric Dashboard showing sent test metric
-    [AWS Dashboard](image/CloudwatchMetrics_Screenshot_4.PNG)
+    ![AWS Dashboard](image/CloudwatchMetrics_Screenshot_4.PNG)
     
 For more information on colcon bundle and bundle installation please read:
 https://github.com/aws-robotics/cloudwatchmetrics-ros2

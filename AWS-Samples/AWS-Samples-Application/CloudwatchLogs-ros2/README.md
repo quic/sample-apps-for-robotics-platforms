@@ -2,7 +2,8 @@
 The cloudwatch_logger node enables logs generated in a ROS system to get sent to AWS CloudWatch Logs
 The CloudwatchLogs-ros2 node requires an IAM user with the 4 permissions listed below.
 1. Add the following permissions to IAM user
-i) Select the IAM user created earlier, click Add permission, then tap Attach existing policies directly and then select the Create policy and paste the JSON snippet given below 
+
+    i) Select the IAM user created earlier, click Add permission, then tap Attach existing policies directly and then select the Create policy and paste the JSON snippet given below 
     ```
     {
         "Version": "2012-10-17",
@@ -25,7 +26,7 @@ i) Select the IAM user created earlier, click Add permission, then tap Attach ex
 
     ii. Give name to policy, go to _Review policy_, select _Create policy_
     iii) Add the created policy to the IAM user by searching the policy name. Follow the steps below
-Go to created user -> Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission
+    Go to created user -> Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission
 
 2. Clone the CloudwatchLogs-ros2 app
 
@@ -34,13 +35,13 @@ Go to created user -> Add permission -> Attach existing policies directly -> sea
     mkdir -p ~/ros-workspace/src 
     cd ~/ros-workspace/src
     ```
-ii. Clone the CloudwatchLogs-ros2 app into the source directory, install dependencies
-```
-git clone https://github.com/aws-robotics/cloudwatchlogs-ros2.git -b release-latest
-cd ~/ros-workspace 
-apt-get update && rosdep update
-rosdep install --from-paths src --ignore-src -r -y
-```
+    ii. Clone the CloudwatchLogs-ros2 app into the source directory, install dependencies
+    ```
+    git clone https://github.com/aws-robotics/cloudwatchlogs-ros2.git -b release-latest
+    cd ~/ros-workspace 
+    apt-get update && rosdep update
+    rosdep install --from-paths src --ignore-src -r -y
+    ```
 3. Build the CloudwatchLogs-ros2 app
     ```
     source  /opt/ros/dashing/setup.bash
@@ -69,13 +70,13 @@ rosdep install --from-paths src --ignore-src -r -y
 5. CloudwatchLogs-ros2  application execution outputs
 
     Terminal 1: node launch
-    [image node](image/CloudwatchLog_Screenshot_1.PNG)
+    ![image node](image/CloudwatchLog_Screenshot_1.PNG)
     
     Terminal 2: Sending test log messages
-    [Limage log message](image/CloudwatchLog_Screenshot_2.PNG)
+    ![Terminal](image/CloudwatchLog_Screenshot_2.PNG)
     
     Terminal 3: AWS Cloudwatch log Dashboard under robot_application_name
-    [image AWS Dashboard ](image/CloudwatchLog_Screenshot_3.PNG)
+    ![AWS](image/CloudwatchLog_Screenshot_3.PNG)
     
 For more information regarding this please refer Launch File section in below link https://github.com/aws-robotics/cloudwatchlogs-ros2/
 

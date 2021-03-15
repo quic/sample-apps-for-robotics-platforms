@@ -90,6 +90,7 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
     colcon test --packages-select kinesis_video_streamer && colcon test-result --all
     ```
 4. Execute the application
+
 i. Run the USB camera node in terminal1 for enabling the USB camera
     ```
     source /opt/ros/dashing/setup.bash
@@ -107,17 +108,17 @@ i. Run the USB camera node in terminal1 for enabling the USB camera
     ```
 5. Application execution outputs
 
-    Terminal 1 : Terminal 1: Launching USB camera node
+    Terminal 1 : Launching USB camera node
     ![AWS](image/KinesisVideo_Screenshot_4.PNG)
     
     Terminal 2 : Launching h264 Video encoder node
     ![Terminal](image/KinesisVideo_Screenshot_2.PNG)
     
-    Terminal 3 : Launching the Kinesis video stream node
-    ![Terminal](image/KinesisVideo_Screenshot_3.PNG)
+     Terminal 3 : Launching the Kinesis video stream node
+     ![Terminal](image/KinesisVideo_Screenshot_3.PNG)
      
-    Image :  Video stream in AWS Dashboard
-    ![AWS](image/KinesisVideo_Screenshot_3.PNG)
+     Image :  Video stream in AWS Dashboard
+     ![AWS](image/KinesisVideo_Screenshot_3.PNG)
 
 For more information regarding this please refer Launch File section in below link https://github.com/aws-robotics/cloudwatchlogs-ros2/
 
