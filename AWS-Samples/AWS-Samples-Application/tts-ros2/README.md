@@ -71,9 +71,13 @@ Add **“polly:SynthesizeSpeech”** permission to the IAM user
 5.  Tts-ros2 application execution outputs
 	
 	Terminal 1: node launch 
-	![tts](https://drive.google.com/file/d/1-5HdTTz4cAld1g_nrkV6bVJ6kLMrcBBw/view?usp=sharing)
+	!![image text](image/TTS_Screenshot_1.PNG)
+
+	Terminal 2: tts launch 
+	!![image text one](image/TTS_Screenshot_2.png)
 
 For more information on colcon bundle and bundle installation please read:
 https://github.com/aws-robotics/tts-ros2
+
 
 
