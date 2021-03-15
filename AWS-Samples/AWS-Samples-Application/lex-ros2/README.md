@@ -17,7 +17,7 @@
     rosdep install --from-paths src --ignore-src -r -y
     ```
 3.   Build the lex-ros2 app
-       ###### i.  Create the Amazon lex bot in AWS Web console
+       ##### i.  Create the Amazon lex bot in AWS Web console
         a).Create sample bot: BookTripModify the configuration file in the cloned lex-ros2 app
        - Go to https://us-west-2.console.aws.amazon.com/lex/home?region=us-west-2
        - select the region as US West (Oregon)us-west-2 on top right corner and click on “Get Started”
@@ -26,7 +26,9 @@
         
        b). Create a new alias for the bot and publish
         Select the Bot you created (BookTrip_enAU) on the top right corner, click on Publish and it will ask to select the alias to be published,  select Create new alias, give a name to alias as  ‘botbook’ and click Publish.
-     ###### ii.  Modify the configuration file in the cloned lex-ros2 app
+Terminal 1: node launch
+[image text](image/Lex_Screenshot_3.PNG)
+     ##### ii.  Modify the configuration file in the cloned lex-ros2 app
       - Modify config/sample_configuration.yaml to reflect the new bot and alias created in the previous step.
         ```
         cd ~/ros-workspace/src/lex-ros2/lex_node/config/
@@ -44,25 +46,30 @@
           bot_alias: "botbook"
           region: "us-west-2"
          ``` 
-         
-      ###### iii.  Build the lex-ros2 app
-                source  /opt/ros/dashing/setup.bash
-                cd  ~/ros-workspace && colcon build
-                source  ~/ros-workspace/install/local_setup.bash
-                colcon test --packages-select lex_node && colcon test-result –all
-                
+      ##### iii.  Build the lex-ros2 app
+          source  /opt/ros/dashing/setup.bash
+          cd  ~/ros-workspace && colcon build
+          source  ~/ros-workspace/install/local_setup.bash
+          colcon test --packages-select lex_node && colcon test-result –all
+
 4. Execute the lex-ros2 app
-       ###### i.Being in the same terminal and directory, enter the command 
-         ros2 launch lex_node lex.launch.py
-      ######ii.Open another terminal and send text request message 
+       i.Being in the same terminal and directory, enter the command
+     ```
+    ros2 launch lex_node lex.launch.py
+    ```
+    
+      ii.Open another terminal and send text request message
+      ```
         source  /opt/ros/dashing/setup.bash
+      ```
         ros2 service call /lex_conversation lex_common_msgs/AudioTextConversation "{content_type: 'text/plain; charset=utf-8', accept_type: 'text/plain; charset=utf-8', text_request: 'make a reservation'}”
 
 5. Lex-ros2 application execution outputs
 Terminal 1: node launch
-[image text](image/Lex_Screenshot_1.png)
-Terminal 2: Lex_Screenshot_2.png
-[image text](image/Lex_Screenshot_2.png)
+[image text](image/Lex_Screenshot_1.PNG)
+
+    Terminal 2: Sending text request and lex response
+    [image text](image/Lex_Screenshot_2.PNG)
 
 For more information on colcon bundle and bundle installation please read:
 https://github.com/aws-robotics/lex-ros2/
