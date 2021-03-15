@@ -73,8 +73,8 @@ Add **“polly:SynthesizeSpeech”** permission to the IAM user
 	Terminal 1: node launch 
 	!![image text](image/TTS_Screenshot_1.PNG)
 
-	Terminal 2: tts launch 
-	!![image text one](image/TTS_Screenshot_2.png)
+	Terminal 2: Sending text request and audio file creation 
+	!![image text](image/TTS_Screenshot_2.PNG)
 
 For more information on colcon bundle and bundle installation please read:
 https://github.com/aws-robotics/tts-ros2
