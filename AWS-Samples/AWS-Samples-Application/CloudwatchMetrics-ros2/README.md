@@ -50,7 +50,8 @@ The CloudwatchMetrics-ros2 node requires an IAM User with the cloudwatch:PutMetr
     ```
 
 4. Execute the cloudwatchmetrics-ros2 app
-i. Being in the same terminal and directory, enter the command 
+
+    i. Being in the same terminal and directory, enter the command 
     ```
     ros2 launch cloudwatch_metrics_collector cloudwatch_metrics_collector.launch.py
     ```
@@ -61,25 +62,24 @@ i. Being in the same terminal and directory, enter the command
     ros2 topic pub /metrics ros_monitoring_msgs/msg/MetricList"{metrics: [{header:{stamp:{sec: ${timestamp}, nanosec: 0}} , metric_name: 'cw_offline_metric', unit: 'Count', value: 1.0, time_stamp: {sec: ${timestamp}, nanosec: 0}, dimensions: [{name: 'RB5_device_dimension', value: 'RB5_device_value'}]}]}"
     ```
 
-    After executing these commands login to AWS Cloudwatch Metrics Dashboard -  https://us-west-2.console.aws.amazon.com/cloudwatch/home?region=us-west-2#metricsV2: 
-    to verify metrics.
+    After executing these commands login to AWS Cloudwatch Metrics Dashboard to verify metrics.   https://us-west-2.console.aws.amazon.com/cloudwatch/home?region=us-west-2#metricsV2: 
+    
 5. Cloudwatchmetrics-ros2 application execution outputs
-Terminal 1: Node launch
-[image text](image/CloudwatchMetrics_Screenshot_1.PNG)
+
+    Terminal 1: Node launch
+    [Node launch](image/CloudwatchMetrics_Screenshot_1.PNG)
 
     Terminal 2: Sending test metric
-    [image text](image/CloudwatchMetrics_Screenshot_2.PNG)
+    [Test metrics](image/CloudwatchMetrics_Screenshot_2.PNG)
     
     Terminal 3: AWS Cloudwatch Metric Dashboard showing sent test metric
-    [image text](image/CloudwatchMetrics_Screenshot_3.PNG)
+    [AWS Dashboard](image/CloudwatchMetrics_Screenshot_3.PNG)
 
     Terminal 4: AWS Cloudwatch Metric Dashboard showing sent test metric
-    [image text](image/CloudwatchMetrics_Screenshot_4.PNG)
+    [AWS Dashboard](image/CloudwatchMetrics_Screenshot_4.PNG)
     
 For more information on colcon bundle and bundle installation please read:
 https://github.com/aws-robotics/cloudwatchmetrics-ros2
-
-
 
 
 
