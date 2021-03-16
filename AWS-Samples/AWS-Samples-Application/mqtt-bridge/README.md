@@ -176,16 +176,16 @@ The instructions below demonstrate the porting and working of aws-iot-bridge-exa
 7. Screenshots of application execution
 
     Terminal 1: Running the node
-    ![Terminal](image/Mqtt_Screenshot_1.png)
+    ![Terminal](image/Mqtt_Screenshot_1.PNG)
      
     Terminal 2: Publishing the ping topic
-    ![Terminal](image/Mqtt_Screenshot_1.png)
+    ![Terminal](image/Mqtt_Screenshot_2.PNG)
     
     AWS IoT dashboard reflecting the published data in ping topic
-    ![AWS](image/Mqtt_Screenshot_3.png)
+    ![AWS](image/Mqtt_Screenshot_3.PNG)
     
     Terminal 3: data of pong subscribed topic
-    ![Terminal](image/Mqtt_Screenshot_4.png)
+    ![Terminal](image/Mqtt_Screenshot_4.PNG)
     
 For more information on colcon bundle and bundle installation please read:
 https://github.com/aws-robotics/aws-iot-bridge-example/
