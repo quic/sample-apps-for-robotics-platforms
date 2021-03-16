@@ -2,7 +2,7 @@
    # apt-get install cmake
    # mkdir -p ~/DEVELOPMENT/
    # cd /root/DEVELOPMENT/
-   # git clone https://github.qualcomm.com/apandit/robotics/
+   # git clone <this_repo_url>
    # cd gst_tflite
 2. Now you can perform the on-device compilation
    $ adb shell
