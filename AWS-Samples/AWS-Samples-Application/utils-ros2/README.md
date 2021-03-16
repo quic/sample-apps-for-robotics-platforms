@@ -27,7 +27,7 @@ This app does not require any permissions to be set.
     
     ![AWS Dashboard](image/Utils_Screenshot_1.PNG)
 
-For more information on colcon bundle and bundle installation please read:
+For more information regarding this please refer below link:
 https://github.com/aws-robotics/utils-ros2
 
 

@@ -27,7 +27,7 @@ The lex node requires an IAM User with the **AmazonLexRunBotsOnly** permission p
 
        i.  Create the Amazon lex bot in AWS Web console
        
-        a.Create sample bot: BookTripModify the configuration file in the cloned lex-ros2 app
+        a. Create sample bot: BookTripModify the configuration file in the cloned lex-ros2 app
        - Go to https://us-west-2.console.aws.amazon.com/lex/home?region=us-west-2
        - select the region as US West (Oregon)us-west-2 on top right corner and click on “Get Started”
         - Under “Try a sample”, select BookTrip,  give Bot name as BookTrip, choose language as English(AU) and keep other information as default.

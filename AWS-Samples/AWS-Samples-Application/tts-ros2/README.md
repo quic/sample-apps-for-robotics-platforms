@@ -73,13 +73,13 @@ Add **“polly:SynthesizeSpeech”** permission to the IAM user
 
 5.  Tts-ros2 application execution outputs
 	
-	Terminal 1: node launch 
 	![image text](image/TTS_Screenshot_1.PNG)
+    [Alt tag: ”Node launch”]
 
-	Terminal 2: Sending text request and audio file creation 
 	![image text](image/TTS_Screenshot_2.PNG)
+	[Alt tag: ”Sending text request and audio file creation ”]
 
-For more information on colcon bundle and bundle installation please read:
+For more information regarding this please refer below link:
 https://github.com/aws-robotics/tts-ros2
 
 

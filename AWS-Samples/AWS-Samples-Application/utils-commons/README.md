@@ -25,8 +25,8 @@ This is the common library for all of AWS RoboMaker packages and does not requir
     
     ![AWS Dashboard](image/UtilsCommon_Screenshot_1.PNG)
 
-For more information on colcon bundle and bundle installation please read:
- https://github.com/aws-robotics/utils-common
+For more information regarding this please refer below link:
+https://github.com/aws-robotics/utils-common
 
 
 
