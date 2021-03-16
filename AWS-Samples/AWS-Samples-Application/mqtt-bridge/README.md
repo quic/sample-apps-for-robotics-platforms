@@ -1,5 +1,6 @@
 ### Introduction
 The aws_iot_mqtt_bridge package contains configuration and launch files to integrate a robot running ROS with AWS IoT by using the mqtt_bridge package. The mqtt_bridge acts as a bridge between ROS systems and servers running the MQTT protocol.
+
 This application needs security certificate installation and many settings related to setting up mqtt-bridge and can create a powerful interface whereby robot’s sensor information and other monitoring parameters can be directly injected into AWS IoT Core from ROS. This application is currently available on ROS1 Kinetic only.
 
 The instructions below demonstrate the porting and working of aws-iot-bridge-example on Qualcomm Robotics RB5
@@ -30,29 +31,39 @@ The instructions below demonstrate the porting and working of aws-iot-bridge-exa
     ```
 2. AWS CLI configuration in ROS Kinetic docker container on Qualcomm Robotics RB5
 
-    The prerequisite step ”e) Configure AWS CLI in Qualcomm Robotics RB5”  under  ”4. Set up role and get Access keys through AWS CLI” in prerequisites needs to be modified as below, as this sample app runs in a docker container unlike all other sample apps.
+    The prerequisite step "e) Configure AWS CLI in Qualcomm Robotics RB5"  under  "4. Set up role and get Access keys through AWS CLI" in prerequisites needs to be modified as below, as this sample app runs in a docker container unlike all other sample apps.
     - Enter the docker container created in the step above, and configure AWS CLI in it
     ```
     sudo docker run -v $(pwd):/yourdir  -it roskinetic:v1
-    aws configure 
     ```
+    ```
+    aws configure 
     AWS Access Key ID [None]: _AKIAIOSFODNN7EXAMPLE_
     AWS Secret Access Key [None]: _wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY_
     Default region name [None]: _us-west-2-example_
     Default output format [None]: _json_
+    ```
     
     
 3. Setup AWS IoT Thing
 
     The steps below can be executed on a LINUX host (not RB5)
-    i. Follow the steps 1,2 and 3 in the link-http://docs.aws.amazon.com/iot/latest/developerguide/iot-quick-start.html
+    
+    i. Follow the steps 1,2 and 3 in the
+    
+    link-http://docs.aws.amazon.com/iot/latest/developerguide/iot-quick-start.html
+    
     ii. A zip file connect_device_package.zip with certificates is downloaded
+    
     iii. Unzip connect_device_package.zip to a folder named “certs”
     run ./start.sh, this creates a root-CA.crt file in current folder
+    
     iv. Rename/move the files as shown below
-    _root-CA.crt -> AmazonRootCA1.pem
+    ```
+    root-CA.crt -> AmazonRootCA1.pem
     MyIotThing.cert.pem ->  device.cert.pem 
-    MyIotThing.private.key ->   device.private.pem_
+    MyIotThing.private.key ->   device.private.pem
+    ```
     
 4. Steps to Clone Application 
 
@@ -143,12 +154,14 @@ The instructions below demonstrate the porting and working of aws-iot-bridge-exa
 
     From AWS console, go to “IoT Core”, Choose “Manage->Things” from the left pane of IoT Core service. Choose “MyIotThing” from the things list on the right. Click on “Activity” and then click on “_MQTT Client_” (to the right of the screen). 
     
-    ![AWS Dashboard](image/Mqtt_Screenshot_5.png)
+    ![AWS](image/Mqtt_Screenshot_5.png)
+    [Alt tag: ”IotThing”]
     
     i. In the page below you’ll be able to subscribe to an MQTT topic where our ROS application can post messages (through the MQTT-BRIDGE).  Type “ping” in “Subscription topic” and click on “Subscribe to Topic” as in the screenshot below:
     
     ![AWS Dashboard](image/Mqtt_Screenshot_6.png)
-    
+    [Alt tag: ”MQTT Client”]
+
     ii. On the Qualcomm Robotics RB5, while in the same build terminal, execute following command to start the node:
     ```
     roslaunch aws_iot_mqtt_bridge aws_iot_bridge.launch bridge_params:=~/ros-workspace/install/aws_iot_mqtt_bridge/share/aws_iot_mqtt_bridge/config/my_bridge_params.yaml
@@ -168,26 +181,29 @@ The instructions below demonstrate the porting and working of aws-iot-bridge-exa
     rostopic pub /ping std_msgs/Bool "data: true"
     ```
     
-    You’ll notice that the 2nd terminal and AWS console echo the data published on ROS /ping topic. This is as per our mqtt-bridge configuration specified in **~/ros-workspace/install/aws_iot_mqtt_bridge/share/aws_iot_mqtt_bridge/config/my_bridge_params.yaml.**
+    You’ll notice that the 2nd terminal and AWS console echo the data published on ROS /ping topic. This is as per our mqtt-bridge configuration specified in  
+    **~/ros-workspace/install/aws_iot_mqtt_bridge/share/aws_iot_mqtt_bridge/config/my_bridge_params.yaml.
     ROS topic (/ping) ==> aws mqtt topic (ping)
     mqtt topic (ping) ==> ROS  topic (/pong)
-    ==> Represents a one-way bridge here
+    ==> Represents a one-way bridge here**
     
 7. Screenshots of application execution
 
-    Terminal 1: Running the node
     ![Terminal](image/Mqtt_Screenshot_1.PNG)
-     
-    Terminal 2: Publishing the ping topic
+    [Alt tag: ”Running the node”]
+    
     ![Terminal](image/Mqtt_Screenshot_2.PNG)
+    [Alt tag: ”Publishing the ping topic”]
     
-    AWS IoT dashboard reflecting the published data in ping topic
+    
     ![AWS](image/Mqtt_Screenshot_3.PNG)
+    [Alt tag: ”AWS IoT dashboard reflecting the published data in ping topic”]
     
-    Terminal 3: data of pong subscribed topic
     ![Terminal](image/Mqtt_Screenshot_4.PNG)
+    [Alt tag: ”Data of pong subscribed topic”]
     
-For more information on colcon bundle and bundle installation please read:
+
+For more information regarding this please refer below link:    
 https://github.com/aws-robotics/aws-iot-bridge-example/
 
 
