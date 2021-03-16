@@ -29,8 +29,9 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
     }
     ```
     ii. Give name to policy, go to _Review policy_ and select _Create policy_.
-    iii) Add the created policy to the IAM user by searching the policy name. Follow the steps below
-    Go to the created user -> Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission
+    
+    iii. Add the created policy to the IAM user by searching the policy name. Follow the steps below.
+    Go to the created user -> **Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission**
 
 2.  Create a ROS workspace and a source directory and clone the apps
     ```
@@ -51,9 +52,12 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
 3. Steps to build the cloned apps
 
     i. Create the video stream in AWS                          
-        Go to the link- https://us-west-2.console.aws.amazon.com/kinesisvideo/home?region=us-west-2#/streams and select ‘Create video stream’, enter a name, choose Default configuration and create video stream. 
-        AWS Video Stream Dashboard
+        Go to the link- https://us-west-2.console.aws.amazon.com/kinesisvideo/home?region=us-west-2#/streams and select ‘Create video stream’, enter a name, choose Default configuration and create video stream.
+        
         ![AWS](image/KinesisVideo_Screenshot_4.PNG)
+        
+        [Alt tag: ”AWS Video Stream Dashboard”]
+        
         Open a terminal in Qualcomm Robotics RB5 and follow the steps below
         
     ii. Modify the configuration file- config/sample_config.yaml in kinesisvideo-ros2 application, to reflect the new video stream created in the previous step.
@@ -91,14 +95,17 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
     ```
 4. Execute the application
 
-i. Run the USB camera node in terminal1 for enabling the USB camera
+    i. Run the USB camera node in terminal1 for enabling the USB camera
     ```
     source /opt/ros/dashing/setup.bash
     source ~/ros-workspace/install/local_setup.bash
     ros2 run usb_camera_driver usb_camera_driver_node __ns:=/<your namespace> __params:=config.yaml
     ```
+    
     Replace <your namespace> with usb_camera_driver and params with your usb camera config.yaml file path in the above command, so the final command will be like below
+    ```
     ros2 run usb_camera_driver usb_camera_driver_node __ns:=/usb_camera_driver __params:=/root/ros-workspace/src/ros2_usb_camera/config/config.yaml
+    ```
     
     ii. Launch the h264 video encoder in terminal2
     ```
@@ -108,19 +115,19 @@ i. Run the USB camera node in terminal1 for enabling the USB camera
     ```
 5. Application execution outputs
 
-    Terminal 1 : Launching USB camera node
     ![AWS](image/KinesisVideo_Screenshot_4.PNG)
+    [Alt tag: ”Launching USB camera node”]
     
-    Terminal 2 : Launching h264 Video encoder node
     ![Terminal](image/KinesisVideo_Screenshot_2.PNG)
+    [Alt tag: ”Launching h264 Video encoder node”]
     
-     Terminal 3 : Launching the Kinesis video stream node
-     ![Terminal](image/KinesisVideo_Screenshot_3.PNG)
+    ![Terminal](image/KinesisVideo_Screenshot_3.PNG)
+    [Alt tag: ”Launching the Kinesis video stream node”]
      
-     Image :  Video stream in AWS Dashboard
-     ![AWS](image/KinesisVideo_Screenshot_3.PNG)
+    ![AWS](image/KinesisVideo_Screenshot_3.PNG)
+    [Alt tag: ”Video stream in AWS Dashboard”]
 
-For more information regarding this please refer Launch File section in below link https://github.com/aws-robotics/cloudwatchlogs-ros2/
+For more information regarding this please refer below link. https://github.com/aws-robotics/kinesisvideo-ros2 
 
 Please find the AWS video stream link below:
 https://youtu.be/9_hbR7LIrTg

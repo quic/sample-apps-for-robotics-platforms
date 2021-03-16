@@ -24,9 +24,10 @@ The CloudwatchLogs-ros2 node requires an IAM user with the 4 permissions listed 
     }
     ```
 
-    ii. Give name to policy, go to _Review policy_, select _Create policy_
+    ii. Give name to policy, go to _Review policy_, select _Create policy_.
+    
     iii) Add the created policy to the IAM user by searching the policy name. Follow the steps below
-    Go to created user -> Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission
+    Go to created user -> **Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission**
 
 2. Clone the CloudwatchLogs-ros2 app
 
@@ -63,22 +64,27 @@ The CloudwatchLogs-ros2 node requires an IAM user with the 4 permissions listed 
     ```
     
     After executing these commands login to AWS Cloudwatch log Dashboard-to check the logs.
+    
     https://us-west-2.console.aws.amazon.com/cloudwatch/home?region=us-west-2#logsV2:log-groups/log-group/robot_application_name  
     
-    Note : In the launch file- cloudwatch_logger.launch.py , the name of the log group should be robot_application_name and the log stream should be device name and region as us-west-2
+    **Note** : In the launch file- cloudwatch_logger.launch.py , the name of the log group should be robot_application_name and the log stream should be device name and region as us-west-2
+    
+    For more information regarding this please refer Launch File section in below link https://github.com/aws-robotics/cloudwatchlogs-ros2/blob/master/README.md
     
 5. CloudwatchLogs-ros2  application execution outputs
 
-    Terminal 1: node launch
-    ![image node](image/CloudwatchLog_Screenshot_1.PNG)
+
+    ![Terminal](image/CloudwatchLog_Screenshot_1.PNG)
+    [Alt tag: ”node launch”]
     
-    Terminal 2: Sending test log messages
     ![Terminal](image/CloudwatchLog_Screenshot_2.PNG)
+    [Alt tag: ”Sending test log messages”]
     
-    Terminal 3: AWS Cloudwatch log Dashboard under robot_application_name
     ![AWS](image/CloudwatchLog_Screenshot_3.PNG)
-    
-For more information regarding this please refer Launch File section in below link https://github.com/aws-robotics/cloudwatchlogs-ros2/
+    [Alt tag: ”AWS Cloudwatch log Dashboard under robot_application_name”]
+
+For more information regarding this please refer below link:
+https://github.com/aws-robotics/cloudwatchlogs-ros2/
 
 
 

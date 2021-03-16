@@ -23,10 +23,12 @@ The CloudwatchMetrics-ros2 node requires an IAM User with the cloudwatch:PutMetr
         }
     ```
 
-      ii) Give name to policy, go to _Review policy_ and select _Create policy_ 
-        iii) Add the created policy to the IAM user by searching the policy name. Follow the steps below
-        Go to created user -> Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission
-        Once the permission is set, open a terminal in Qualcomm Robotics RB5 follow the steps below
+    ii) Give name to policy, go to _Review policy_ and select _Create policy._
+      
+    iii) Add the created policy to the IAM user by searching the policy name. Follow the steps below.
+    Go to created user -> **Add permission -> Attach existing policies directly -> search and select the created policy -> Next:review -> Add permission**
+    Once the permission is set, open a terminal in Qualcomm Robotics RB5 follow the steps below
+    
 2. Clone the cloudwatchmetrics-ros2 app
 - Create a ROS workspace and a source directory
     ```
@@ -63,23 +65,24 @@ The CloudwatchMetrics-ros2 node requires an IAM User with the cloudwatch:PutMetr
     ros2 topic pub /metrics ros_monitoring_msgs/msg/MetricList"{metrics: [{header:{stamp:{sec: ${timestamp}, nanosec: 0}} , metric_name: 'cw_offline_metric', unit: 'Count', value: 1.0, time_stamp: {sec: ${timestamp}, nanosec: 0}, dimensions: [{name: 'RB5_device_dimension', value: 'RB5_device_value'}]}]}"
     ```
 
-    After executing these commands login to AWS Cloudwatch Metrics Dashboard to verify metrics.   https://us-west-2.console.aws.amazon.com/cloudwatch/home?region=us-west-2#metricsV2: 
+    After executing these commands login to AWS Cloudwatch Metrics Dashboard to verify metrics.  
+    https://us-west-2.console.aws.amazon.com/cloudwatch/home?region=us-west-2#metricsV2: 
     
 5. Cloudwatchmetrics-ros2 application execution outputs
 
-    Terminal 1: Node launch
     ![Terminal](image/CloudwatchMetrics_Screenshot_1.PNG)
+    [Alt tag: ”Node launch”]
 
-    Terminal 2: Sending test metric
     ![Terminal](image/CloudwatchMetrics_Screenshot_2.PNG)
+    [Alt tag: ”Sending test metric”]
     
-    Terminal 3: AWS Cloudwatch Metric Dashboard showing sent test metric
     ![AWS Dashboard](image/CloudwatchMetrics_Screenshot_3.PNG)
+    [Alt tag: ”AWS Cloudwatch Metric Dashboard showing sent test metric”]
 
-    Terminal 4: AWS Cloudwatch Metric Dashboard showing sent test metric
     ![AWS Dashboard](image/CloudwatchMetrics_Screenshot_4.PNG)
+    [Alt tag: ”AWS Cloudwatch Metric Dashboard showing sent test metric”]
     
-For more information on colcon bundle and bundle installation please read:
+For more information regarding this please refer below link:
 https://github.com/aws-robotics/cloudwatchmetrics-ros2
 
 
