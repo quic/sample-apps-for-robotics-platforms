@@ -54,11 +54,10 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
     i. Create the video stream in AWS                          
         Go to the link- https://us-west-2.console.aws.amazon.com/kinesisvideo/home?region=us-west-2#/streams and select ‘Create video stream’, enter a name, choose Default configuration and create video stream.
         
-        ![AWS](image/KinesisVideo_Screenshot_4.PNG)
+    ![AWS](image/KinesisVideo_Screenshot_4.PNG)
+    [Alt tag: ”AWS Video Stream Dashboard”]
         
-        [Alt tag: ”AWS Video Stream Dashboard”]
-        
-        Open a terminal in Qualcomm Robotics RB5 and follow the steps below
+    Open a terminal in Qualcomm Robotics RB5 and follow the steps below
         
     ii. Modify the configuration file- config/sample_config.yaml in kinesisvideo-ros2 application, to reflect the new video stream created in the previous step.
     ```
@@ -66,9 +65,11 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
     vim sample_config.yaml
     ```
     Change the 2 parameters shown below and save changes 
+    ```
     sample_config:
     region: _"us-west-2"_
     stream_name: _"video"_
+    ```
     
     iii. Modify the configuration file- config/sample_configuration.yaml  in kinesisvideo-encoder-ros2 application, to specify the USB camera image topic name
     ```
@@ -115,7 +116,7 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
     ```
 5. Application execution outputs
 
-    ![AWS](image/KinesisVideo_Screenshot_4.PNG)
+    ![AWS](image/KinesisVideo_Screenshot_1.PNG)
     [Alt tag: ”Launching USB camera node”]
     
     ![Terminal](image/KinesisVideo_Screenshot_2.PNG)
@@ -124,7 +125,7 @@ The kinesisvideo-ros2 node requires an IAM User with the permissions listed belo
     ![Terminal](image/KinesisVideo_Screenshot_3.PNG)
     [Alt tag: ”Launching the Kinesis video stream node”]
      
-    ![AWS](image/KinesisVideo_Screenshot_3.PNG)
+    ![AWS](image/KinesisVideo_Screenshot_5.PNG)
     [Alt tag: ”Video stream in AWS Dashboard”]
 
 For more information regarding this please refer below link. https://github.com/aws-robotics/kinesisvideo-ros2 
