@@ -1,0 +1,63 @@
+From c35b8a758218aafdca20c62a3a7049577fe5f2e2 Mon Sep 17 00:00:00 2001
+From: Wanghao Wei <quic_wanghaow@quicinc.com>
+Date: Fri, 29 Jan 2021 12:17:56 +0800
+Subject: [PATCH] Adapter Opengles API
+
+---
+ CMakeLists.txt | 4 ++--
+ src/internal.h | 4 +++-
+ src/window.c   | 2 +-
+ 3 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index b915b58..818fd6f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ set(CMAKE_LEGACY_CYGWIN_WIN32 OFF)
+ 
+-project(GLFW C)
++project(GLFW)
+ 
+ cmake_minimum_required(VERSION 2.8.12)
+ 
+@@ -21,7 +21,7 @@ set(LIB_SUFFIX "" CACHE STRING "Takes an empty string or 64. Directory where lib
+ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+ 
+ option(BUILD_SHARED_LIBS "Build shared libraries" OFF)
+-option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF)
++option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" ON)
+ option(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF)
+ option(GLFW_BUILD_DOCS "Build the GLFW documentation" OFF)
+ option(GLFW_INSTALL "Generate installation target" OFF)
+diff --git a/src/internal.h b/src/internal.h
+index 8e84efd..d8b1f54 100644
+--- a/src/internal.h
++++ b/src/internal.h
+@@ -45,7 +45,9 @@
+  #error "You must not define any header option macros when compiling GLFW"
+ #endif
+ 
+-#define GLFW_INCLUDE_NONE
++#define GLFW_INCLUDE_ES3
++#define GLFW_INCLUDE_GLEXT
++
+ #include "../include/GLFW/glfw3.h"
+ 
+ typedef int GLFWbool;
+diff --git a/src/window.c b/src/window.c
+index 5e74e6e..c579bd0 100644
+--- a/src/window.c
++++ b/src/window.c
+@@ -236,7 +236,7 @@ void glfwDefaultWindowHints(void)
+     memset(&_glfw.hints, 0, sizeof(_glfw.hints));
+ 
+     // The default is OpenGL with minimum version 1.0
+-    _glfw.hints.context.client = GLFW_OPENGL_API;
++    _glfw.hints.context.client = GLFW_OPENGL_ES_API;
+     _glfw.hints.context.source = GLFW_NATIVE_CONTEXT_API;
+     _glfw.hints.context.major  = 1;
+     _glfw.hints.context.minor  = 0;
+-- 
+2.26.2
+
