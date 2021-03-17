@@ -12,7 +12,7 @@
    # apt-get install cmake
    # mkdir -p ~/DEVELOPMENT/
    # cd /root/DEVELOPMENT/
-   # git clone https://github.qualcomm.com/apandit/robotics/
+   # git clone <this_repo_url>
    # cd gst_snpe
 
 4. Extract the snpe sdk zip file on your host PC.
