@@ -11,8 +11,9 @@
 
 /* patterns */
 char inputfile[512] = "\0";
-const char *encode_outputfile = "/data/OpenMAX-Video/test_video/output_encode.mp4";
-const char *decode_outputfile = "/data/OpenMAX-Video/test_video/output_decode.yuv";
+
+const char *encode_outputfile = "./output_encode.mp4";
+const char *decode_outputfile = "./output_decode.yuv";
 
 int error_handle(GstElement *pipeline);
 int gst_encode_yuv();

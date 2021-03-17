@@ -13,4 +13,4 @@ gst-omx_codec_h264: app/src/gst-omx_codec_h264.c
 
 # clean executable file
 clean:
-	$(RM) app/src/gst-omx_codec_h264
+	$(RM) app/src/gst-omx_codec_h264 output_decode.yuv  output_encode.mp4
