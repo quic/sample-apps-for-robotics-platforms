@@ -28,7 +28,6 @@ const int Ndim = 20;
 const int Mdim = 20;
 const int Pdim = 20;
 
-//  read file to string
 int convertToString(const char *filename, std::string& str) {
     using std::fstream;
     char* filestr;
@@ -51,14 +50,20 @@ int convertToString(const char *filename, std::string& str) {
 }
 
 void cl_init() {
+    using std::cout;
+    using std::endl;    
     status = clGetPlatformIDs(1, &platform, NULL);
     if (status < 0) {
       perror("Couldn't identify a platform");
+      cout<<"error, when identifying the platform. FATAL::exit()" << endl;
+
       exit(1);
     }
     clGetDeviceIDs(platform, CL_DEVICE_TYPE_GPU, 1, &device, NULL);
     if (status < 0) {
       perror("Couldn't access any devices");
+      cout<<"error, access any devices. FATAL::exit()" << endl;
+
       exit(1);
     }
     context = clCreateContext(NULL, 1, &device, NULL, NULL, NULL);
@@ -66,6 +71,7 @@ void cl_init() {
 
     if (commandQueue == NULL) {
         perror("Failed to create commandQueue for device 0.");
+        cout<<"error, Failed to create commandQueue for device 0." << endl;
     }
 }
 
