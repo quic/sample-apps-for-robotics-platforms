@@ -588,7 +588,7 @@ gst_mle_snpe_set_info(GstVideoFilter *filter, GstCaps *in,
 
   gint ret = mle->engine->Init(&mle->source_info);
   if (ret) {
-    GST_ERROR_OBJECT (mle, "MLE init failed.");
+    GST_ERROR_OBJECT (mle, "MLE init failed. Please check the SNPE version. Install v1.43.0 or lower");
     delete (mle->engine);
     mle->engine = nullptr;
     rc = FALSE;
