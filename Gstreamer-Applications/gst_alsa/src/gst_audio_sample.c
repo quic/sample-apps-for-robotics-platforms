@@ -36,7 +36,8 @@ static int gst_sample_playback(const char* content)
     g_print("%s: Start\n", __func__);
 
     if (access(content, F_OK)) {
-        g_printerr("%s: Failed, %s not exist\n", __func__, content); return -EINVAL;
+        g_printerr("%s: Failed, %s not exist\n", __func__, content); 
+        return GST_STATE_NULL;
     }
 
     /* create pipeline */
