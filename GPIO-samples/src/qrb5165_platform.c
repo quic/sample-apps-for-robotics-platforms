@@ -72,7 +72,6 @@ static int get_key_event()
         }
     } else {
         printf("Open File: %s error!\n", FILE_KEY_EVENT0);
-
         return -ENOENT;
     }
 
@@ -550,7 +549,8 @@ int main(int argc, char* argv[])
         float soc_temp;
 
         if (get_tempetature(0, &soc_temp)) {
-            printf("-temp: get SoC temperature error!\n");
+            printf("-temp: get SoC temperature error!\n");            
+            return -1;
         } else {
             printf("Get SoC thermal temperature: %.2f\n", soc_temp);
         }
@@ -563,6 +563,7 @@ int main(int argc, char* argv[])
         if (set_regulator(argv[2], argv[3]))
         {
             printf("-regulator: regulator set error!\n");
+            return -1;
         }
     }
 
