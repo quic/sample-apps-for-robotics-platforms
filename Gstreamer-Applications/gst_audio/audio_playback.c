@@ -41,7 +41,7 @@ static int playback(const char *format, const char *content)
 
     if (access(content, F_OK)) {
         g_printerr("File %s not exist\n", content); 
-        return -EINVAL;
+        return GST_STATE_NULL;
     }
 
     pipeline =  gst_pipeline_new("audio_playback_stream");
