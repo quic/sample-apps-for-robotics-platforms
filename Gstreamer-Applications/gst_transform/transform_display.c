@@ -158,7 +158,6 @@ int main(int argc, char *argv[])
     bus_id = gst_bus_add_watch(bus, bus_callback, loop);
     gst_object_unref(bus);
 
-
     gst_bin_add_many(GST_BIN(pipeline), source, framefilter, transform, sink, NULL);
     gst_element_link_many(source, framefilter, transform, sink, NULL);
 
