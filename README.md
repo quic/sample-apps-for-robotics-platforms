@@ -1,4 +1,4 @@
-![Qualcomm Innovation Center, Inc.](Docs/images/logo-quic-on@h68.png)
+![Qualcomm Innovation Center, Inc.](logo-quic-on@h68.png)
 
 This is a repositary of all samples application that can run on RB5. Each sample application has its own folder. An introduction for every sample application is given below. Please follow the README in the respective folders to build, deploy and test. 
 
