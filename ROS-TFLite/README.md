@@ -73,7 +73,7 @@ catkin_make
 **Install the tensorflow and package**
 
 ```SHELL
-pip install tensorflow
+pip install tensorflow-aarch64
 pip install matplotlib
 apt-get install protobuf-compiler python-pil python-lxml
 ```

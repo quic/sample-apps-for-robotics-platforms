@@ -22,7 +22,7 @@
 ## 2. Compile the tflite demo app
 
 ```shell
-    sh-4.4# cd /data/Gstreamer-Application/gst_tflite/src
+    sh-4.4# cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Application/gst_tflite/src
     sh-4.4# make
 ```
 

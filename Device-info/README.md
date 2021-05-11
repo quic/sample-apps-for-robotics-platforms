@@ -21,7 +21,7 @@ $ apt-get install gcc
 
 ```shell
 $ adb shell
-$ cd /home/Device-info
+$ cd /home/sample-apps-for-Qualcomm-Robotics-RB5-platform/Device-info
 $ mkdir bin
 $ cd src
 $ make
@@ -31,7 +31,7 @@ $ make
 
 ```shell
 $ adb shell
-$ cd /home/Device-info/bin
+$ cd /home/sample-apps-for-Qualcomm-Robotics-RB5-platform/Device-info/bin
 $ ./qrb5165_info
 ```
 

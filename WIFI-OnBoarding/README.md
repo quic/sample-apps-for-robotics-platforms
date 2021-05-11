@@ -7,7 +7,7 @@ WIFI-On-Boarding mainly includes scanning the surrounding hotspots in STA mode, 
 $ adb shell
 $ cd /home
 $ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
-$ cd /home/WIFI-On-Boarding/wifi
+$ cd /home/sample-apps-for-Qualcomm-Robotics-RB5-platform/WIFI-On-Boarding/wifi
 ```
 ### (2) get tools
 If you want to use the hotspot function(AP Mode), you need to download the iptables tool to forward the data from the physical network port.

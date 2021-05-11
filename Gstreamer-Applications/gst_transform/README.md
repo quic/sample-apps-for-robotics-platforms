@@ -23,7 +23,7 @@ Apply one operation at a time.
 + Login on the screen
 + Turn on weston display with ```weston.sh```
 ``` bash
-$ /data/Gstreamer-Applications/weston.sh
+$ /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/weston.sh
 ```
 + Click left-top button on weston display to open weston-terminal
 + Run ```transform_display``` in weston-terminal to transform camera video

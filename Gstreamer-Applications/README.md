@@ -16,6 +16,7 @@ The purpose of these samples is helping users to learn how to implement the func
 ### Install Qt
 
 GUI application is a Qt application. Some Qt packages are needed.
+Login to Qualcomm Robotics RB5 dev kit using  adb shell 
 
 ```bash
 apt install qt5-default qtwayland5 qtbase5-private-dev
@@ -38,7 +39,7 @@ $ adb shell
 $ cd /data
 $ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
 ```
-Please connected the RJ45 or WiFi reference WiFi document.
+Please make sure that the development kit has network connection over Wi-Fi or Ethernet.
 
 ### Compile
 

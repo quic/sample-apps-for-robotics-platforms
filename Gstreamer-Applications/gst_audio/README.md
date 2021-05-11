@@ -10,7 +10,7 @@ Usage: audio_record /FILE/PATH/FILENAME.[wav|aac|mp3]
 
 ### Start Recording:
 ```bash
-$ cd /data/Gstreamer-Applications/gst_audio
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/gst_audio
 $ ./audio_record record.wav
 $ ./audio_record record.aac
 $ ./audio_record record.mp3
