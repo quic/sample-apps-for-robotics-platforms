@@ -32,13 +32,13 @@ $ make
 + Login on the screen
 + Turn on weston display with ```weston.sh```
 ``` bash
-$ /data/Gstreamer-Applications/weston.sh
+$ /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/weston.sh
 ```
 + Click left-top button on weston display to open weston-terminal
 + Run ```gui_app``` in weston-terminal with **specifying the platform to wayland**
   
 ```bash
-$ cd /data/Gstreamer-Applications/gst_gui_app
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/gst_gui_app
 $ ./gui_app -platform wayland
 ```
 
