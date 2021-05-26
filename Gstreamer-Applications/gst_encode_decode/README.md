@@ -22,7 +22,7 @@ Usage: ispcam_encode_mp4 [camera id: 0|1|2|3] [mp4 filename]
 
 ### Start Encoding Camera 0 to MP4:
 ```bash
-$ cd /data/Gstreamer-Applications/gst_encode_decode
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/gst_encode_decode
 $ ./ispcam_encode_mp4 0 isp_record.mp4
 ```
 
@@ -38,7 +38,7 @@ Usage: usbcam_encode_mp4 [/dev/videoX] [mp4 filename]
 
 ### Start Encoding /dev/video0 to MP4:
 ```bash
-$ cd /data/Gstreamer-Applications/gst_encode_decode
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/gst_encode_decode
 $ ./usbcam_encode_mp4 /dev/video0 usb_record.mp4
 ```
 
@@ -79,12 +79,12 @@ Usage: mp4_decode_playback [mp4 filename]
 + Login on the screen
 + Turn on weston display with ```weston.sh```
 ``` bash
-$ /data/Gstreamer-Applications/weston.sh
+$ /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/weston.sh
 ```
 + Click left-top button on weston display to open weston-terminal
 + Run ```mp4_decode_playback``` in weston-terminal to playback a mp4 file
 ```bash
-$ cd /data/Gstreamer-Applications/dst_encode_decode
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/dst_encode_decode
 $ ./mp4_decode_playback ./isp_record.mp4
 ```
 

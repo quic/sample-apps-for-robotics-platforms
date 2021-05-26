@@ -1,4 +1,4 @@
-# Weston-client-sample
+# Weston-client-application
 # Overview
 Weston-Sample-code shows how to compile and run a simple client in Weston.
 
@@ -7,7 +7,8 @@ Weston-Sample-code shows how to compile and run a simple client in Weston.
 $ adb shell
 $ cd home
 $ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
-$ cd Weston-Client-Sample
+$ cd sample-apps-for-Qualcomm-Robotics-RB5-platform
+$ cd Weston-Client-Application
 ```
 
 ## 2. compile
@@ -27,7 +28,7 @@ $ sudo fastboot reboot
 ### 3) After the development board starts:
 ```
 $ adb shell
-$ cd /home/Weston-Client-Sample
+$ cd /home/Weston-Client-Application
 $ sh weston.sh
 ```
 ### 4) Open weston's terminal, enter the following command in the terminal to run the example:

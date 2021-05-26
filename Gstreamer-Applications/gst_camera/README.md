@@ -26,7 +26,7 @@ Usage: ispcam_display [camera id: 0|1|2|3]
 + Login on the screen
 + Turn on weston display with ```weston.sh```
 ``` bash
-$ /data/Gstreamer-Applications/weston.sh
+$ /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/weston.sh
 ```
 + Click left-top button on weston display to open weston-terminal
 + Run ```ispcam_display``` in weston-terminal to display camera 0
