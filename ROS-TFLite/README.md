@@ -4,7 +4,7 @@
 
 ## 1  Set up the ROS environment
 
-**1、 Connect the network and set the source**
+**(1) Connect the network and set the source**
 
 ```shell
 adb shell
@@ -12,7 +12,7 @@ su
 sh -c '. /etc/lsb-release && echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ $DISTRIB_CODENAME main" > /etc/apt/sources.list.d/ros-latest.list'
 ```
 
-**2、set the public key and update api**
+**(2) set the public key and update api**
 
 Execute the apt-get update command that will generate an error, use the error to set the public key. You need to configure it according to your network environment.
 
@@ -29,7 +29,7 @@ apt-get update
 
 ![Image text](image/2_apt-get_update_success.png)
 
-**3、install the ROS**
+**(3) install the ROS**
 
 ```shell
 apt-get install ros-melodic-desktop-full
@@ -43,20 +43,22 @@ apt-get install ros-melodic-desktop-full
 echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
+apt install ros-melodic-usb-cam
+apt install ros-melodic-image-view
 ```
 
 
 
 ## 2  Set up the ROS workspace
 
-**1、Install catkin_pkg**
+**（1）Install catkin_pkg**
 
 ```SHELL
 apt-get install python-pip 
 pip install catkin_pkg
 ```
 
-**2、Create and compile the workspace**
+**（2） Create and compile the workspace**
 
 ```shell
 mkdir -p ~/catkin_ws/src
@@ -71,9 +73,15 @@ catkin_make
 ## 3  Install the Tensorflow
 
 **Install the tensorflow and package**
+On PC 
+(1) Download "tensorflow-1.13.1-cp27-none-linux_aarch64.whl" from URL:https://github.com/lhelontra/tensorflow-on-arm/releases/tag/v1.13.1
+(2) adb push tensorflow-1.13.1-cp27-none-linux_aarch64.whl to /data in RB5
 
+On adb shell
 ```SHELL
-pip install tensorflow-aarch64
+adb shell
+cd /data
+pip install tensorflow-1.13.1-cp27-none-linux_aarch64.whl
 pip install matplotlib
 apt-get install protobuf-compiler python-pil python-lxml
 ```
@@ -86,7 +94,7 @@ apt-get install protobuf-compiler python-pil python-lxml
 
 ```shell
  cd ~/catkin_ws/src
- git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
+ git clone https://github.com/cong/ros_tensorflow.git"
 ```
 
 **2、Build**
@@ -121,27 +129,22 @@ Open other five terminals and executed in sequence
 ```
 cd ~/catkin_ws
 source devel/setup.bash
-echo $ROS_PACKAGE_PATH /root/catkin_ws/src:/opt/ros/melodic/share
 roscore
 
 cd ~/catkin_ws
 source devel/setup.bash
-echo $ROS_PACKAGE_PATH /root/catkin_ws/src:/opt/ros/melodic/share
 roslaunch usb_cam usb_cam-test.launch
 
 cd ~/catkin_ws
 source devel/setup.bash
-echo $ROS_PACKAGE_PATH /root/catkin_ws/src:/opt/ros/melodic/share
 rostopic echo /result_ripe
 
 cd ~/catkin_ws
 source devel/setup.bash
-echo $ROS_PACKAGE_PATH /root/catkin_ws/src:/opt/ros/melodic/share
 roslaunch ros_tensorflow ros_tensorflow_detect.launch
 
 cd ~/catkin_ws
 source devel/setup.bash
-echo $ROS_PACKAGE_PATH /root/catkin_ws/src:/opt/ros/melodic/share
 rosrun image_view image_view image:=/result_ripe
 ```
 

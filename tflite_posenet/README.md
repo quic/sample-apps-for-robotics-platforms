@@ -9,10 +9,10 @@ $ cd /data
 $ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
 ```
 ### 1.2  Set up the  environment
-You may need to download posenet_mobilenet_v1_075_481_641_quant.tflite models for testing from https://tfhub.dev/tensorflow/lite-model/posenet/mobilenet/float/075/1/default/1 (will be used in "install.h")
-then move the posenet_mobilenet_v1_075_481_641_quant.tflite models to /data/tflite_posenet
+You may need to download posenet_mobilenet_v1_075_481_641_quant.tflite models for testing from  https://github.com/google-coral/project-posenet/raw/master/models/mobilenet/components/posenet_mobilenet_v1_075_481_641_quant.tflite (will be used in "install.sh")
+then move the posenet_mobilenet_v1_075_481_641_quant.tflite models to /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/tflite_posenet
 ```
-$ cd tflite_posenet
+$ cd sample-apps-for-Qualcomm-Robotics-RB5-platform/tflite_posenet
 $ sh install.sh
 ```
 ### 1.3 Set up the display environment
@@ -25,7 +25,7 @@ sh-4.4# export XDG_RUNTIME_DIR=/usr/bin/weston_socket
 ```
 ## 2. Build
 ```
-$ cd /data/tflite_posenet
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/tflite_posenet
 $ make
 ```
 ## 3. Run
