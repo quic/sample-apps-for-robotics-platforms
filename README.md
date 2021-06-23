@@ -83,6 +83,12 @@ Segmentation is to show the effect of object segmentation using Gstreamer comman
 ```
 This app aims to help users to learn how to encode with h264 and decode the video with h264 on the Qualcom platform through this sample app.
 ```
+
+## 15. Kernel-Demo
+```
+The kernel demo uses the kernel API to dynamically load and unload the kernel module to control the LED switch.
+```
+
 ## Getting Started
 * [Quick start guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide)
 * [Hardware Reference Guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/hardware-reference-guide)
