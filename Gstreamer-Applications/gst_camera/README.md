@@ -31,9 +31,12 @@ $ /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/we
 + Click left-top button on weston display to open weston-terminal
 + Run ```ispcam_display``` in weston-terminal to display camera 0
 ```bash
-$ cd /data/Gstreamer-Applications/gst_camera
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/gst_camera
 $ ./ispcam_display 0
 ```
+
+![Image text](image/ispCamera_display_weston.png)
+
 ### Stop Camera Display:
 
 + Move mouse to weston-terminal and click it to activate it
@@ -63,14 +66,17 @@ $ v4l2-ctl --list-devices
 + Login on the screen
 + Turn on weston display with ```weston.sh```
 ``` bash
-$ /data/Gstreamer-Applications/weston.sh
+$ /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/weston.sh
 ```
 + Click left-top button on weston display to open weston-terminal
 + Run ```usbcam_display``` in weston-terminal to display camera /dev/video0
 ```bash
-$ cd /data/Gstreamer-Applications/gst_camera
+$ cd /data/sample-apps-for-Qualcomm-Robotics-RB5-platform/Gstreamer-Applications/gst_camera
 $ ./usbcam_display /dev/video0
 ```
+
+![Image text](image/usbCamera_display_weston.png)
+
 ### Stop Camera Display:
 
 + Move mouse to weston-terminal and click it to activate it

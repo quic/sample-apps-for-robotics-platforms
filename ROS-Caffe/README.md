@@ -7,9 +7,7 @@ $ sh -c '. /etc/lsb-release && echo "deb http://mirrors.ustc.edu.cn/ros/ubuntu/ 
 ```
 **2、set the public key and update api**
 ```
-$ gpg -a --export F42ED6FBAB17C654 > ros_public_key
-// If there is a problem executing the above command, you can execute it in Ubuntu and push the ros_public_key file to the / directory of the board.
-$ apt-key add ros_public_key
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key F42ED6FBAB17C654
 ```
 ![Image text](image/1.png)
 ```

@@ -16,10 +16,10 @@ The purpose of these samples is helping users to learn how to implement the func
 ### Install Qt
 
 GUI application is a Qt application. Some Qt packages are needed.
-Login to Qualcomm Robotics RB5 dev kit using  adb shell 
 
 ```bash
-apt install qt5-default qtwayland5 qtbase5-private-dev
+$  adb shell
+$  apt install qt5-default qtwayland5 qtbase5-private-dev
 ```
 
 ### Install Tool
@@ -39,7 +39,7 @@ $ adb shell
 $ cd /data
 $ git clone https://github.com/quic/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
 ```
-Please make sure that the development kit has network connection over Wi-Fi or Ethernet.
+Please connect RJ45(DHCP) of RB5 with network cable or config WiFi by refering to the "Network Setup" section in https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide/qualcomm_robotics_rb5_development_kit_bring_up/set-up-network 
 
 ### Compile
 

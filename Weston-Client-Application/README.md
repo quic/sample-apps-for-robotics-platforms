@@ -28,7 +28,7 @@ $ sudo fastboot reboot
 ### 3) After the development board starts:
 ```
 $ adb shell
-$ cd /home/Weston-Client-Application
+cd /home/sample-apps-for-Qualcomm-Robotics-RB5-platform/Weston-Client-Sample
 $ sh weston.sh
 ```
 ### 4) Open weston's terminal, enter the following command in the terminal to run the example:
