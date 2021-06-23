@@ -24,7 +24,7 @@ $ apt-get install libgstreamer1.0-0 gstreamer1.0-plugins-base gstreamer1.0-plugi
 ## Compile
 After executing make command, the executable program gst-omx_codec_h264 will be created.
 ```
-$ cd /data/OpenMAX-Video/
+$ cd OpenMAX-Video/
 $ make
 ```
 ![Image text](image/01_make.png)
@@ -32,7 +32,7 @@ $ make
 ## Test
 After compile the sample app, you are free to use the app to test the encode and decode.
 ###Encode 
-The program will encode the yuv file in h264 codec to output_encode.mp4 and the output file will be put under ./test_video.
+The program will encode the yuv file in h264 codec to output_encode.mp4 and the output file will be put under current directory.
 
 Notes: "/test_video" does not exist. You may need to find ".yuv" and ".mp4" files to test encode and decode. The following test results are for reference only.
 
@@ -89,9 +89,8 @@ $ 352 288 23 25
 
 For more format information, you can refer to [Gstreamer Videoparse Format Reference](https://gstreamer.freedesktop.org/documentation/video/video-format.html?gi-language=c#GstVideoFormat).
 
-Sample.yuv (flower_cif.yuv) can be put under ./test_video to test encode
 ###Decode
-The program will decode a sample mp4 file in h264 codec to output_decode.yuv and the output file will be put under ./test_video
+The program will decode a sample mp4 file in h264 codec to output_decode.yuv and the output file will be put under current directory. 
 ```
 $ ./app/src/gst-omx_codec_h264 decode <FILE>
 ```
