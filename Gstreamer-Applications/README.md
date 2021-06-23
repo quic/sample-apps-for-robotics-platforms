@@ -48,7 +48,7 @@ GUI application is a Qt application. It needs to run ```qmake``` to generate Mak
 Other samples can use ```make``` to compile directly.
 
 ```bash
-$ cd /data/Gstreamer-Applications
+$ cd Gstreamer-Applications
 $ cd gst_gui_app/
 $ qmake
 $ cd ..

@@ -8,7 +8,7 @@ Description=QC ALSA restore Service
 After=init_audio.service
 
 [Service]
-Type=notify
+Type=idle
 ExecStartPre=/bin/sleep 10s
 ExecStart=/usr/bin/qc_alsa_restore.sh
 Restart=on-failure

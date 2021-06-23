@@ -1,7 +1,8 @@
-# Copyright (c) 2020 Qualcomm Innovation Center, Inc.  All Rights Reserved.
+#! /bin/bash
+
+# Copyright (c) 2020 Qualcomm Innovation Center, Inc. All Rights Reserved.
 # SPDX-License-Identifier: BSD-3-Clause-Clear
 
-#! /bin/bash
 amixer cset name="WSA_CDC_DMA_RX_0 Audio Mixer MultiMedia1" "1"
 amixer cset name="WSA_CDC_DMA_RX_0 Channels" "Two"
 amixer cset name="WSA RX0 MUX" "AIF1_PB"
