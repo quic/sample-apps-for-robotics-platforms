@@ -151,18 +151,12 @@ First clone the required git submodules in order to start building the package.
 First clone the repository in the directory of your choice on your host computer running Ubuntu 18.04.
 
 ```bash
-git clone https://gitlab.com/modalai-customer/qualcomm/rb5-sensor-collection-system.git
+git clone https://github.qualcomm.com/Robotics/sample-apps-for-Qualcomm-Robotics-RB5-platform.git
 ```
 
 Navigate to directory that you just cloned above.
 ```bash
 cd rb5-sensor-collection-system/
-```
-
-Next clone the required git submodules on your host computer running Ubuntu 18.04 in order to start building the package.
-
-```bash
-git submodule update --init --recursive
 ```
 
 Run the following to create the debian package.
