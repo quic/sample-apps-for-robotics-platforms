@@ -89,6 +89,11 @@ This app aims to help users to learn how to encode with h264 and decode the vide
 The kernel demo uses the kernel API to dynamically load and unload the kernel module to control the LED switch.
 ```
 
+## 15. Sensor-collection-system
+```
+The sensor collection system is an application that utilizes a collection of drivers in order to concurrently collect data from different sensors.
+```
+
 ## Getting Started
 * [Quick start guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide)
 * [Hardware Reference Guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/hardware-reference-guide)
