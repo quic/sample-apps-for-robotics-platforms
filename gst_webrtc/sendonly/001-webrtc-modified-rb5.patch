@@ -1,0 +1,169 @@
+--- webrtc-unidirectional-h264.c	2021-03-16 14:11:27.000000000 +0000
++++ webrtc-unidirectional-h264_modified.c	2021-03-24 01:02:08.144836497 +0000
+@@ -17,17 +17,10 @@
+ #define RTP_PAYLOAD_TYPE "96"
+ #define RTP_AUDIO_PAYLOAD_TYPE "97"
+ #define SOUP_HTTP_PORT 57778
+-#define STUN_SERVER "stun.l.google.com:19302"
+ 
+-#ifdef G_OS_WIN32
+-#define VIDEO_SRC "mfvideosrc"
+-#else
+-#define VIDEO_SRC "v4l2src"
+-#endif
++#define VIDEO_SRC "qtiqmmfsrc"
+ 
+ gchar *video_priority = NULL;
+-gchar *audio_priority = NULL;
+-
+ 
+ typedef struct _ReceiverEntry ReceiverEntry;
+ 
+@@ -96,7 +89,11 @@
+  \n \
+  \n \
+       function onAddRemoteStream(event) { \n \
++        console.log(\"remote\"); \n \
+         html5VideoElement.srcObject = event.streams[0]; \n \
++        html5VideoElement.autoplay = true; \n \
++        html5VideoElement.playsInline = true; \n \
++        html5VideoElement.muted = true; \n \
+       } \n \
+  \n \
+  \n \
+@@ -139,7 +136,7 @@
+         var wsPath = (path != undefined) ? path : \"ws\"; \n \
+         if (wsPort) \n\
+           wsPort = \":\" + wsPort; \n\
+-        var wsUrl = \"ws://\" + wsHost + wsPort + \"/\" + wsPath; \n \
++        var wsUrl = \"ws://\" + wsHost + wsPort + \"/\" + wsPath; console.log(wsUrl); \n \
+  \n \
+         html5VideoElement = videoElement; \n \
+         webrtcConfiguration = configuration; \n \
+@@ -151,8 +148,7 @@
+  \n \
+       window.onload = function() { \n \
+         var vidstream = document.getElementById(\"stream\"); \n \
+-        var config = { 'iceServers': [{ 'urls': 'stun:" STUN_SERVER "' }] }; \n\
+-        playStream(vidstream, null, null, null, config, function (errmsg) { console.error(errmsg); }); \n \
++        playStream(vidstream, null, null, null, null, function (errmsg) { console.error(errmsg); }); \n \
+       }; \n \
+  \n \
+     </script> \n \
+@@ -160,7 +156,7 @@
+  \n \
+   <body> \n \
+     <div> \n \
+-      <video id=\"stream\" autoplay playsinline>Your browser does not support video</video> \n \
++      <video id=\"stream\" autoplay=\"true\" playsInline muted>Your browser does not support video</video> \n \
+     </div> \n \
+   </body> \n \
+ </html> \n \
+@@ -199,24 +195,6 @@
+   return G_SOURCE_CONTINUE;
+ }
+ 
+-static GstWebRTCPriorityType
+-_priority_from_string (const gchar * s)
+-{
+-  GEnumClass *klass =
+-      (GEnumClass *) g_type_class_ref (GST_TYPE_WEBRTC_PRIORITY_TYPE);
+-  GEnumValue *en;
+-
+-  g_return_val_if_fail (klass, 0);
+-  if (!(en = g_enum_get_value_by_name (klass, s)))
+-    en = g_enum_get_value_by_nick (klass, s);
+-  g_type_class_unref (klass);
+-
+-  if (en)
+-    return en->value;
+-
+-  return 0;
+-}
+-
+ ReceiverEntry *
+ create_receiver_entry (SoupWebsocketConnection * connection)
+ {
+@@ -235,16 +213,12 @@
+       G_CALLBACK (soup_websocket_message_cb), (gpointer) receiver_entry);
+ 
+   error = NULL;
+-  receiver_entry->pipeline =
+-      gst_parse_launch ("webrtcbin name=webrtcbin stun-server=stun://"
+-      STUN_SERVER " "
+-      VIDEO_SRC
+-      " ! videorate ! videoscale ! video/x-raw,width=640,height=360,framerate=15/1 ! videoconvert ! queue max-size-buffers=1 ! x264enc bitrate=600 speed-preset=ultrafast tune=zerolatency key-int-max=15 ! video/x-h264,profile=constrained-baseline ! queue max-size-time=100000000 ! h264parse ! "
+-      "rtph264pay config-interval=-1 name=payloader aggregate-mode=zero-latency ! "
++  receiver_entry->pipeline = gst_parse_launch ("webrtcbin name=webrtcbin "
++      "qtiqmmfsrc name = qmmf ! video/x-h264,width=1920,height=1080,framerate=30/1  ! h264parse config-interval = -1 ! "
++      "rtph264pay config-interval=-1 name=payloader pt=96 ! queue ! "
+       "application/x-rtp,media=video,encoding-name=H264,payload="
+-      RTP_PAYLOAD_TYPE " ! webrtcbin. "
+-      "autoaudiosrc is-live=1 ! queue max-size-buffers=1 leaky=downstream ! audioconvert ! audioresample ! opusenc ! rtpopuspay pt="
+-      RTP_AUDIO_PAYLOAD_TYPE " ! webrtcbin. ", &error);
++      RTP_PAYLOAD_TYPE " ! webrtcbin. ", &error);  
++
+   if (error != NULL) {
+     g_error ("Could not create WebRTC pipeline: %s\n", error->message);
+     g_error_free (error);
+@@ -257,25 +231,10 @@
+ 
+   g_signal_emit_by_name (receiver_entry->webrtcbin, "get-transceivers",
+       &transceivers);
+-  g_assert (transceivers != NULL && transceivers->len > 1);
++  g_assert (transceivers != NULL && transceivers->len >= 1);
+   trans = g_array_index (transceivers, GstWebRTCRTPTransceiver *, 0);
+   trans->direction = GST_WEBRTC_RTP_TRANSCEIVER_DIRECTION_SENDONLY;
+-  if (video_priority) {
+-    GstWebRTCPriorityType priority;
+-
+-    priority = _priority_from_string (video_priority);
+-    if (priority)
+-      gst_webrtc_rtp_sender_set_priority (trans->sender, priority);
+-  }
+-  trans = g_array_index (transceivers, GstWebRTCRTPTransceiver *, 1);
+-  trans->direction = GST_WEBRTC_RTP_TRANSCEIVER_DIRECTION_SENDONLY;
+-  if (audio_priority) {
+-    GstWebRTCPriorityType priority;
+ 
+-    priority = _priority_from_string (audio_priority);
+-    if (priority)
+-      gst_webrtc_rtp_sender_set_priority (trans->sender, priority);
+-  }
+   g_array_unref (transceivers);
+ 
+   g_signal_connect (receiver_entry->webrtcbin, "on-negotiation-needed",
+@@ -629,16 +588,6 @@
+ #endif
+ 
+ 
+-static GOptionEntry entries[] = {
+-  {"video-priority", 0, 0, G_OPTION_ARG_STRING, &video_priority,
+-        "Priority of the video stream (very-low, low, medium or high)",
+-      "PRIORITY"},
+-  {"audio-priority", 0, 0, G_OPTION_ARG_STRING, &audio_priority,
+-        "Priority of the audio stream (very-low, low, medium or high)",
+-      "PRIORITY"},
+-  {NULL},
+-};
+-
+ int
+ main (int argc, char *argv[])
+ {
+@@ -651,7 +600,6 @@
+   setlocale (LC_ALL, "");
+ 
+   context = g_option_context_new ("- gstreamer webrtc sendonly demo");
+-  g_option_context_add_main_entries (context, entries, NULL);
+   g_option_context_add_group (context, gst_init_get_option_group ());
+   if (!g_option_context_parse (context, &argc, &argv, &error)) {
+     g_printerr ("Error initializing: %s\n", error->message);
+@@ -678,7 +626,7 @@
+   soup_server_listen_all (soup_server, SOUP_HTTP_PORT,
+       (SoupServerListenOptions) 0, NULL);
+ 
+-  gst_print ("WebRTC page link: http://127.0.0.1:%d/\n", (gint) SOUP_HTTP_PORT);
++  gst_print ("WebRTC running on port %d, Connect using chrome http://<your_ip>:57778/\n", (gint) SOUP_HTTP_PORT);
+ 
+   g_main_loop_run (mainloop);
+ 
