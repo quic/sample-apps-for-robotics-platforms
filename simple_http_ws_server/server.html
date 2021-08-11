@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script type="text/javascript">
+
+		var l = window.location;
+		var wsHost = l.hostname;
+		var wsPort = l.port;
+
+		console.log("before parse");
+
+		if (wsPort)
+			wsPort = ":" + wsPort;
+
+		var wsUrl = "ws://" + wsHost + wsPort + "/";
+		var ws = new WebSocket(wsUrl);
+
+		ws.onopen = function () {
+			console.log("socket opened!!. ready to send and receive data!!");
+			ws.send("hello world");
+		};
+		
+		ws.onmessage = function (evt) {
+			console.log(evt.data);
+		};
+
+	</script>
+</head>
+
+<body>
+	Hello world
+</body>
+
+</html>
