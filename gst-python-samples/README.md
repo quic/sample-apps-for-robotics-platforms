@@ -7,6 +7,9 @@ The purpose of these samples is helping users to learn how to implement the func
 -   Audio recording and playback
 -   Video streaming
 -   Gst TFlite
+-   Gst AlsaPlugin
+-   GUI application
+-   Video transform
 
 # Get Started
 ## I. Prerequisites:
@@ -108,3 +111,15 @@ gst_streaming/
 gst_tflite/
 
 -   tflite_object_detection
+
+gst_alsa/
+
+- gst_audio_sample
+
+gst_transform/
+
+- transform_display
+  
+gst_gui_app/
+
+- gui_app
