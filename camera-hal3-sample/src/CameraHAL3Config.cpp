@@ -73,12 +73,34 @@ void configUpdateMeta(android::CameraMetadata* meta, int cmd)
             unsigned char awb = 1;
             (*meta).update(ANDROID_CONTROL_AWB_MODE, &awb, 1);
         }
+        case CONFIG_AUTO_FOCUS: {
+            unsigned char af = ANDROID_CONTROL_AF_MODE_AUTO;
+            (*meta).update(ANDROID_CONTROL_AF_MODE, &af, 1);
+        }
         break;
         default:
         break;
     }
 }
 
+
+void configUpdateMeta(android::CameraMetadata* meta, int cmd, float value)
+{
+    switch (cmd) {
+        case CONFIG_FIXED_FOCUS: {
+            unsigned char af = ANDROID_CONTROL_AF_MODE_OFF;
+            unsigned char af_trigger = ANDROID_CONTROL_AF_TRIGGER_CANCEL;
+            float focus_distance = value;
+
+            (*meta).update(ANDROID_CONTROL_AF_MODE, &af, 1);
+            (*meta).update(ANDROID_CONTROL_AF_TRIGGER, &af_trigger, 1);
+            (*meta).update(ANDROID_LENS_FOCUS_DISTANCE, &focus_distance, 1);
+        }
+        break;
+        default:
+        break;
+    }
+}
 
 void configUpdateMeta(android::CameraMetadata* meta, int cmd, float value1, float value2, float value3)
 {

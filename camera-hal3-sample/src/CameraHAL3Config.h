@@ -18,6 +18,8 @@
 #define CONFIG_WHITE_BALANCE_COLOR_TEMP 6
 #define CONFIG_WHITE_BALANCE_GAIN       7
 #define CONFIG_SNAPSHOT_ROTATION        8
+#define CONFIG_AUTO_FOCUS               9
+#define CONFIG_FIXED_FOCUS              10
 
 
 typedef struct _StreamInfo {
@@ -36,6 +38,7 @@ struct CamxHAL3Config {
 
 void configUpdateMeta(android::CameraMetadata* meta, int cmd);
 void configUpdateMeta(android::CameraMetadata* meta, int cmd, int value);
+void configUpdateMeta(android::CameraMetadata* meta, int cmd, float value);
 void configUpdateMeta(android::CameraMetadata* meta, int cmd, float value1, float value2, float value3);
 
 

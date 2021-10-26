@@ -221,6 +221,7 @@ static void setAntibanding();
 static void setColorCorrection();
 static void setWhiteBalance();
 static void setSnapshotRotation();
+static void setFocus();
 static int getlineToInt(std::string prompt);
 static float getlineToFloat(std::string prompt);
 
@@ -296,6 +297,8 @@ int main(int argc, char *argv[])
             setWhiteBalance();
         } else if (command == "r") {
             setSnapshotRotation();
+        } else if (command == "f") {
+            setFocus();
         } else {
             if (command != "h" && !command.empty()) {
                 printf("Unknown command \'%s\'.\n", command.c_str());
@@ -307,6 +310,7 @@ int main(int argc, char *argv[])
             printf("Press w: set white balance.\n");
             printf("Press a: set antibanding.\n");
             printf("Press c: set color correction.\n");
+            printf("Press f: set focus.\n");
             printf("Press q: quit.\n");
         }
     }
@@ -484,6 +488,38 @@ static void setSnapshotRotation()
             }
             android::CameraMetadata *meta = ::getCurrentMeta();
             configUpdateMeta(meta, CONFIG_SNAPSHOT_ROTATION, rot);
+            ::updateMetaData(meta);
+            break;
+        } else if (command == "q") {
+            break;
+        } else {
+            printf("Wrong input.\n");
+        }
+    }
+}
+
+static void setFocus()
+{
+    std::string command;
+
+    while(true) {
+        printf("Press 1: auto focus, 2: fixed focus, q: quit\n");
+        printf(">> ");
+
+        std::getline(std::cin, command);
+
+        if (command == "1") {
+            android::CameraMetadata *meta = ::getCurrentMeta();
+
+            configUpdateMeta(meta, CONFIG_AUTO_FOCUS);
+            ::updateMetaData(meta);
+            break;
+        } else if (command == "2") {
+            float focus_distance;
+            focus_distance = getlineToFloat("focus distance (e.g 0 - far, 1500 - near): ");
+            android::CameraMetadata *meta = ::getCurrentMeta();
+
+            configUpdateMeta(meta, CONFIG_FIXED_FOCUS, focus_distance);
             ::updateMetaData(meta);
             break;
         } else if (command == "q") {
