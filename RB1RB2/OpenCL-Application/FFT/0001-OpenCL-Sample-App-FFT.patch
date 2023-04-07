@@ -1,0 +1,917 @@
+From 64075e79cd30a6a4d13685793ccb86dff3954611 Mon Sep 17 00:00:00 2001
+From: Wanghao Wei <quic_wanghaow@quicinc.com>
+Date: Mon, 16 Nov 2020 20:03:00 +0800
+Subject: [PATCH] OpenCL-Sample-App-FFT
+
+---
+ Makefile                              |   9 ++
+ OpenCL-FFT.sln                        |  31 -----
+ OpenCL-FFT/OpenCL-FFT.vcxproj         | 162 -------------------------
+ OpenCL-FFT/OpenCL-FFT.vcxproj.filters |  30 -----
+ OpenCL-FFT/fft.cl                     |  90 --------------
+ OpenCL-FFT/main.cpp                   | 214 ----------------------------------
+ fft.cl                                |  90 ++++++++++++++
+ main.cpp                              | 214 ++++++++++++++++++++++++++++++++++
+ 8 files changed, 313 insertions(+), 527 deletions(-)
+ create mode 100644 Makefile
+ delete mode 100644 OpenCL-FFT.sln
+ delete mode 100644 OpenCL-FFT/OpenCL-FFT.vcxproj
+ delete mode 100644 OpenCL-FFT/OpenCL-FFT.vcxproj.filters
+ delete mode 100644 OpenCL-FFT/fft.cl
+ delete mode 100644 OpenCL-FFT/main.cpp
+ create mode 100644 fft.cl
+ create mode 100644 main.cpp
+
+diff --git a/Makefile b/Makefile
+new file mode 100644
+index 0000000..e04ddb4
+--- /dev/null
++++ b/Makefile
+@@ -0,0 +1,9 @@
++# Copyright (c) 2020, 2022 Qualcomm Innovation Center, Inc.  All Rights Reserved.
++# SPDX-License-Identifier: BSD-3-Clause-Clear
++
++test: main.cpp
++	$(CXX) -o test main.cpp -lOpenCL -I /usr/include/qrbx210
++
++clean:
++	rm test
++
+diff --git a/OpenCL-FFT.sln b/OpenCL-FFT.sln
+deleted file mode 100644
+index 0668433..0000000
+--- a/OpenCL-FFT.sln
++++ /dev/null
+@@ -1,31 +0,0 @@
+-﻿
+-Microsoft Visual Studio Solution File, Format Version 12.00
+-# Visual Studio Version 16
+-VisualStudioVersion = 16.0.30330.147
+-MinimumVisualStudioVersion = 10.0.40219.1
+-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "OpenCL-FFT", "OpenCL-FFT\OpenCL-FFT.vcxproj", "{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}"
+-EndProject
+-Global
+-	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+-		Debug|x64 = Debug|x64
+-		Debug|x86 = Debug|x86
+-		Release|x64 = Release|x64
+-		Release|x86 = Release|x86
+-	EndGlobalSection
+-	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Debug|x64.ActiveCfg = Debug|x64
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Debug|x64.Build.0 = Debug|x64
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Debug|x86.ActiveCfg = Debug|Win32
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Debug|x86.Build.0 = Debug|Win32
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Release|x64.ActiveCfg = Release|x64
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Release|x64.Build.0 = Release|x64
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Release|x86.ActiveCfg = Release|Win32
+-		{0DD8B3AB-2D9D-4E60-86FA-DC6CD5531109}.Release|x86.Build.0 = Release|Win32
+-	EndGlobalSection
+-	GlobalSection(SolutionProperties) = preSolution
+-		HideSolutionNode = FALSE
+-	EndGlobalSection
+-	GlobalSection(ExtensibilityGlobals) = postSolution
+-		SolutionGuid = {3848E3DE-1F4D-4C40-91A8-03EDB34172E0}
+-	EndGlobalSection
+-EndGlobal
+diff --git a/OpenCL-FFT/OpenCL-FFT.vcxproj b/OpenCL-FFT/OpenCL-FFT.vcxproj
+deleted file mode 100644
+index 9c29a29..0000000
+--- a/OpenCL-FFT/OpenCL-FFT.vcxproj
++++ /dev/null
+@@ -1,162 +0,0 @@
+-<?xml version="1.0" encoding="utf-8"?>
+-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+-  <ItemGroup Label="ProjectConfigurations">
+-    <ProjectConfiguration Include="Debug|Win32">
+-      <Configuration>Debug</Configuration>
+-      <Platform>Win32</Platform>
+-    </ProjectConfiguration>
+-    <ProjectConfiguration Include="Release|Win32">
+-      <Configuration>Release</Configuration>
+-      <Platform>Win32</Platform>
+-    </ProjectConfiguration>
+-    <ProjectConfiguration Include="Debug|x64">
+-      <Configuration>Debug</Configuration>
+-      <Platform>x64</Platform>
+-    </ProjectConfiguration>
+-    <ProjectConfiguration Include="Release|x64">
+-      <Configuration>Release</Configuration>
+-      <Platform>x64</Platform>
+-    </ProjectConfiguration>
+-  </ItemGroup>
+-  <PropertyGroup Label="Globals">
+-    <VCProjectVersion>16.0</VCProjectVersion>
+-    <Keyword>Win32Proj</Keyword>
+-    <ProjectGuid>{0dd8b3ab-2d9d-4e60-86fa-dc6cd5531109}</ProjectGuid>
+-    <RootNamespace>OpenCLFFT</RootNamespace>
+-    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+-  </PropertyGroup>
+-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+-    <ConfigurationType>Application</ConfigurationType>
+-    <UseDebugLibraries>true</UseDebugLibraries>
+-    <PlatformToolset>v142</PlatformToolset>
+-    <CharacterSet>Unicode</CharacterSet>
+-  </PropertyGroup>
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+-    <ConfigurationType>Application</ConfigurationType>
+-    <UseDebugLibraries>false</UseDebugLibraries>
+-    <PlatformToolset>v142</PlatformToolset>
+-    <WholeProgramOptimization>true</WholeProgramOptimization>
+-    <CharacterSet>Unicode</CharacterSet>
+-  </PropertyGroup>
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+-    <ConfigurationType>Application</ConfigurationType>
+-    <UseDebugLibraries>true</UseDebugLibraries>
+-    <PlatformToolset>v142</PlatformToolset>
+-    <CharacterSet>Unicode</CharacterSet>
+-  </PropertyGroup>
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+-    <ConfigurationType>Application</ConfigurationType>
+-    <UseDebugLibraries>false</UseDebugLibraries>
+-    <PlatformToolset>v142</PlatformToolset>
+-    <WholeProgramOptimization>true</WholeProgramOptimization>
+-    <CharacterSet>Unicode</CharacterSet>
+-  </PropertyGroup>
+-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+-  <ImportGroup Label="ExtensionSettings">
+-  </ImportGroup>
+-  <ImportGroup Label="Shared">
+-  </ImportGroup>
+-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+-  </ImportGroup>
+-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+-  </ImportGroup>
+-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+-  </ImportGroup>
+-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+-  </ImportGroup>
+-  <PropertyGroup Label="UserMacros" />
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+-    <LinkIncremental>true</LinkIncremental>
+-  </PropertyGroup>
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+-    <LinkIncremental>false</LinkIncremental>
+-  </PropertyGroup>
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+-    <LinkIncremental>true</LinkIncremental>
+-  </PropertyGroup>
+-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+-    <LinkIncremental>false</LinkIncremental>
+-  </PropertyGroup>
+-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+-    <ClCompile>
+-      <WarningLevel>Level3</WarningLevel>
+-      <SDLCheck>true</SDLCheck>
+-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <ConformanceMode>true</ConformanceMode>
+-      <AdditionalIncludeDirectories>$(INTELOCLSDKROOT)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-    </ClCompile>
+-    <Link>
+-      <SubSystem>Console</SubSystem>
+-      <GenerateDebugInformation>true</GenerateDebugInformation>
+-      <AdditionalDependencies>OpenCL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+-      <AdditionalLibraryDirectories>$(INTELOCLSDKROOT)lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+-    </Link>
+-  </ItemDefinitionGroup>
+-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+-    <ClCompile>
+-      <WarningLevel>Level3</WarningLevel>
+-      <FunctionLevelLinking>true</FunctionLevelLinking>
+-      <IntrinsicFunctions>true</IntrinsicFunctions>
+-      <SDLCheck>true</SDLCheck>
+-      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <ConformanceMode>true</ConformanceMode>
+-      <AdditionalIncludeDirectories>$(INTELOCLSDKROOT)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-    </ClCompile>
+-    <Link>
+-      <SubSystem>Console</SubSystem>
+-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+-      <OptimizeReferences>true</OptimizeReferences>
+-      <GenerateDebugInformation>true</GenerateDebugInformation>
+-      <AdditionalDependencies>OpenCL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+-      <AdditionalLibraryDirectories>$(INTELOCLSDKROOT)lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+-    </Link>
+-  </ItemDefinitionGroup>
+-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+-    <ClCompile>
+-      <WarningLevel>Level3</WarningLevel>
+-      <SDLCheck>true</SDLCheck>
+-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <ConformanceMode>true</ConformanceMode>
+-      <AdditionalIncludeDirectories>$(INTELOCLSDKROOT)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-    </ClCompile>
+-    <Link>
+-      <SubSystem>Console</SubSystem>
+-      <GenerateDebugInformation>true</GenerateDebugInformation>
+-      <AdditionalDependencies>OpenCL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+-      <AdditionalLibraryDirectories>$(INTELOCLSDKROOT)lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+-    </Link>
+-  </ItemDefinitionGroup>
+-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+-    <ClCompile>
+-      <WarningLevel>Level3</WarningLevel>
+-      <FunctionLevelLinking>true</FunctionLevelLinking>
+-      <IntrinsicFunctions>true</IntrinsicFunctions>
+-      <SDLCheck>true</SDLCheck>
+-      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+-      <ConformanceMode>true</ConformanceMode>
+-      <AdditionalIncludeDirectories>$(INTELOCLSDKROOT)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+-    </ClCompile>
+-    <Link>
+-      <SubSystem>Console</SubSystem>
+-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+-      <OptimizeReferences>true</OptimizeReferences>
+-      <GenerateDebugInformation>true</GenerateDebugInformation>
+-      <AdditionalDependencies>OpenCL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+-      <AdditionalLibraryDirectories>$(INTELOCLSDKROOT)lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+-    </Link>
+-  </ItemDefinitionGroup>
+-  <ItemGroup>
+-    <ClCompile Include="main.cpp" />
+-  </ItemGroup>
+-  <ItemGroup>
+-    <None Include="fft.cl" />
+-  </ItemGroup>
+-  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+-  <ImportGroup Label="ExtensionTargets">
+-  </ImportGroup>
+-</Project>
+\ No newline at end of file
+diff --git a/OpenCL-FFT/OpenCL-FFT.vcxproj.filters b/OpenCL-FFT/OpenCL-FFT.vcxproj.filters
+deleted file mode 100644
+index dfaaef8..0000000
+--- a/OpenCL-FFT/OpenCL-FFT.vcxproj.filters
++++ /dev/null
+@@ -1,30 +0,0 @@
+-﻿<?xml version="1.0" encoding="utf-8"?>
+-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+-  <ItemGroup>
+-    <Filter Include="Source Files">
+-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+-    </Filter>
+-    <Filter Include="Header Files">
+-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+-    </Filter>
+-    <Filter Include="Resource Files">
+-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+-    </Filter>
+-    <Filter Include="OpenCL Files">
+-      <UniqueIdentifier>{8e9f41e8-5f2f-4a6c-8fd9-878716183ba2}</UniqueIdentifier>
+-    </Filter>
+-  </ItemGroup>
+-  <ItemGroup>
+-    <None Include="fft.cl">
+-      <Filter>OpenCL Files</Filter>
+-    </None>
+-  </ItemGroup>
+-  <ItemGroup>
+-    <ClCompile Include="main.cpp">
+-      <Filter>Source Files</Filter>
+-    </ClCompile>
+-  </ItemGroup>
+-</Project>
+\ No newline at end of file
+diff --git a/OpenCL-FFT/fft.cl b/OpenCL-FFT/fft.cl
+deleted file mode 100644
+index cbaba30..0000000
+--- a/OpenCL-FFT/fft.cl
++++ /dev/null
+@@ -1,90 +0,0 @@
+-inline float2 cplx_mul(float2 lhs, float2 rhs) 
+-{
+-    return (float2) {
+-        lhs.even * rhs.even - lhs.odd * rhs.odd,
+-        lhs.odd * rhs.even + lhs.even * rhs.odd
+-    };
+-}
+-
+-unsigned int rev_bits(unsigned int num) 
+-{ 
+-    unsigned int count = sizeof(num) * 8 - 1; 
+-    unsigned int reverse_num = num; 
+-      
+-    num >>= 1;  
+-    while(num) 
+-    { 
+-       reverse_num <<= 1;        
+-       reverse_num |= num & 1; 
+-       num >>= 1; 
+-       count--; 
+-    } 
+-    reverse_num <<= count; 
+-    return reverse_num; 
+-} 
+-
+-inline unsigned index_map(unsigned threadId, unsigned currentIteration, unsigned N)
+-{
+-    return ((threadId & (N - (1u << currentIteration))) << 1) | (threadId & ((1u << currentIteration) - 1));
+-}
+-
+-inline unsigned twiddle_map(unsigned threadId, unsigned currentIteration, unsigned logTwo, unsigned N)
+-{
+-    return (threadId & (N / (1u << (logTwo - currentIteration)) - 1)) * (1u << (logTwo - currentIteration)) >> 1;
+-}
+-
+-float2 twiddle(float kn, float N, bool is_inverse) 
+-{
+-    float r;
+-    float i = sincos((!is_inverse * 2 - 1) * 2.0f * M_PI * kn / N, &r);
+-
+-    return (float2) {r, i};
+-}
+-
+-kernel void fft(global float2* data, local float2* local_cache, const int N, const int is_inverse) 
+-{
+-    const int local_size = get_local_size(0);
+-    
+-    const int global_id = get_global_id(0);
+-
+-    const int g_offset = N / 2 / local_size;
+-
+-    const int btid = global_id * g_offset;
+-    
+-    const int leading_zeroes = clz(N) + 1;
+-    const int logTwo = 32 - leading_zeroes;
+-    
+-    for(int i = btid * 2; i < btid * 2 + g_offset * 2; i++)
+-    {
+-        const int j = rev_bits(i) >> leading_zeroes;
+-        local_cache[i] = data[j];
+-    }
+-    
+-    barrier(CLK_LOCAL_MEM_FENCE);
+-
+-    for(int i = 0; i < logTwo; i++)
+-    {
+-        for(int j = btid; j < btid + g_offset; j++)
+-        {
+-            const unsigned even = index_map(j, i, N);
+-            const unsigned odd = even + (1u << i);
+-    
+-            const float2 evenVal = local_cache[even];
+-    
+-            const unsigned q = twiddle_map(j, i, logTwo, N);
+-
+-            const float2 e = cplx_mul(twiddle(q, N, is_inverse), local_cache[odd]);
+-    
+-            local_cache[odd] = evenVal - e;
+-            local_cache[even] = evenVal + e;
+-
+-        }
+-        barrier(CLK_LOCAL_MEM_FENCE);
+-    }
+-    
+-    for(int i = btid * 2; i < btid * 2 + g_offset * 2; i++)
+-    {
+-        data[i] = local_cache[i] / (N * is_inverse + !is_inverse);
+-    }
+-    
+-}
+diff --git a/OpenCL-FFT/main.cpp b/OpenCL-FFT/main.cpp
+deleted file mode 100644
+index 664b3b4..0000000
+--- a/OpenCL-FFT/main.cpp
++++ /dev/null
+@@ -1,214 +0,0 @@
+-#include <fstream>
+-#include <iostream>
+-#include <string>
+-#include <vector>
+-#include <complex>
+-#include <cmath>
+-
+-#ifdef __APPLE__
+-#include <OpenCL/opencl.h>
+-#else
+-#include <CL/cl.h>
+-#endif
+-
+-void errCheck(cl_int err, int line);
+-
+-#define CHECKERR(err) errCheck(err, __LINE__)
+-
+-int main() {
+-    using cplx_t = std::complex<float>;
+-    const int sample_size = 2048;
+-
+-    const int is_inverse = false;
+-
+-    const size_t global_item_size = 128; // Up to sample_size / 2 work items. Must be power of 2
+-    const size_t local_item_size = global_item_size;
+-
+-    const char* program_source_path = "fft.cl";
+-
+-    const char* kernel_entry_point = "fft";
+-
+-    std::vector<cplx_t> inData(sample_size);
+-
+-    for (int i = 0; i < inData.size(); i++) inData[i] = i / 10.0;
+-
+-    std::ifstream fileSource(program_source_path);
+-
+-    if (!fileSource) {
+-        std::cout << "Failed to load kernel\n";
+-        return 1;
+-    }
+-
+-    std::string sourceStr((std::istreambuf_iterator<char>(fileSource)), std::istreambuf_iterator<char>());
+-
+-    fileSource.close();
+-
+-    cl_platform_id platform_id;
+-    cl_device_id device_id;
+-    cl_int ret;
+-
+-    CHECKERR(clGetPlatformIDs(1, &platform_id, nullptr));
+-
+-    CHECKERR(clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, nullptr));
+-
+-    cl_ulong size;
+-    clGetDeviceInfo(device_id, CL_DEVICE_LOCAL_MEM_SIZE, sizeof(cl_ulong), &size, 0);
+-
+-    auto s2 = sample_size * sizeof(cplx_t);
+-
+-    cl_context context = clCreateContext(nullptr, 1, &device_id, nullptr, nullptr, &ret);
+-
+-    CHECKERR(ret);
+-
+-    cl_command_queue command_queue = clCreateCommandQueueWithProperties(context, device_id, nullptr, &ret);
+-
+-    CHECKERR(ret);
+-
+-    cl_mem a_mem_obj = clCreateBuffer(context, CL_MEM_READ_WRITE, sample_size * sizeof(cplx_t), nullptr, &ret);
+-
+-    CHECKERR(ret);
+-
+-    ret = clEnqueueWriteBuffer(command_queue, a_mem_obj, CL_TRUE, 0, sample_size * sizeof(cplx_t), inData.data(), 0, nullptr, nullptr);
+-
+-    CHECKERR(ret);
+-
+-    const char* source_str = sourceStr.c_str();
+-    const std::size_t source_size = sourceStr.size();
+-
+-    cl_program program = clCreateProgramWithSource(context, 1, (const char**)&source_str, (const size_t*)&source_size, &ret);
+-
+-    CHECKERR(ret);
+-
+-    ret = clBuildProgram(program, 1, &device_id, nullptr, nullptr, nullptr);
+-
+-    if (ret != CL_SUCCESS) {
+-        std::size_t log_size;
+-
+-        CHECKERR(clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, nullptr, &log_size));
+-
+-        std::string build_log(log_size, '\0');
+-
+-        CHECKERR(clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, log_size, const_cast<char*>(build_log.c_str()), nullptr));
+-
+-        std::cout << "Building the program failed, build log:\n" << build_log << "\n";
+-
+-        return 1;
+-    }
+-
+-    cl_kernel kernel = clCreateKernel(program, kernel_entry_point, &ret);
+-
+-    CHECKERR(ret);
+-
+-    CHECKERR(clSetKernelArg(kernel, 0, sizeof(cl_mem), &a_mem_obj)); // data
+-
+-    CHECKERR(clSetKernelArg(kernel, 1, sample_size * sizeof(cplx_t), nullptr)); // local_cache
+-
+-    CHECKERR(clSetKernelArg(kernel, 2, sizeof(sample_size), &sample_size)); // N
+-
+-    CHECKERR(clSetKernelArg(kernel, 3, sizeof(is_inverse), &is_inverse)); // is_inverse
+-
+-    CHECKERR(clEnqueueNDRangeKernel(command_queue, kernel, 1, nullptr, &global_item_size, &local_item_size, 0, nullptr, nullptr));
+-
+-    auto outData = inData;
+-    CHECKERR(clEnqueueReadBuffer(command_queue, a_mem_obj, CL_TRUE, 0, sample_size * sizeof(cplx_t), outData.data(), 0, nullptr, nullptr));
+-
+-    for (int i = 0; i < outData.size(); i++) {
+-        std::cout << outData[i] << "\n";
+-    }
+-
+-    clFlush(command_queue);
+-    clFinish(command_queue);
+-    clReleaseKernel(kernel);
+-    clReleaseProgram(program);
+-    clReleaseMemObject(a_mem_obj);
+-    clReleaseCommandQueue(command_queue);
+-    clReleaseContext(context);
+-
+-    return 0;
+-}
+-
+-const char* getErrorString(cl_int error);
+-
+-void errCheck(cl_int err, int line) {
+-    if (err != CL_SUCCESS) {
+-        std::cout << "Error on line " << line << ", error: " << getErrorString(err) << "\n";
+-        exit(1);
+-    }
+-}
+-
+-const char* getErrorString(cl_int error)
+-{
+-    switch (error) {
+-        // run-time and JIT compiler errors
+-    case 0: return "CL_SUCCESS";
+-    case -1: return "CL_DEVICE_NOT_FOUND";
+-    case -2: return "CL_DEVICE_NOT_AVAILABLE";
+-    case -3: return "CL_COMPILER_NOT_AVAILABLE";
+-    case -4: return "CL_MEM_OBJECT_ALLOCATION_FAILURE";
+-    case -5: return "CL_OUT_OF_RESOURCES";
+-    case -6: return "CL_OUT_OF_HOST_MEMORY";
+-    case -7: return "CL_PROFILING_INFO_NOT_AVAILABLE";
+-    case -8: return "CL_MEM_COPY_OVERLAP";
+-    case -9: return "CL_IMAGE_FORMAT_MISMATCH";
+-    case -10: return "CL_IMAGE_FORMAT_NOT_SUPPORTED";
+-    case -11: return "CL_BUILD_PROGRAM_FAILURE";
+-    case -12: return "CL_MAP_FAILURE";
+-    case -13: return "CL_MISALIGNED_SUB_BUFFER_OFFSET";
+-    case -14: return "CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST";
+-    case -15: return "CL_COMPILE_PROGRAM_FAILURE";
+-    case -16: return "CL_LINKER_NOT_AVAILABLE";
+-    case -17: return "CL_LINK_PROGRAM_FAILURE";
+-    case -18: return "CL_DEVICE_PARTITION_FAILED";
+-    case -19: return "CL_KERNEL_ARG_INFO_NOT_AVAILABLE";
+-
+-        // compile-time errors
+-    case -30: return "CL_INVALID_VALUE";
+-    case -31: return "CL_INVALID_DEVICE_TYPE";
+-    case -32: return "CL_INVALID_PLATFORM";
+-    case -33: return "CL_INVALID_DEVICE";
+-    case -34: return "CL_INVALID_CONTEXT";
+-    case -35: return "CL_INVALID_QUEUE_PROPERTIES";
+-    case -36: return "CL_INVALID_COMMAND_QUEUE";
+-    case -37: return "CL_INVALID_HOST_PTR";
+-    case -38: return "CL_INVALID_MEM_OBJECT";
+-    case -39: return "CL_INVALID_IMAGE_FORMAT_DESCRIPTOR";
+-    case -40: return "CL_INVALID_IMAGE_SIZE";
+-    case -41: return "CL_INVALID_SAMPLER";
+-    case -42: return "CL_INVALID_BINARY";
+-    case -43: return "CL_INVALID_BUILD_OPTIONS";
+-    case -44: return "CL_INVALID_PROGRAM";
+-    case -45: return "CL_INVALID_PROGRAM_EXECUTABLE";
+-    case -46: return "CL_INVALID_KERNEL_NAME";
+-    case -47: return "CL_INVALID_KERNEL_DEFINITION";
+-    case -48: return "CL_INVALID_KERNEL";
+-    case -49: return "CL_INVALID_ARG_INDEX";
+-    case -50: return "CL_INVALID_ARG_VALUE";
+-    case -51: return "CL_INVALID_ARG_SIZE";
+-    case -52: return "CL_INVALID_KERNEL_ARGS";
+-    case -53: return "CL_INVALID_WORK_DIMENSION";
+-    case -54: return "CL_INVALID_WORK_GROUP_SIZE";
+-    case -55: return "CL_INVALID_WORK_ITEM_SIZE";
+-    case -56: return "CL_INVALID_GLOBAL_OFFSET";
+-    case -57: return "CL_INVALID_EVENT_WAIT_LIST";
+-    case -58: return "CL_INVALID_EVENT";
+-    case -59: return "CL_INVALID_OPERATION";
+-    case -60: return "CL_INVALID_GL_OBJECT";
+-    case -61: return "CL_INVALID_BUFFER_SIZE";
+-    case -62: return "CL_INVALID_MIP_LEVEL";
+-    case -63: return "CL_INVALID_GLOBAL_WORK_SIZE";
+-    case -64: return "CL_INVALID_PROPERTY";
+-    case -65: return "CL_INVALID_IMAGE_DESCRIPTOR";
+-    case -66: return "CL_INVALID_COMPILER_OPTIONS";
+-    case -67: return "CL_INVALID_LINKER_OPTIONS";
+-    case -68: return "CL_INVALID_DEVICE_PARTITION_COUNT";
+-
+-        // extension errors
+-    case -1000: return "CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR";
+-    case -1001: return "CL_PLATFORM_NOT_FOUND_KHR";
+-    case -1002: return "CL_INVALID_D3D10_DEVICE_KHR";
+-    case -1003: return "CL_INVALID_D3D10_RESOURCE_KHR";
+-    case -1004: return "CL_D3D10_RESOURCE_ALREADY_ACQUIRED_KHR";
+-    case -1005: return "CL_D3D10_RESOURCE_NOT_ACQUIRED_KHR";
+-    default: return "Unknown OpenCL error";
+-    }
+-}
+diff --git a/fft.cl b/fft.cl
+new file mode 100644
+index 0000000..292bbfe
+--- /dev/null
++++ b/fft.cl
+@@ -0,0 +1,90 @@
++inline float2 cplx_mul(float2 lhs, float2 rhs) 
++{
++    return (float2) {
++        lhs.even * rhs.even - lhs.odd * rhs.odd,
++        lhs.odd * rhs.even + lhs.even * rhs.odd
++    };
++}
++
++unsigned int rev_bits(unsigned int num) 
++{ 
++    unsigned int count = sizeof(num) * 8 - 1; 
++    unsigned int reverse_num = num; 
++      
++    num >>= 1;  
++    while(num) 
++    { 
++       reverse_num <<= 1;        
++       reverse_num |= num & 1; 
++       num >>= 1; 
++       count--; 
++    } 
++    reverse_num <<= count; 
++    return reverse_num; 
++} 
++
++inline unsigned index_map(unsigned threadId, unsigned currentIteration, unsigned N)
++{
++    return ((threadId & (N - (1u << currentIteration))) << 1) | (threadId & ((1u << currentIteration) - 1));
++}
++
++inline unsigned twiddle_map(unsigned threadId, unsigned currentIteration, unsigned logTwo, unsigned N)
++{
++    return (threadId & (N / (1u << (logTwo - currentIteration)) - 1)) * (1u << (logTwo - currentIteration)) >> 1;
++}
++
++float2 twiddle(float kn, float N, bool is_inverse) 
++{
++    float r;
++    float i = sincos((!is_inverse * 2 - 1) * 2.0f * 3.14f  * kn / N, &r);
++
++    return (float2) {r, i};
++}
++
++kernel void fft(global float2* data, local float2* local_cache, const int N, const int is_inverse) 
++{
++    const int local_size = get_local_size(0);
++    
++    const int global_id = get_global_id(0);
++
++    const int g_offset = N / 2 / local_size;
++
++    const int btid = global_id * g_offset;
++    
++    const int leading_zeroes = clz(N) + 1;
++    const int logTwo = 32 - leading_zeroes;
++    
++    for(int i = btid * 2; i < btid * 2 + g_offset * 2; i++)
++    {
++        const int j = rev_bits(i) >> leading_zeroes;
++        local_cache[i] = data[j];
++    }
++    
++    barrier(CLK_LOCAL_MEM_FENCE);
++
++    for(int i = 0; i < logTwo; i++)
++    {
++        for(int j = btid; j < btid + g_offset; j++)
++        {
++            const unsigned even = index_map(j, i, N);
++            const unsigned odd = even + (1u << i);
++    
++            const float2 evenVal = local_cache[even];
++    
++            const unsigned q = twiddle_map(j, i, logTwo, N);
++
++            const float2 e = cplx_mul(twiddle(q, N, is_inverse), local_cache[odd]);
++    
++            local_cache[odd] = evenVal - e;
++            local_cache[even] = evenVal + e;
++
++        }
++        barrier(CLK_LOCAL_MEM_FENCE);
++    }
++    
++    for(int i = btid * 2; i < btid * 2 + g_offset * 2; i++)
++    {
++        data[i] = local_cache[i] / (N * is_inverse + !is_inverse);
++    }
++    
++}
+diff --git a/main.cpp b/main.cpp
+new file mode 100644
+index 0000000..664b3b4
+--- /dev/null
++++ b/main.cpp
+@@ -0,0 +1,214 @@
++#include <fstream>
++#include <iostream>
++#include <string>
++#include <vector>
++#include <complex>
++#include <cmath>
++
++#ifdef __APPLE__
++#include <OpenCL/opencl.h>
++#else
++#include <CL/cl.h>
++#endif
++
++void errCheck(cl_int err, int line);
++
++#define CHECKERR(err) errCheck(err, __LINE__)
++
++int main() {
++    using cplx_t = std::complex<float>;
++    const int sample_size = 2048;
++
++    const int is_inverse = false;
++
++    const size_t global_item_size = 64; // Up to sample_size / 2 work items. Must be power of 2
++    const size_t local_item_size = global_item_size;
++
++    const char* program_source_path = "fft.cl";
++
++    const char* kernel_entry_point = "fft";
++
++    std::vector<cplx_t> inData(sample_size);
++
++    for (int i = 0; i < inData.size(); i++) inData[i] = i / 10.0;
++
++    std::ifstream fileSource(program_source_path);
++
++    if (!fileSource) {
++        std::cout << "Failed to load kernel\n";
++        return 1;
++    }
++
++    std::string sourceStr((std::istreambuf_iterator<char>(fileSource)), std::istreambuf_iterator<char>());
++
++    fileSource.close();
++
++    cl_platform_id platform_id;
++    cl_device_id device_id;
++    cl_int ret;
++
++    CHECKERR(clGetPlatformIDs(1, &platform_id, nullptr));
++
++    CHECKERR(clGetDeviceIDs(platform_id, CL_DEVICE_TYPE_GPU, 1, &device_id, nullptr));
++
++    cl_ulong size;
++    clGetDeviceInfo(device_id, CL_DEVICE_LOCAL_MEM_SIZE, sizeof(cl_ulong), &size, 0);
++
++    auto s2 = sample_size * sizeof(cplx_t);
++
++    cl_context context = clCreateContext(nullptr, 1, &device_id, nullptr, nullptr, &ret);
++
++    CHECKERR(ret);
++
++    cl_command_queue command_queue = clCreateCommandQueueWithProperties(context, device_id, nullptr, &ret);
++
++    CHECKERR(ret);
++
++    cl_mem a_mem_obj = clCreateBuffer(context, CL_MEM_READ_WRITE, sample_size * sizeof(cplx_t), nullptr, &ret);
++
++    CHECKERR(ret);
++
++    ret = clEnqueueWriteBuffer(command_queue, a_mem_obj, CL_TRUE, 0, sample_size * sizeof(cplx_t), inData.data(), 0, nullptr, nullptr);
++
++    CHECKERR(ret);
++
++    const char* source_str = sourceStr.c_str();
++    const std::size_t source_size = sourceStr.size();
++
++    cl_program program = clCreateProgramWithSource(context, 1, (const char**)&source_str, (const size_t*)&source_size, &ret);
++
++    CHECKERR(ret);
++
++    ret = clBuildProgram(program, 1, &device_id, nullptr, nullptr, nullptr);
++
++    if (ret != CL_SUCCESS) {
++        std::size_t log_size;
++
++        CHECKERR(clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, 0, nullptr, &log_size));
++
++        std::string build_log(log_size, '\0');
++
++        CHECKERR(clGetProgramBuildInfo(program, device_id, CL_PROGRAM_BUILD_LOG, log_size, const_cast<char*>(build_log.c_str()), nullptr));
++
++        std::cout << "Building the program failed, build log:\n" << build_log << "\n";
++
++        return 1;
++    }
++
++    cl_kernel kernel = clCreateKernel(program, kernel_entry_point, &ret);
++
++    CHECKERR(ret);
++
++    CHECKERR(clSetKernelArg(kernel, 0, sizeof(cl_mem), &a_mem_obj)); // data
++
++    CHECKERR(clSetKernelArg(kernel, 1, sample_size * sizeof(cplx_t), nullptr)); // local_cache
++
++    CHECKERR(clSetKernelArg(kernel, 2, sizeof(sample_size), &sample_size)); // N
++
++    CHECKERR(clSetKernelArg(kernel, 3, sizeof(is_inverse), &is_inverse)); // is_inverse
++
++    CHECKERR(clEnqueueNDRangeKernel(command_queue, kernel, 1, nullptr, &global_item_size, &local_item_size, 0, nullptr, nullptr));
++
++    auto outData = inData;
++    CHECKERR(clEnqueueReadBuffer(command_queue, a_mem_obj, CL_TRUE, 0, sample_size * sizeof(cplx_t), outData.data(), 0, nullptr, nullptr));
++
++    for (int i = 0; i < outData.size(); i++) {
++        std::cout << outData[i] << "\n";
++    }
++
++    clFlush(command_queue);
++    clFinish(command_queue);
++    clReleaseKernel(kernel);
++    clReleaseProgram(program);
++    clReleaseMemObject(a_mem_obj);
++    clReleaseCommandQueue(command_queue);
++    clReleaseContext(context);
++
++    return 0;
++}
++
++const char* getErrorString(cl_int error);
++
++void errCheck(cl_int err, int line) {
++    if (err != CL_SUCCESS) {
++        std::cout << "Error on line " << line << ", error: " << getErrorString(err) << "\n";
++        exit(1);
++    }
++}
++
++const char* getErrorString(cl_int error)
++{
++    switch (error) {
++        // run-time and JIT compiler errors
++    case 0: return "CL_SUCCESS";
++    case -1: return "CL_DEVICE_NOT_FOUND";
++    case -2: return "CL_DEVICE_NOT_AVAILABLE";
++    case -3: return "CL_COMPILER_NOT_AVAILABLE";
++    case -4: return "CL_MEM_OBJECT_ALLOCATION_FAILURE";
++    case -5: return "CL_OUT_OF_RESOURCES";
++    case -6: return "CL_OUT_OF_HOST_MEMORY";
++    case -7: return "CL_PROFILING_INFO_NOT_AVAILABLE";
++    case -8: return "CL_MEM_COPY_OVERLAP";
++    case -9: return "CL_IMAGE_FORMAT_MISMATCH";
++    case -10: return "CL_IMAGE_FORMAT_NOT_SUPPORTED";
++    case -11: return "CL_BUILD_PROGRAM_FAILURE";
++    case -12: return "CL_MAP_FAILURE";
++    case -13: return "CL_MISALIGNED_SUB_BUFFER_OFFSET";
++    case -14: return "CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST";
++    case -15: return "CL_COMPILE_PROGRAM_FAILURE";
++    case -16: return "CL_LINKER_NOT_AVAILABLE";
++    case -17: return "CL_LINK_PROGRAM_FAILURE";
++    case -18: return "CL_DEVICE_PARTITION_FAILED";
++    case -19: return "CL_KERNEL_ARG_INFO_NOT_AVAILABLE";
++
++        // compile-time errors
++    case -30: return "CL_INVALID_VALUE";
++    case -31: return "CL_INVALID_DEVICE_TYPE";
++    case -32: return "CL_INVALID_PLATFORM";
++    case -33: return "CL_INVALID_DEVICE";
++    case -34: return "CL_INVALID_CONTEXT";
++    case -35: return "CL_INVALID_QUEUE_PROPERTIES";
++    case -36: return "CL_INVALID_COMMAND_QUEUE";
++    case -37: return "CL_INVALID_HOST_PTR";
++    case -38: return "CL_INVALID_MEM_OBJECT";
++    case -39: return "CL_INVALID_IMAGE_FORMAT_DESCRIPTOR";
++    case -40: return "CL_INVALID_IMAGE_SIZE";
++    case -41: return "CL_INVALID_SAMPLER";
++    case -42: return "CL_INVALID_BINARY";
++    case -43: return "CL_INVALID_BUILD_OPTIONS";
++    case -44: return "CL_INVALID_PROGRAM";
++    case -45: return "CL_INVALID_PROGRAM_EXECUTABLE";
++    case -46: return "CL_INVALID_KERNEL_NAME";
++    case -47: return "CL_INVALID_KERNEL_DEFINITION";
++    case -48: return "CL_INVALID_KERNEL";
++    case -49: return "CL_INVALID_ARG_INDEX";
++    case -50: return "CL_INVALID_ARG_VALUE";
++    case -51: return "CL_INVALID_ARG_SIZE";
++    case -52: return "CL_INVALID_KERNEL_ARGS";
++    case -53: return "CL_INVALID_WORK_DIMENSION";
++    case -54: return "CL_INVALID_WORK_GROUP_SIZE";
++    case -55: return "CL_INVALID_WORK_ITEM_SIZE";
++    case -56: return "CL_INVALID_GLOBAL_OFFSET";
++    case -57: return "CL_INVALID_EVENT_WAIT_LIST";
++    case -58: return "CL_INVALID_EVENT";
++    case -59: return "CL_INVALID_OPERATION";
++    case -60: return "CL_INVALID_GL_OBJECT";
++    case -61: return "CL_INVALID_BUFFER_SIZE";
++    case -62: return "CL_INVALID_MIP_LEVEL";
++    case -63: return "CL_INVALID_GLOBAL_WORK_SIZE";
++    case -64: return "CL_INVALID_PROPERTY";
++    case -65: return "CL_INVALID_IMAGE_DESCRIPTOR";
++    case -66: return "CL_INVALID_COMPILER_OPTIONS";
++    case -67: return "CL_INVALID_LINKER_OPTIONS";
++    case -68: return "CL_INVALID_DEVICE_PARTITION_COUNT";
++
++        // extension errors
++    case -1000: return "CL_INVALID_GL_SHAREGROUP_REFERENCE_KHR";
++    case -1001: return "CL_PLATFORM_NOT_FOUND_KHR";
++    case -1002: return "CL_INVALID_D3D10_DEVICE_KHR";
++    case -1003: return "CL_INVALID_D3D10_RESOURCE_KHR";
++    case -1004: return "CL_D3D10_RESOURCE_ALREADY_ACQUIRED_KHR";
++    case -1005: return "CL_D3D10_RESOURCE_NOT_ACQUIRED_KHR";
++    default: return "Unknown OpenCL error";
++    }
++}
+-- 
+2.7.4
+

@@ -1,0 +1,76 @@
+From 30d32dd0fd768618a4281bd342bf1eb948c071d9 Mon Sep 17 00:00:00 2001
+From: Wanghao Wei <quic_wanghaow@quicinc.com>
+Date: Mon, 16 Nov 2020 17:23:34 +0800
+Subject: [PATCH] OpenCL-Sample-App-Benchmark
+
+---
+ Makefile | 17 +++++++++--------
+ config.h |  2 +-
+ main.c   |  2 +-
+ 3 files changed, 11 insertions(+), 10 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 44aea45..75789e5 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1,24 +1,25 @@
+ # Change this path if the SDK was installed in a non-standard location
+-OPENCL_HEADERS = "/opt/AMDAPPSDK-3.0/include"
++OPENCL_HEADERS = "/usr/include"
+ # By default libOpenCL.so is searched in default system locations, this path
+ # lets you adds one more directory to the search path.
+-LIBOPENCL = "/opt/amdgpu-pro/lib/x86_64-linux-gnu"
+-
+-CC = gcc -O2 -flto
++#LIBOPENCL = "/opt/amdgpu-pro/lib/x86_64-linux-gnu"
++#LIBOPENCL = "/usr/lib64"
++CC = gcc
+ CPPFLAGS = -std=gnu99 -pedantic -Wextra -Wall -ggdb \
+     -Wno-deprecated-declarations \
+     -Wno-overlength-strings \
+-    -I${OPENCL_HEADERS}
+-LDFLAGS = -L${LIBOPENCL}
++    -I${OPENCL_HEADERS} \
++    -I${OPENCL_HEADERS}/qrbx210
++#LDFLAGS = -L${LIBOPENCL}
+ LDLIBS = -lOpenCL
+ OBJ = main.o
+ INCLUDES = config.h _kernel.h
+-EXE = cl-mem
++EXE = benchmark
+ 
+ all : ${EXE}
+ 
+ ${EXE} : ${OBJ}
+-	${CC} -o $@ ${OBJ} ${LDFLAGS} ${LDLIBS}
++	${CC} -o $@ ${OBJ} ${LDLIBS}
+ 
+ ${OBJ} : ${INCLUDES}
+ 
+diff --git a/config.h b/config.h
+index 7f41cde..67d77cb 100644
+--- a/config.h
++++ b/config.h
+@@ -1,4 +1,4 @@
+ 
+ #define REPS 128
+-#define MEMSIZE 1024*1024*1024
++#define MEMSIZE 1024*1024
+ #define WAVES 32
+
+diff --git a/main.c b/main.c
+index af65f6b..b532f74 100644
+--- a/main.c
++++ b/main.c
+@@ -410,7 +410,7 @@ void run_opencl(cl_context ctx, cl_command_queue queue, cl_kernel* tests)
+         cl_int status = clFinish(queue);
+         CL_CHECK(status);
+         uint64_t t1 = now();
+-        fprintf(stderr, "%d GB in %.1f ms (%.1f GB/s)\n", REPS,
++        fprintf(stderr, "%d MB in %.1f ms (%.1f MB/s)\n", REPS,
+ 	            (t1 - t0) / 1e3, REPS / ((t1 - t0) / 1e6));
+     }
+     // Clean up
+-- 
+2.7.4
+

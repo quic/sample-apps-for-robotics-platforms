@@ -1,0 +1,17 @@
+# Copyright (c) 2020 Qualcomm Innovation Center, Inc.  All Rights Reserved.
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
+# Based on the user unit
+
+[Unit]
+Description=QC ALSA restore Service
+After=init_audio.service
+
+[Service]
+Type=notify
+ExecStartPre=/bin/sleep 10s
+ExecStart=/usr/bin/qc_alsa_restore.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
