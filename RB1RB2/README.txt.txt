@@ -1,1 +1,0 @@
-Initial sample apps for RB1 and RB2 platform
