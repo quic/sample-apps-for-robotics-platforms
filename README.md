@@ -1,5 +1,5 @@
 
-![Qualcomm Innovation Center, Inc.](Docs/images/logo-quic-on@h68.png)
+![Qualcomm Innovation Center, Inc.](Docs/images/logo-quic.png)
 
   
 
