@@ -1,0 +1,14 @@
+$(info ************ BUILDING ************)
+ 
+BUILD_EXES+=fastcvArithmetic
+fastcvArithmetic_CPP_SRCS += src/fastcvArithmetic
+fastcvArithmetic_LIBS += lib/libfastcv
+fastcvArithmetic_LD_FLAGS += -lpthread -lc -ldl 
+fastcvArithmetic_DEFINES += VERIFY_PRINT_ERROR
+
+# copy final build products to the ship directory
+BUILD_COPIES = \
+   $(DLLS) \
+   $(EXES) \
+   $(LIBS) \
+   $(SHIP_DIR)/ ;

@@ -1,105 +1,103 @@
+
 ![Qualcomm Innovation Center, Inc.](Docs/images/logo-quic-on@h68.png)
 
-This is a repositary of all samples application that can run on RB5. Each sample application has its own folder. An introduction for every sample application is given below. Please follow the README in the respective folders to build, deploy and test. 
+  
+
+# Sample applications for robotics platforms
+
+This is a repository of samples application that can run on the following development kits:
+
+ - Qualcomm® Robotics RB5 dev kit based on the Qualcomm® QRB5165 processor
+ - Qualcomm® Robotics RB2 dev kit based on the Qualcomm® QRB4210 processor
+ - Qualcomm® Robotics RB1 dev kit based on the Qualcomm® QRB2210 processor 
 
 
+Before we jump into the sample apps, lets take a brief look at the supported operating systems available for these development kits.
 
-## 1. Weston-Client-Application
-```
-Weston-Sample-code shows how to compile and run a simple client in Weston.
-```
+The development kits support two types of Linux based operating system images. First is the “LE” version, second is the “UBUN” version that has an Ubuntu-based Rootfs. Both types of system images are built using the Yocto build system. For the most part both options are designed to have feature parity, but at a high-level Ubuntu-based system images will support an apt-get package manager and on device compilation, whereas the "LE" version does not come with a package manager and apps will need to be built off-target using the SDK toolchain.
 
-## 2. RB5-Information(Device-info)
-```
-A command based App to get platform information.
-from varying target types (GPUs, CPUs, USB, display, sensors and so on).
-```
+  
 
-## 3. RB5-Platform(GPIO-samples)
-```
-A commands based app to get and set GPIO.
-For control LED, set GPIO output, Button even catching, etc.
-```
+The system image is a combination of multiple subsystem binaries for the application processor and various DSPs available on the applicable chipsets. Below are some example system images that can be generated using SDK manager from Thundercomm.
 
-## 4. WIFI-On-Boarding
-```
-WIFI-On-Boarding mainly includes scanning the surrounding hotspots in STA mode, creating a new WIFI connection,
-and obtaining the ssid and psk of the currently connected WIFI. After switching the SAP mode, you can create a
-new hotspot and get the ssid and psk of the current hotspot.
-```
+  
 
-## 5. Tensorflowlite_ROS(ROS-TFLite)
-```
-This application introduces how to integrate Tensorflow framework into ROS with object detection API on RB5 platform.
-It can locate and recognize multiple objects in a single image. The TensorFlow Object Detection API is an open source
-framework built on top of TensorFlow that makes it easy to construct, train and deploy object detection models.
-ROS provides a publish subscribe communication framework to build distributed computing system simply and quickly. Here are the steps to build.
-```
+ - QRB5165.LE.1.0-xxxxxx : System image based on Linux Kernel 4.xx for RB5 dev kit
+ - QRB5165.UBUN.1.0-xxxxxx : System image based on Linux Kernel 4.xx and ubuntu based rootfs for RB5 dev kit
+ - QRB5165.UBUN.2.0-xxxxxx : System image based on Linux Kernel 5.xx and ubuntu based rootfs for RB5 dev kit
 
-## 6. ROS-Caffe
-```
-Integrate Coffe model into ROS with Classifier API.
-```
+  
+  
 
-## 7. Gstreamer-Applications
-```
-The purpose of these samples is helping users to learn how to implement the functions of gstreamer on the Qualcomm platform.
-```
+Since the underlying system images running on these development kits might be based on different versions of Linux kernel, the sample apps in this repository are also organized to help developers run the right apps on the applicable platform. Below is a high level folder structure for the sample apps.
+ 
 
-## 8. C2D-Samples
-```
-C2D-Sample-code shows picture color-format, picture rotate, picture scale-resize by C2D-Convert-API.
-```
+| Platform | Processor | Linux Kernel | Folder |
+|--|--|--|--|
+| Qualcomm® Robotics RB5 dev kit |QRB5165 | 4.x | /RB5/linux_kernel_4_x |
+| Qualcomm® Robotics RB5 dev kit |QRB5165 | 5.x | /RB5/linux_kernel_5_x |
+| Qualcomm® Robotics RB1 and RB2 dev kits | QRB4210 / QRB2210 | 5.x | /RB1RB2/ |
 
-## 9. Camera-HAL3-Sample
-```
-The Camera-HAL3-Sample demo calls the camera through the Camera HAL API to complete the preview capture and video operations.
-```
+  
+  
+  
+Below is an overview on how sample apps are categorized. Each sample application has its own folder within the category.  Please follow the README in the respective folders to build, deploy and test.
 
-## 10. HexgonSDK-Image-classification
-```
-This project is designed to show how you can use the Qualcomm® Robotics RB5 development kit, specifically using the Qualcomm® Hexagon™ DSP with Hexagon Vector extensions (HVX), coupled with Hexagon DSP SDK to achieve high speed and high performance on device Machine Learning.
-```
+  
+  
+  
 
-## 11. OpenCL-Application
+## platform-bringup
 ```
-OpenCL-Sample-code shows OpenCL from three examples.
-"FFT" shows the use of OpenCL for fast Fourier transform;
-"Benchmark" shows the reading and writing rate when the memory unit is respectively Byte, KB, MB;
-"Matrix_multiply" shows the multiplication of two 20*20 matrices,And print out the results of the two input matrices and the multiplication of the two matrices on the screen
+Contains apps to query device info, GPIO examples, Weston-Client example, WiFi onboarding and more...
+```
+## peripheral-devices
+```
+Contains apps to use some of the peripheral devices, like Camera-hal3 sample application.
+```
+## GStreamer-apps
+```
+Contains a set of Python and C sample applications that show the use of gstreamer plugins on the development platform.
+```
+## ROS-apps
+```
+Contains apps that show the use of ROS middleware for building robotics applications.
+```
+## AI-ML-apps
+```
+Contains apps that show how to run AI workloads on the development platform. Also contains apps that implement AI for various use cases.
+```
+## AWS-Samples
+```
+Contains instructions on how to enable and test various AWS services on the platform.
 ```
 
-## 12. TFLite_Posenet
-```
-Posenet is to show the effect of pose recognition using Gstreamer commands.
-```
-
-## 13. TFLite_Segmentation
-```
-Segmentation is to show the effect of object segmentation using Gstreamer commands.
-```
-
-## 14. OpenMAX-Video
-```
-This app aims to help users to learn how to encode with h264 and decode the video with h264 on the Qualcom platform through this sample app.
-```
-
-## 15. Kernel-Demo
-```
-The kernel demo uses the kernel API to dynamically load and unload the kernel module to control the LED switch.
-```
+  
 
 ## Getting Started
+
 * [Quick start guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide)
+
 * [Hardware Reference Guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/hardware-reference-guide)
+
 * [Software Reference Manual](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/software-reference-manual)
+
 * [Discussion Forums](https://developer.qualcomm.com/forum/qdn-forums/hardware/qualcomm-robotics-rb5-development-kit/67886)
 
+  
+
 ## Contributions
+
 Please read our [Contributions Page](CONTRIBUTING.md) for more information on contributing features or bug fixes. We look forward to your participation!
 
+  
+
 ## Team
+
 A community-driven project maintained by Qualcomm Innovation Center, Inc.
 
+  
+
 ## License
+
 Sample applications here are licensed under the BSD 3-clause-Clear “New” or “Revised” License. Check out the [LICENSE](LICENSE) for more details.
