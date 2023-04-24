@@ -1,0 +1,156 @@
+4c4
+< #add_definitions(-DCPU_ONLY=1)
+---
+> add_definitions(-DCPU_ONLY=1)
+9,17c9
+<   cv_bridge
+<   std_msgs
+<   sensor_msgs
+<   image_transport
+<   roscpp
+<   roslib
+<   cmake_modules
+<   message_generation
+<   dynamic_reconfigure
+---
+>   roscpp roslib std_msgs sensor_msgs image_transport cv_bridge
+20,30c12,13
+< #set(CAFFE_INCLUDEDIR caffe/build/install/include)
+< #set(CAFFE_LINK_LIBRARAY caffe/build/install/lib)
+< 
+< set(CAFFE_INCLUDEDIR caffe/include caffe/distribute/include caffe/.build_release/src)
+< set(CAFFE_LINK_LIBRARAY /home/dinu94/ros_caffe_ws/src/ros_caffe/caffe/build/lib)
+< 
+< #set(OpenCV_INCLUDE_DIRS /usr/local/include )
+< #set(OpenCV_LIBRARIES /usr/local/lib )
+< 
+< set(CUDA_INCLUDEDIR /usr/local/cuda/include /usr/local/cuda/src)
+< set(CUDA_LINK_LIBRARAY /usr/local/cuda/lib64)
+---
+> set(CAFFE_INCLUDEDIR caffe/include caffe/distribute/include)
+> set(CAFFE_LINK_LIBRARAY /root/CATKIN_WS/src/ros_caffe/caffe/lib)
+35d17
+< ##find_package(CUDA REQUIRED)
+37d18
+< include(FindPkgConfig)
+105,115c86,89
+<         INCLUDE_DIRS include
+<         LIBRARIES ros_caffe
+<         CATKIN_DEPENDS
+<                 cv_bridge
+<                 std_msgs
+<                 sensor_msgs
+<                 image_transport
+<                 roscpp
+<                 cmake_modules
+<                 message_generation
+<         DEPENDS system_lib
+---
+> #  INCLUDE_DIRS include
+> #  LIBRARIES ros_caffe
+> #  CATKIN_DEPENDS roscpp
+> #  DEPENDS system_lib
+122,164c96,119
+< # ## Declare a cpp library
+< # # Tell CMake that the external project generated a library so we
+< # # can add dependencies here instead of later.
+< #add_library(ros_caffe UNKNOWN IMPORTED)
+< #set_property(TARGET ros_caffe
+< #  PROPERTY IMPORTED_LOCATION
+< #  ${ros_caffe_LIBRARIES}
+< #)
+< 
+< # ## Specify additional locations of header files
+< # ## Your package locations should be listed before other locations
+< include_directories( include
+<     ${catkin_INCLUDE_DIRS}
+<     ${OpenCV_INCLUDE_DIRS}
+<     ${CAFFE_INCLUDEDIR}
+<     ${CUDA_INCLUDEDIR}
+< )
+< 
+< # ## Declare a cpp executable
+< #add_library(ros_caffe src/ros_caffe_test.cpp)
+< add_library(ros_caffe src/testClassifier.cpp)
+< link_directories(${CAFFE_LINK_LIBRARAY})
+< add_executable(ros_caffe_node src/testClassifier.cpp)
+< 
+< # ## Add cmake target dependencies of the executable/library
+< # ## as an example, message headers may need to be generated before nodes
+< # make sure configure headers are built before any node using them
+< add_dependencies(ros_caffe
+<     ${PROJECT_NAME}_gencfg)
+< 
+< add_dependencies(ros_caffe_node
+<     ${PROJECT_NAME}_gencfg)
+< 
+< # ## Specify libraries to link a library or executable target against
+< target_link_libraries(ros_caffe_node
+<     ${catkin_LIBRARIES}
+<     ${OpenCV_LIBRARIES}
+<     ${CAFFE_LINK_LIBRARAY}
+<     ros_caffe
+<     glog
+<     caffe
+<     #cuda
+< )
+---
+> ## Specify additional locations of header files
+> ## Your package locations should be listed before other locations
+> # include_directories(include)
+> include_directories(
+>   ${catkin_INCLUDE_DIRS}
+>   ${OpenCV_INCLUDE_DIRS}
+> )
+> include_directories(${CAFFE_INCLUDEDIR})
+> ## Declare a cpp library
+> # add_library(ros_caffe
+> #   src/${PROJECT_NAME}/ros_caffe.cpp
+> # )
+> 
+> ## Declare a cpp executable
+> # add_executable(ros_caffe_node src/ros_caffe_node.cpp)
+> 
+> ## Add cmake target dependencies of the executable/library
+> ## as an example, message headers may need to be generated before nodes
+> # add_dependencies(ros_caffe_node ros_caffe_generate_messages_cpp)
+> 
+> ## Specify libraries to link a library or executable target against
+> # target_link_libraries(ros_caffe_node
+> #   ${catkin_LIBRARIES}
+> # )
+181,185c136,140
+< install(TARGETS ros_caffe ros_caffe_node
+<   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+<   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+<   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+< )
+---
+> # install(TARGETS ros_caffe ros_caffe_node
+> #   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+> #   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+> #   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+> # )
+195,198c150,154
+< install(FILES
+<    ${ros_caffe_LIBRARIES}
+<    DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
+< )
+---
+> # install(FILES
+> #   # myfile1
+> #   # myfile2
+> #   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}
+> # )
+212,218c168,170
+< 
+< # link_directories(${CAFFE_LINK_LIBRARAY})
+< # add_executable(ros_caffe_test src/ros_caffe_test.cpp)
+< # target_link_libraries(ros_caffe_test ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
+< 
+< # add_executable(ros_caffe src/ros_caffe.cpp)
+< # target_link_libraries(ros_caffe ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
+---
+> link_directories(${CAFFE_LINK_LIBRARAY})
+> add_executable(ros_caffe_test src/ros_caffe_test.cpp)
+> target_link_libraries(ros_caffe_test ${catkin_LIBRARIES} ${OpenCV_LIBRARIES} caffe glog)
