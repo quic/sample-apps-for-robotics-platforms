@@ -5,7 +5,7 @@
 
 # Sample applications for robotics platforms
 
-This is a repository of samples application that can run on the following development kits:
+This is a repository of sample applications that can run on the following development kits:
 
  - Qualcomm® Robotics RB5 dev kit based on the Qualcomm® QRB5165 processor
  - Qualcomm® Robotics RB2 dev kit based on the Qualcomm® QRB4210 processor
@@ -23,11 +23,12 @@ The system image is a combination of multiple subsystem binaries for the applica
   
 
  - QRB5165.LE.1.0-xxxxxx : System image based on Linux Kernel 4.xx for RB5 dev kit
- - QRB5165.UBUN.1.0-xxxxxx : System image based on Linux Kernel 4.xx and ubuntu based rootfs for RB5 dev kit
+ - QRB5165.UBUN.1.0-xxxxxx : System image based on Linux Kernel 4.xx and ubuntu based rootfs for RB5 dev kit 
  - QRB5165.UBUN.2.0-xxxxxx : System image based on Linux Kernel 5.xx and ubuntu based rootfs for RB5 dev kit
-
   
-  
+```
+Note: QRB5165.UBUN.1.0-xxxxxx system images have been depricated. Please use the QRB5165.UBUN.2.0-xxxxxx version.
+```  
 
 Since the underlying system images running on these development kits might be based on different versions of Linux kernel, the sample apps in this repository are also organized to help developers run the right apps on the applicable platform. Below is a high level folder structure for the sample apps.
  
