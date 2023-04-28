@@ -32,7 +32,7 @@ Refer the steps given in the detailned documentation in the SDK for installation
 4.	A USB camera
 5.	A display monitor
 
-![image](https://github.qualcomm.com/storage/user/12959/files/2d85cec3-913e-43af-9a06-e539690bb30c)
+![image](https://user-images.githubusercontent.com/131336334/235096089-97d1d087-c0ba-43ad-821f-470c8f43beda.png)
 
 # Environment Setup to download Yolov5 Model:
 
@@ -96,11 +96,11 @@ source bin/envsetup.sh -o $ONNX_DIR
 SNPE currently does not support 5D operator. It requires specify output nodes before 5D Reshape in convert command. The output nodes can be checked in the https://netron.app/.
 
 To check the output layer nodes, Open the model in the Netron app and click on Conv layer.
-![image](https://github.qualcomm.com/storage/user/12959/files/2aa3e4af-6518-43df-a59b-c29130644554)
+![image](https://user-images.githubusercontent.com/131336334/235096179-a2985d4f-1002-41e9-8e4c-9e7294551f1c.png)
 
 In attached yolov5m.onnx, the output nodes before 5D is onnx::443 (Conv_271), 496 (Conv_305) and 549 (Conv_339)
 
-![image](https://github.qualcomm.com/storage/user/12959/files/e8f4be0d-06c5-4f16-ac58-83e9795315a0)
+![image](https://user-images.githubusercontent.com/131336334/235096209-91c10024-6007-4665-9d4e-6179568dfef9.png)
 
 ## This implementation does below functions:
 * anchorBoxProcess: 
@@ -148,7 +148,7 @@ Config file is used to provide model information to qtimlesnpe plugin. Make chan
 Update the model layer information, label and dlc path in the configuration file.
    * https://github.com/quic/sample-apps-for-robotics-platforms/tree/master/RB5/linux_kernel_4_x/AI-ML-apps/People-Intrusion-Detection/model/mle_snpeyolov5m_quant.config
 
-![image](https://github.qualcomm.com/storage/user/12959/files/a6c327d3-69fd-4fac-b863-0412f6b1dc0f)
+![image](https://user-images.githubusercontent.com/131336334/235096273-1b44f81b-b790-488f-a40b-75fbbc10f703.png)
 
 
 #### To define the camera FOV, there is need to set restricted area. It can be set by change the x,y, width and height. These dimensions depends on the camera resolution so it need to be set accordingly.
@@ -171,10 +171,10 @@ b.  Plugin a keyboard and a mouse to the development board.
 c.  Connect the USB camera module to the development board.
 
 # Gstreamer Pipeline
-![image](https://github.qualcomm.com/storage/user/12959/files/6e7ac490-408d-41b2-a633-711b1d01f914)
+![image](https://user-images.githubusercontent.com/131336334/235096309-3524b94b-f6bd-4a5c-ae47-eff97c8c002a.png)
 
 # Detailed flow diagram
-![image](https://github.qualcomm.com/storage/user/12959/files/0ffa0c7c-32cb-4c68-9dbe-0114f8029e98)
+![image](https://user-images.githubusercontent.com/131336334/235096337-64bcd074-e064-4d1f-a138-ed38285e5496.png)
 
 # Steps to Run Demo RB5 Board:
 
@@ -253,4 +253,4 @@ gst-launch-1.0 qtiqmmfsrc ! video/x-raw\(memory:GBM\), format=NV12, width=1280, 
 Add GST_DEBUG=qtiml*:5 in gstreamer launch command if you want to enable debug logs for qtimlesnpe plugin.
 
 ### Demo 
-![image](https://github.qualcomm.com/storage/user/12959/files/d71791e7-db2c-496b-8c8c-6ec9942ce506)
+![image](https://user-images.githubusercontent.com/131336334/235096429-856c3ce6-e6ec-446b-b768-05ac7459b0b1.png)
