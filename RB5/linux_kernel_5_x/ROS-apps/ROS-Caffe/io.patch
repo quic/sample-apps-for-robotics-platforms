@@ -1,0 +1,12 @@
+73,74c73,74
+<   int cv_read_flag = (is_color ? CV_LOAD_IMAGE_COLOR :
+<     CV_LOAD_IMAGE_GRAYSCALE);
+---
+>   int cv_read_flag = (is_color ? cv::IMREAD_COLOR :
+>     cv::IMREAD_GRAYSCALE);
+175,176c175,176
+<   int cv_read_flag = (is_color ? CV_LOAD_IMAGE_COLOR :
+<     CV_LOAD_IMAGE_GRAYSCALE);
+---
+>   int cv_read_flag = (is_color ? cv::IMREAD_COLOR :
+>     cv::IMREAD_GRAYSCALE);
