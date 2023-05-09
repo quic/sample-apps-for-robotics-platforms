@@ -33,7 +33,7 @@ Refer to the installation steps given in the detailed documentation from the SDK
 4.	A USB camera
 5.	A display monitor
 
-![image](https://github.qualcomm.com/storage/user/12959/files/2d85cec3-913e-43af-9a06-e539690bb30c)
+![image](https://user-images.githubusercontent.com/131336334/237058961-9a0825db-8873-441b-abe2-8a62d5a0f85e.png)
 
 ### Solution Details
 The application implemented following vision based object detection solutions:
