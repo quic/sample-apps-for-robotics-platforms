@@ -172,10 +172,10 @@ Push model into the model directory in the application and update the config.jso
 
 Update the output-layers and output tensors. 
 To check the output-layers and output-tensors nodes, Open the model in the Netron app and click on Conv layer as mentioned in the image.
-![image](https://github.qualcomm.com/storage/user/12959/files/2aa3e4af-6518-43df-a59b-c29130644554)
+![image](https://user-images.githubusercontent.com/131336334/237059498-19deefed-d9c0-46d6-8b51-955d80e0882b.png)
 
 In yolov5m.onnx, the output-layers before 5D is onnx::443 (Conv_271), 496 (Conv_305) and 549 (Conv_339) and output tensors are Conv_271, Conv_305 and Conv_339.
-![image](https://github.qualcomm.com/storage/user/12959/files/e8f4be0d-06c5-4f16-ac58-83e9795315a0)
+![image](https://user-images.githubusercontent.com/131336334/237059588-8cc79d81-1364-48f7-8e61-522999b3272b.png)
 
 ```console
   "model-configs":[
