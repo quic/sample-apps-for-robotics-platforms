@@ -6,8 +6,7 @@ Below diagram shows the application architecture. This is a simple Producer – 
 - After the decoding is completed, video frame enters a thread-safe queue.
 - When the application starts, a thread is created which is responsible for AI inference, and this thread keeps polling and pop video frames from queue. After getting the latest frames, SM8250 call OpenCV resize, normalization image, convert to tensor then using Qualcomm® Neural Processing SDK for inference.
 - After the inference is completed, the CPU performs post-processing on the inference output results and calls the notification callback function to print the result.
-
-![image](https://github.qualcomm.com/storage/user/12959/files/84c49951-34f2-447b-9844-4cc26c85e0f6)
+![image](https://user-images.githubusercontent.com/131336334/237061346-0565f2e6-d74f-4464-89f6-8f87aeffb8cb.png)
 
 #  Global Configuration
 
@@ -86,11 +85,7 @@ We use a video frame with a width/height of 1920*1080 as an example to introduce
 
 - The width and height of the original image before processing is 1920*1080
  
-![preprocess-01](https://github.qualcomm.com/storage/user/27150/files/96742ec2-ccbe-4df7-8cd1-81fc35d0d9f8)
-
 - Fill image with fixed width or fixed height. MAX(width, height). the video frame changes from a rectangle to a square
-
-![preprocess-02](https://github.qualcomm.com/storage/user/27150/files/3a104b4e-0657-49fa-9a6d-545eb9cb32cc)
 
  - Scale to the size required by the model input size 640x640
  - INT8  NHWC image 640x640 convert to NCHW FP32 tensor [1，3，640，640] 
@@ -118,11 +113,10 @@ Take the Yolov5 model trained on the different datasets as an example.
 SDK currently does not support 5D operator. It requires specific output nodes before 5D Reshape in convert command. The output nodes can be checked in the https://netron.app/.
 
 To check the output layer nodes, Open the model in the Netron app and click on Conv layer.
-![image](https://github.qualcomm.com/storage/user/12959/files/2aa3e4af-6518-43df-a59b-c29130644554)
+![image](https://user-images.githubusercontent.com/131336334/237061019-bcd57111-c79a-4024-bc28-b9997c956f99.png)
 
 In attached snapshot, the output nodes before 5D is onnx::443 (Conv_271), 496 (Conv_305) and 549 (Conv_339)
-
-![image](https://github.qualcomm.com/storage/user/12959/files/e8f4be0d-06c5-4f16-ac58-83e9795315a0)
+![image](https://user-images.githubusercontent.com/131336334/237061095-e4741617-a791-4cce-a878-cbce8606dd5b.png)
 
 ## This implementation does below functions on CPU after SDK inferencing:
 * anchorBoxProcess: 
