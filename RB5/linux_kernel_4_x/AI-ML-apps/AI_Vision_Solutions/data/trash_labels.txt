@@ -1,0 +1,6 @@
+1 Battery
+2 BrownGlass
+3 GreenGlass 
+4 Metal 
+5 Plastic 
+6 cardboard
