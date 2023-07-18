@@ -4,6 +4,14 @@ These samples show camera liveview on display.
 
 There are two samples. One is display from ISP camera (main onboard camera). The other is display from USB camera.
 
+## Install Tool
+
+To display USB camera, v4l2-ctl is a useful tool to list the device files of the camera. It can be installed from v4l-utils pacakge.
+
+```bash
+$ adb shell
+$ apt install v4l-utils
+```
 
 ## Display from ISP Camera
 
@@ -21,20 +29,33 @@ $ adb wait-for-device root
 + Connect the board to screen through HDMI output
 + Run ```ispcam_display``` to display camera 0
 ```bash
-$ cd /data/gstreamer-applications/camera
-$ export XDG_RUNTIME_DIR=/run/user/root
+$ cd <path to directory in Git repository>/gst_camera
 $ ./ispcam_display 0
 ```
+
+![Image text](image/ispCamera_display_weston.png)
+
 ### Stop Camera Display:
 
++ Move mouse to weston-terminal and click it to activate it
 + Press Ctrl-C to stop display
   
 ## Display from USB Camera
 
-```usbcam_display``` displays USB camera liveview on display.
+```usbcam_display``` displays USB camera liveview on weston display.
 
 Usage: usbcam_display </dev/videoX>
 
+### Find device file of the camera:
+
++ Use **v4l2-ctl --list-devices** to list device files of all camera
++ Find the device file of the USB camera. Not all video device files can be displayed
+```bash
+$ v4l2-ctl --list-devices
+<Some camera information> (<some usb infomation>):
+	/dev/video0
+	/dev/video1
+```
 
 ### Start Camera Display:
 
@@ -42,12 +63,15 @@ Usage: usbcam_display </dev/videoX>
 
 + Run ```usbcam_display``` to display camera /dev/video0
 ```bash
-$ cd /data/gstreamer-applications/camera
-$ export XDG_RUNTIME_DIR=/run/user/root
-$ ./usbcam_display /dev/video2
+$ cd <path to directory in Git repository>/gst_camera
+$ ./usbcam_display /dev/video0
 ```
+
+![Image text](image/usbCamera_display_weston.png)
+
 ### Stop Camera Display:
 
++ Move mouse to weston-terminal and click it to activate it
 + Press Ctrl-C to stop display
 
 ### No Display Problem:

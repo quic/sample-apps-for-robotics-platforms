@@ -22,8 +22,8 @@ int main(int argc, char *argv[]) {
     pipeline = gst_parse_launch("qtiqmmfsrc name=camsrc ! video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1 ! \
 		                 queue ! tee name=split ! queue ! qtimetamux name=metamux ! queue ! qtioverlay ! queue ! \
 				 waylandsink sync=false fullscreen=true split. ! queue ! qtimlvconverter ! queue ! \
-				 qtimltflite delegate=hexagon model=/data/mobilenet_v2_1.0_224_quant.tflite ! queue ! \
-				 qtimlvclassification threshold=60.0 results=3 module=mobilenet labels=/data/mobilenet.labels ! \
+				 qtimltflite delegate=hexagon model=/data/detect.tflite ! queue ! \
+				 qtimlvclassification threshold=60.0 results=3 module=mobilenet labels=/data/labels.txt ! \
 				 text/x-raw ! queue ! metamux.", NULL);
 
     /* Start playing */
@@ -94,9 +94,9 @@ int main(int argc, char *argv[]) {
     /* For more info & modifiable properties, run gst-inspect-1.0 <element> to check */
     g_object_set (capsfilter, "caps",
             gst_caps_from_string ("video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1,camera=0"), NULL);
-    g_object_set (qtimltflite, "model", "/data/mobilenet_v2_1.0_224_quant.tflite", "delegate", 4, NULL);
+    g_object_set (qtimltflite, "model", "/data/detect.tflite", "delegate", 4, NULL);
     g_object_set (qtimlvclassification, "threshold", 60.0, "results",3, "module",1,
-		  "labels", "/data/mobilenet.labels", NULL);
+		  "labels", "/data/labels.txt", NULL);
     g_object_set (sink, "fullscreen", TRUE, "sync", FALSE, "enable-last-sample", FALSE, NULL);
 
     /* Link Tee which has On Request src pads */
