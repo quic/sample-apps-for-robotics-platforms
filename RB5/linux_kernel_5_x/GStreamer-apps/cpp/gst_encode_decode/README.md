@@ -3,8 +3,16 @@
 
 These samples show how to encode camera video into a MP4 file and playback from the file. 
 
-There are 2 samples. One is encoding from ISP camera (main onboard camera). The other is playback of MP4 file.
+There are 3 samples. One is encoding from ISP camera (main onboard camera). One is encoding from USB camera. The last one is playback of MP4 file.
 
+## Install Tool
+
+To display USB camera, v4l2-ctl is a useful tool to list the device files of the camera. It can be installed from v4l-utils pacakge.
+
+```bash
+$ adb shell
+$ apt install v4l-utils
+```
 
 ## Encode from ISP Camera
 
@@ -14,13 +22,7 @@ Usage: ispcam_encode_mp4 [camera id: 0|1|2|3] [mp4 filename]
 
 ### Start Encoding Camera 0 to MP4:
 ```bash
-$ adb disable-verity
-$ adb reboot
-$ adb wait-for-device root
-### The above three steps only need to be operated once and will always be valid.
-
-$ cd /data/gstreamer-applications/encode_decode
-$ export XDG_RUNTIME_DIR=/run/user/root
+$ cd <path to directory in Git repository>/gst_encode_decode
 $ ./ispcam_encode_mp4 0 isp_record.mp4
 ```
 
@@ -28,35 +30,62 @@ $ ./ispcam_encode_mp4 0 isp_record.mp4
 
 + Press Ctrl-C to stop encoding
 
+## Encode from USB Camera
+
+```usbcam_encode_mp4``` encodes USB camera liveview to a mp4 file.
+
+Usage: usbcam_encode_mp4 [/dev/videoX] [mp4 filename]
+
+### Start Encoding /dev/video0 to MP4:
+```bash
+$ cd <path to directory in Git repository>/gst_encode_decode
+$ ./usbcam_encode_mp4 /dev/video0 usb_record.mp4
+```
+
+### Stop Automatically:
+
++ The encoding stops in 10 seconds automatically
+
+### Stop Manually:
+
++ Press Ctrl-C to stop encoding
+
 ### No Encode Problem:
 
 It depends on correct setting of resolution and framerate for the camera. If the encoding does not work for the camera, try to apply lower resolution and framerate for the camera.
 
-Run ```ispcam_display``` first to get display work then try encoding with the same setting.
+Run ```usbcam_display``` first to get display work then try encoding with the same setting.
 
-```
-/* ispcam_encode_mp4.c */
+```C
+/* usbcam_encode_mp4.c */
 
 /* we set the filter parameter for videorate */
 g_object_set(G_OBJECT(framefilter), "caps", 
         gst_caps_from_string(
-            "video/x-raw,framerate=30/1,width=1920,height=1080"), 
+            "video/x-raw,framerate=30/1,width=1280,height=720"), 
             NULL);
 ```
 
 ## Decode MP4 Playback to Display
 
-```mp4_decode_playback``` decodes a mp4 file to display.
+```mp4_decode_playback``` decodes a mp4 file to weston display.
 
 Usage: mp4_decode_playback [mp4 filename]
 
 ### Start Playback:
 
 + Connect the board to screen through HDMI output
-
++ Connect keyboard and mouse to the board
++ Login on the screen
++ Turn on weston display with ```weston.sh```
+``` bash
+$ <path to directory in Git repository>/weston.sh
+```
++ Click left-top button on weston display to open weston-terminal
++ Run ```mp4_decode_playback``` in weston-terminal to playback a mp4 file
 ```bash
-$ cd /data/gstreamer-applications/encode_decode
-$ ./mp4_decode_playback isp_record.mp4
+$ cd <path to directory in Git repository>/dst_encode_decode
+$ ./mp4_decode_playback ./isp_record.mp4
 ```
 
 ### Stop Automatically:
@@ -65,6 +94,7 @@ $ ./mp4_decode_playback isp_record.mp4
 
 ### Stop Manually:
 
++ Move mouse to weston-terminal and click it to activate it
 + Press Ctrl-C to stop display
 
 ## License

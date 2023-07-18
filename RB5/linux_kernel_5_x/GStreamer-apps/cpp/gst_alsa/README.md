@@ -7,32 +7,13 @@ on the QTI platform through this sample app.
 
 # Get Start
 
-### 1. Set up the environment on PC
-Install RB5 LU SDK and source the environment
-Download sample code to PC
 
-### 2. Compile
+### Compile
 After execute the make command, the binary gst_audio_sample will be created.
 ```
-# cd GstAlsaPlugin-Application/src
+# cd <path to directory in Git repository>/gst_alsa/src
 # make
-```
-
-### 3. Push binary to device
-```
-$ adb disable-verity
-$ adb reboot
-$ adb wait-for-device root
-### The above three steps only need to be operated once and will always be valid.
-
-adb push gst_audio_sample /data
-cd ../HWConfig
-adb push install.sh /data
-adb push qc-alsa-restore.service /data
-adb push qc_alsa_restore.sh /data
-adb shell mount -o remount,rw /
-chmod 777 /data/gst_audio_sample
-chmod 777 /data/install.sh
+# make install
 ```
 
 ## QC ALSA restore service (Once need to execute once)
@@ -57,7 +38,7 @@ BTW, if you want to disable this service, please run:
 systemctl disable qc-alsa-restore
 ```
 
-### 4. Test
+### Test
 After compile the sample code, and enable service.
 We can use the app to test with playback and capture.
 ###  Playback
