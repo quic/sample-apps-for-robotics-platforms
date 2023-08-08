@@ -7,8 +7,7 @@ Below diagram shows the application architecture. This is a simple Producer – 
 - When the application starts, a thread is created which is responsible for AI inference, and this thread keeps polling and pop video frames from queue. After getting the latest frames, SM8250 call OpenCV resize, normalization image, convert to tensor then using Qualcomm® Neural Processing SDK for inference.
 - After the inference is completed, the CPU performs post-processing on the inference output results and calls the notification callback function to print the result.
 
-![byte-track_ref](https://github.qualcomm.com/storage/user/30177/files/8f2836ba-6bd0-4b10-b686-f89703c62d53)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/03339bf3-6d29-44e4-aa8b-36c7b439efe2)
 
 #  Global Configuration
 
@@ -87,12 +86,9 @@ We use a video frame with a width/height of 1920*1080 as an example to introduce
 
 - The width and height of the original image before processing is 1920*1080
  
-![preprocess-01](https://github.qualcomm.com/storage/user/27150/files/96742ec2-ccbe-4df7-8cd1-81fc35d0d9f8)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/7bae7975-fda4-4ff1-95ac-49e6469d4942)
 
-
-![resize](https://github.qualcomm.com/storage/user/30177/files/25e6bf46-98ab-45f9-aa87-74c3fa4fbcb3)
-
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/754ef333-b62d-4b49-8fe9-3357cfeb4938)
 
 
  - Scale to the size required by the model input size 1088x608
@@ -115,6 +111,6 @@ bool ObjectDetectionImpl::Detect(shared_ptr<DetectionItem> &item)
 
 # Post Process
 After the inference is completed, post-processing is decode on the SNPE inteference results
-    ![byte-track_post](https://github.qualcomm.com/storage/user/30177/files/6809acfc-2fc6-48ff-95dd-4a13fada5c0c)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/bfb6325b-9e21-455a-80a0-8d5fa3d125c7)
 
 The nms_sorted_boxes output is given to the tracker where the bounding boxes are updated. If the bounding box is present in the past frame then tracker ID will be continued or else new unique ID will be assigned.
