@@ -20,7 +20,7 @@ Refer to the installation steps given in the detailed documentation from the SDK
 3.	A USB camera
 4.	A display monitor
 
-![image](https://github.qualcomm.com/storage/user/12959/files/2d85cec3-913e-43af-9a06-e539690bb30c)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/5b3079fd-35be-4d82-a997-51f1357e22e9)
 
 ### Solution Details
 The application implemented People Tracking using ByteTrack model:
@@ -29,7 +29,7 @@ The application implemented People Tracking using ByteTrack model:
 
 This solution will track persons in a frame by assigning unique tracker ID
 
-https://github.qualcomm.com/storage/user/12959/files/8498ec97-647c-4d20-9707-13d47bf70171
+https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/8a2f6988-16ae-4df2-b68c-0f215f645508
 
 Ref: https://github.com/ifzhang/ByteTrack
 
