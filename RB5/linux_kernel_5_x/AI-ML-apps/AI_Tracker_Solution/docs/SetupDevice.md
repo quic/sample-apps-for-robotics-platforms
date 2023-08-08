@@ -72,7 +72,7 @@ python3 tools/export_onnx.py --output-name bytetrack_s.onnx -f exps/example/mot/
 ```
 
 To check the output-layers and output-tensors nodes, Open the model in the Netron app and click on output layer as mentioned in the image
-![netron_ouptut_node](https://github.qualcomm.com/storage/user/30177/files/14b09c4d-9107-45f2-8299-1fc3a71efca1)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/c7c916ff-e4a4-403f-ae8b-d3b28800fd7a)
 
 
 ## Convert Onnx Model to DLC
@@ -145,6 +145,6 @@ cd ./live/mediaServer
 Launch VLC player, choose "Media->Open Network Stream"
 input RTSP url rtsp://192.168.4.111:8554/Big_Buck_Bunny_1080_10s_1MB.264
 
-![vlc_01](https://github.qualcomm.com/storage/user/27150/files/3818d7dc-9a6b-4644-b9cb-a2845bd48ef2)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/6111f504-bdf1-41c8-9c3d-e094fb4b9135)
 
  Click play to test if live555 server work.<mark>Note: Make sure the network address is reachable </mark>
