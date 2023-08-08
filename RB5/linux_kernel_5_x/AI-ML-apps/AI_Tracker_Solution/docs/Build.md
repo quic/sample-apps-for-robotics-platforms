@@ -117,8 +117,7 @@ Push model into the model directory in the application and update the config.jso
 Update the output-layers and output tensors. 
 To check the output-layers and output-tensors nodes, Open the model in the Netron app and click on output layer as mentioned in the image.
 
-![netron_ouptut_node](https://github.qualcomm.com/storage/user/30177/files/74640d67-79b5-4911-8a6f-a49abce75c47)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/d05f0098-0b2c-4974-be9a-7abfc6bf6fd3)
 
 
 ```console
