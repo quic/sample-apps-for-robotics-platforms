@@ -203,17 +203,18 @@ Install dependencies
 
 ```console
 apt install build-essential cmake unzip git pkg-config
-apt install libjpeg-dev libpng-dev libtiff-deva
-apt-get install libjsoncpp-dev libjson-glib-de libgflags-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreame1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
+apt install libjpeg-dev libpng-dev libtiff-dev
+apt-get install libjsoncpp-dev libjson-glib-dev libgflags-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
 apt install libjasper-dev
 apt-get install libeigen3-dev
 ```
 if you receive an error about libjasper-dev being missing then follow the following instructions:
 ```console
-add-apt-repository "deb http://security.ubuntu.com/ubuntu xenial-security main"
-apt update
-apt install libjasper1 libjasper-dev
+wget http://ports.ubuntu.com/ubuntu-ports/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
+dpkg -i libjasper-dev_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
 
+wget http://ports.ubuntu.com/ubuntu-ports/pool/main/j/jasper/libjasper1_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
+dpkg -i libjasper1_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
 ```
 
 Otherwise (or once libjasper-dev is installed), keep going.
