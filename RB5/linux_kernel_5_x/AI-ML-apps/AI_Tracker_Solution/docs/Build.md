@@ -6,6 +6,7 @@
 adb shell
 cd /home/
 https://github.com/quic/sample-apps-for-robotics-platforms.git
+cd sample-apps-for-robotics-platforms/RB5/linux_kernel_5_x/AI-ML-apps/AI_Tracker_Solution/
 ```
 
 ## 2. Update application configuration
@@ -157,10 +158,6 @@ adb push lib\aarch64-ubuntu-gcc7.5\. /usr/lib/
 adb push lib\aarch64-ubuntu-gcc7.5\libsnpe_dsp_domains_v2.so /usr/lib/rfsa/adsp/
 adb push lib\dsp\. /usr/lib/rfsa/adsp/
 adb push bin\aarch64-ubuntu-gcc7.5\snpe-net-run /usr/bin/
-adb push include\zdl\SNPE\ /home/CE2.0_SI_Solutions_App/inc/SNPE
-adb push include\zdl\DlSystem\ /home/CE2.0_SI_Solutions_App/inc/DlSystem
-adb push include\zdl\DlContainer\ /home/CE2.0_SI_Solutions_App/inc/DlContainer
-adb push lib\aarch64-ubuntu-gcc7.5\libSNPE.so /usr/lib/
 ```
 
 **Linux**
@@ -171,10 +168,6 @@ adb push lib/aarch64-ubuntu-gcc7.5/* /usr/lib/
 adb push lib/aarch64-ubuntu-gcc7.5/libsnpe_dsp_domains_v2.so /usr/lib/rfsa/adsp/
 adb push lib/dsp/* /usr/lib/rfsa/adsp/
 adb push bin/aarch64-ubuntu-gcc7.5/snpe-net-run /usr/bin/
-adb push include/zdl/SNPE/ /home/CE2.0_SI_Solutions_App/inc/SNPE
-adb push include/zdl/DlSystem/ /home/CE2.0_SI_Solutions_App/inc/DlSystem
-adb push include/zdl/DlContainer/ /home/CE2.0_SI_Solutions_App/inc/DlContainer
-adb push lib/aarch64-ubuntu-gcc7.5/libSNPE.so /usr/lib/
 ```
 
 **Verify SDK version**
@@ -255,7 +248,7 @@ make install
 
 ```console
 adb shell
-cd /home/CE2.0_SI_Solutions_App
+cd /home/sample-apps-for-robotics-platforms/RB5/linux_kernel_5_x/AI-ML-apps/AI_Tracker_Solution/
 mkdir build 
 cd build
 cmake -DSNPE_SDK_BASE_DIR=<SDK Directory Path>/snpe-1.68.0.3932 ..
