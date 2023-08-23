@@ -52,7 +52,7 @@ This will display ros2 help messages if installation is succesfull.
 ## 3.	Run IMU ROS node
 3.1 Clone the sample app and re-build ROS2 to include IMU Node
 
-In terminal 1, enter the following commands 
+In a terminal window, enter the following commands 
 ```bash
 adb shell
 cd /data
