@@ -25,7 +25,7 @@ locale-gen en_US en_US.UTF-8
 update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 ```
-•	Add ROS GPG Key and add ROS repository to sources list
+•	Install curl, Download GPG key and add ROS repository to sources list
 ```bash
 apt update && apt install curl gnupg2 lsb-release
 curl -sSL https://raw.githubusercontent.com/ros/rosdistro/master/ros.key  -o /usr/share/keyrings/ros-archive-keyring.gpg
@@ -41,7 +41,7 @@ Wait until all ROS2 packages are installed.
 
 
 
-## 2. Verify ROS2 installation
+## 2. Setup ROS environment and Verify ROS2 installation
 Enter the following commands
 ```bash
 source /opt/ros/dashing/setup.bash
