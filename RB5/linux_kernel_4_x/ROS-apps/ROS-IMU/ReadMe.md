@@ -41,7 +41,7 @@ Wait until all ROS2 packages are installed.
 
 
 
-## 2. Setup ROS environment and Verify ROS2 installation
+## 2. Setup ROS2 environment and Verify ROS2 installation
 Enter the following commands
 ```bash
 source /opt/ros/dashing/setup.bash
