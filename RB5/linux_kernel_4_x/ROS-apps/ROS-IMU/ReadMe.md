@@ -12,7 +12,7 @@ Note - All these components are built-in in Qualcomm Robotics RB5 image as binar
 Once network is setup on Qualcomm Robotics RB5, follow these pre-requisite steps to setup ROS2
 
 ## 1.	Download and Install ROS2 
-1.1.	Log in to Qualcomm Robotics RB5 through adb
+1.1.	Log in to Qualcomm Robotics RB5 through adb, In a terminal window enter -
 ```bash
 adb shell
 ```
