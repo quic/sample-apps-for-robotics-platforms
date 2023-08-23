@@ -83,6 +83,8 @@ ros2 topic echo /imu
 
 Pick up RB5 and shake it, you can see the IMU data changing in the terminal logs:
 
+![imu-data](image/imu-data.png)
+
 ## License
 This is licensed under the BSD 3-clause-Clear “New” or “Revised” License. Check out the [LICENSE](LICENSE) for more details.
 
