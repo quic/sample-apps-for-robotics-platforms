@@ -1,0 +1,34 @@
+cc_binary {
+    name: "sns_client_example_cpp",
+    defaults: ["sns_proto_lib_name-lite"],
+    clang: true,
+    owner: "qti",
+    proprietary: true,
+    srcs: [
+        "src/sns_client_example.cpp",
+        "src/ssc_connection_reference.cpp",
+        "src/ssc_suid_util.cpp"
+    ],
+    local_include_dirs: ["./inc"],
+    cflags: [
+        "-Wall",
+        "-Wextra",
+        "-Werror",
+        "-Wno-missing-field-initializers",
+        "-Wno-maybe-uninitialized",
+    ],
+    cppflags: ["-fexceptions"],
+    header_libs: [
+        "libssc_headers",
+        "libqmi_common_headers",
+    ],
+    shared_libs: [
+        "libutils",
+        "libsensorslog",
+        "libcutils",
+        "liblog",
+        "libsnsapi",
+        "libqmi_encdec",
+        "libqmi_cci",
+    ],
+}
