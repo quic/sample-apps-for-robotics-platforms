@@ -312,7 +312,7 @@ adb shell
 cd /home/
 unzip snpe-1.68.0.zip
 ```
-
+Compile the application
 ```console
 cd <Application Directory>
 mkdir build 
