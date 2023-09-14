@@ -379,7 +379,7 @@ bool ByteTrackSnpe::PostProcess(shared_ptr<DetectionItem> &item)
 
     vector<STrack> output_stracks = tracker.update(objects);
     auto end = chrono::system_clock::now();
-    app_time = chrono::duration_cast<chrono::microseconds>(end - app_start).count();
+    app_time = chrono::duration_cast<chrono::milliseconds>(end - app_start).count();
 
     for (int i = 0; i < output_stracks.size(); i++)
     {
@@ -395,7 +395,7 @@ bool ByteTrackSnpe::PostProcess(shared_ptr<DetectionItem> &item)
     }
 
     ++frame_count;
-    putText(img, format("frame: %d fps: %ld num: %d", frame_count, frame_count * 1000000 / app_time, (int)output_stracks.size()),
+    putText(img, format("frame: %d fps: %ld num: %d", frame_count, frame_count * 1000 / app_time, (int)output_stracks.size()),
             Point(0, 30), 0, 0.6, Scalar(0, 0, 255), 2, LINE_AA);
 
     int size = img.rows * img.cols * 3;
