@@ -5,7 +5,8 @@
 ```console
 adb shell
 cd /home/
-git clone https://github.com/quic-khrahul/sample-apps-for-robotics-platforms.git
+apt install git
+git clone https://github.com/quic/sample-apps-for-robotics-platforms.git
 cd sample-apps-for-robotics-platforms/RB5/linux_kernel_5_x/AI-ML-apps/AI-Vision-Solutions/
 ```
 
@@ -208,7 +209,7 @@ In yolov5m.onnx, the output-layers before 5D is onnx::443 (Conv_271), 496 (Conv_
 
 # 4 Steps to download and deploy Qualcomm® Neural Processing SDK libraries on target device.
 
-Download the SDK from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk.
+Download the SDK from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools-archive
 
 **Windows**
 
@@ -304,8 +305,15 @@ make install
 
 ## 5.2 Building the application
 
+Push downloaded SDK from host PC to RB5
 ```console
+adb push snpe-1.68.0.zip /home/
 adb shell
+cd /home/
+unzip snpe-1.68.0.zip
+```
+
+```console
 cd <Application Directory>
 mkdir build 
 cd build
