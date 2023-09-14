@@ -9,14 +9,14 @@
 The model used in the application needs to be trained with the dataset. Then convert the model to dlc to run in the application.
 
 ## 2.1 Qualcomm® Neural Processing SDK Installation
-Download Software Development Kit (SDK) from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk.
+Download Software Development Kit (SDK) from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools-archive
 
 The Qualcomm Neural Processing SDK provides tools for model conversion (onnx to dlc), model quantization and execution. Refer the steps given in the detailed documentation in the SDK for installation.
-https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/getting-started
+https://developer.qualcomm.com/sites/default/files/docs/snpe/index.html
 
 ## 2.2 Prepare Yolov5 AI model
 
-Follow these steps to export, compile Yolov5s Model. 
+Follow the steps in [ModelPreperation.md](./ModelPreperation.md) to export and compile Yolov5s models.  
 
 Download the people detection pre-trained YoloV5 model
 https://github.com/ultralytics/yolov5/releases/download/v6.0/yolov5s.pt
@@ -69,7 +69,7 @@ python3.6 -m pip install coremltools>=4.1 onnx==1.9.0 scikit-learn==0.19.2 onnxr
 
 ### Export YoloV5m to ONNX:
 ```console
-python3.6 export.py --weights yolov5m.pt --optimize --opset 11 --simplify --include onnx
+python3.6 export.py --weights yolov5m.pt --optimize --opset 11 --simplify --include onnx -imgsz [416,416]
 ```
 
 # 3. Convert Onnx Model to DLC 
@@ -121,7 +121,7 @@ snpe-onnx-to-dlc -i yolov5m.onnx --out_node 443 --out_node 496 --out_node 549
 Use the same SDK version which is installed in device.
 Please take reference from inputlist.txt file given in model directory. Create your own inputlist.txt file as per your yolov5m.onnx model. We need to update all the output names in inputlist.txt
 ```console
-snpe-dlc-quantize --input_dlc=yolov5m.dlc --input_list=inputlist.txt --output_dlc=yolov5m_quant.dlc --enable_hta 
+snpe-dlc-quantize --input_dlc=yolov5m.dlc --input_list=inputlist.txt --output_dlc=yolov5m_quant.dlc --enable_hta --use_enhanced_quantizer --optimizations cle --axis_quant
 ```
 
 input.raw file is needed for model quantization. Create a sample input.raw file using below python command.
