@@ -51,7 +51,7 @@ python3.6 -m pip install coremltools>=4.1 onnx==1.9.0 scikit-learn==0.19.2 onnxr
 
 ### Export YoloV5s to ONNX:
 ```console
-python3.6 export.py --weights yolov5s.pt --optimize --opset 11 --simplify --include onnx
+python3.6 export.py --weights yolov5s.pt --optimize --opset 11 --simplify --include onnx --imgsz 416
 ```
 
 ## Solutions
@@ -165,7 +165,7 @@ python detect.py --weights runs/train/helmet_yolov5s/weights/best.pt --img 416 -
 
 #### Step 5: Convert the trained model to onnx format.
 ```console
-python3.6 export.py --weights runs/train/helmet_yolov5s/weights/best.pt --optimize --opset 11 --simplify --include onnx
+python3.6 export.py --weights runs/train/helmet_yolov5s/weights/best.pt --optimize --opset 11 --simplify --include onnx --imgsz 416
 ```
 After export command, best.onnx file will be generated that can be used in the application.
 
