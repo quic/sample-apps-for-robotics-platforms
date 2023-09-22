@@ -21,7 +21,7 @@ To reduce and mitigate serious accidents, we have developed a set of safety solu
     * https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide
 2.  The Qualcomm® Neural Processing SDK provides tools for model conversion(onnx to dlc), model quantization and execution. 
 Refer to the installation steps given in the detailed documentation from the SDK.
-    * https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk
+    * https://developer.qualcomm.com/sites/default/files/docs/snpe/index.html
 3.  ADB to access the device using the command prompt and push/pull the files from the device.
     * https://developer.android.com/studio/command-line/adb
 
