@@ -7,7 +7,7 @@ adb shell
 cd /home/
 apt install git
 git clone https://github.com/quic/sample-apps-for-robotics-platforms.git
-cd sample-apps-for-robotics-platforms/RB5/linux_kernel_5_x/AI-ML-apps/AI-Heatmap-Solutions/
+cd sample-apps-for-robotics-platforms/RB5/linux_kernel_5_x/AI-ML-apps/AI_Heatmap_Solutions/
 ```
 
 # 2 Update application configuration
@@ -170,11 +170,10 @@ Push model into the model directory in the application and update the config.jso
 
 Update the output-layers and output tensors. 
 To check the output-layers and output-tensors nodes, Open the model in the Netron app and click on Conv layer as mentioned in the image.
-![heatmap_model](https://github.qualcomm.com/storage/user/30177/files/3860e3ee-c249-49cc-83ec-4d26d8433813)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/e9fb5279-0820-46a5-b4fe-7a66ea554685)
 
 In yolov5s.onnx, the output-layers before 5D is onnx::326 (Conv_198), 365 (Conv_216) and 404 (Conv_234) and output tensors are Conv_198, Conv_216 and Conv_234.
-![heatmap_nodes](https://github.qualcomm.com/storage/user/30177/files/b88cbae5-abb6-4ab9-b81c-3ea3974e5d4f)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/a239db3b-fcad-4e33-939c-46d3699aded7)
 
 ```console
   "model-configs":[
