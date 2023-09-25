@@ -9,10 +9,10 @@
 The model used in the application need to be trained with the dataset. Then convert the model to dlc to run in the application.
 
 ## 2.1 Qualcomm® Neural Processing SDK Installation
-Download SDK from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk.
+Download SDK from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools-archive.
 
 The Qualcomm Neural Processing SDK provides tools for model conversion(onnx to dlc), model quantization and execution. Refer the steps given in the detailed documentation in the SDK for installation.
-https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/getting-started
+https://developer.qualcomm.com/sites/default/files/docs/snpe/index.html
 
 ### Setup  Qualcomm® Neural Processing SDK
 SDK Setup is needed to convert the onnx model to quantized dlc, please follow the instructions for setting up Neural Processing SDK using the link provided. Please use same version of SDK throughout the demo.
@@ -37,7 +37,7 @@ source bin/envsetup.sh -o $ONNX_DIR
 
 ## 2.2 Prepare Bytetrack model
 
-Follow these steps to export, compile Bytetrack Model. 
+Follow the steps in [ModelPreperation.md](./ModelPreperation.md) to export and compile model.  
 
 Download pre-trained bytetrack_s_mot17.pth.tar
 
