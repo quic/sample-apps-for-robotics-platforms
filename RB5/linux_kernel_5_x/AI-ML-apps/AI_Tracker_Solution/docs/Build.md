@@ -148,7 +148,7 @@ To check the output-layers and output-tensors nodes, Open the model in the Netro
 
 ## 4. Steps to download and deploy Qualcomm® Neural Processing SDK libraries on target device
 
-Download SDK from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk.
+Download SDK from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools-archive.
 
 **Windows**
 
