@@ -24,7 +24,7 @@ Refer to the installation steps given in the detailed documentation from the SDK
 4.	A USB camera
 5.	A display monitor
 
-![image](https://github.qualcomm.com/storage/user/12959/files/2d85cec3-913e-43af-9a06-e539690bb30c)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/d4954a9c-dd89-494d-a6d2-4bcd42cda18d)
 
 ### Solution Details
 The application implemented following vision based object detection solution:
@@ -32,7 +32,7 @@ The application implemented following vision based object detection solution:
 **Heatmap**
 
 This is to detect person and represent with color encoding based on the people density
-![hetamap_result](https://github.qualcomm.com/storage/user/30177/files/fafda0d0-a0f6-4443-ab89-c347c9861ada)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/981783c7-3c98-4366-a789-7f273a75c68f)
 
 ## Usecase Details
 1. Instore heatmap for product purchase 
@@ -43,16 +43,16 @@ This is to detect person and represent with color encoding based on the people d
 #### Design Details
 This application supports object detection use case with YoloV5 model using Qualcomm® Neural Processing SDK.
 
-Refer [Design](./DesignDetails.md)  to understand the implementation details and steps to integrate a model into the application.
+Refer [Design](./docs/DesignDetails.md)  to understand the implementation details and steps to integrate a model into the application.
 
 #### Device Setup
 
-There are prerequisite and some packages need to be installed to run the application. Please refer to [SetupDevice](./SetupDevice.md) to prepare the setup on Qualcomm® Robotics RB5.
+There are prerequisite and some packages need to be installed to run the application. Please refer to [SetupDevice](./docs/SetupDevice.md) to prepare the setup on Qualcomm® Robotics RB5.
 
 #### Model Preperation
 
-Refer to [ModelPreperation](./ModelPreperation.md) for model generation.
+Refer to [ModelPreperation](./docs/ModelPreperation.md) for model generation.
 
 #### Deploy and Execute
 
-Refer [Build](./Build.md) to compile and execute the application after setup is done
+Refer [Build](./docs/Build.md) to compile and execute the application after setup is done
