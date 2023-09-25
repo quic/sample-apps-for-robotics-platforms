@@ -7,8 +7,7 @@ Below diagram shows the application architecture. This is a simple Producer – 
 - When the application starts, a thread is created which is responsible for AI inference, and this thread keeps polling and pop video frames from queue. After getting the latest frames, SM8250 call OpenCV resize, normalization image, convert to tensor then using SNPE for inference.
 - After the inference is completed, the CPU performs post-processing on the inference output results and calls the notification callback function to print the result.
 
-![heatmap_pipeline](https://github.qualcomm.com/storage/user/30177/files/5d3a168d-1a30-4c7e-aa5c-7135c7de0255)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/49da5963-b55d-4c6f-bcbd-2a0f62bbf287)
 
 #  Global Configuration
 
@@ -87,11 +86,11 @@ We use a video frame with a width/height of 1920*1080 as an example to introduce
 
 - The width and height of the original image before processing is 1920*1080
  
-![preprocess-01](https://github.qualcomm.com/storage/user/27150/files/96742ec2-ccbe-4df7-8cd1-81fc35d0d9f8)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/e971dbd2-1a30-45d2-a442-1a621cfe72b0)
 
 - Fill image with fixed width or fixed height. MAX(width, height). the video frame changes from a rectangle to a square
 
-![preprocess-02](https://github.qualcomm.com/storage/user/27150/files/3a104b4e-0657-49fa-9a6d-545eb9cb32cc)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/25029d90-b4fe-4833-b300-c80ed760de28)
 
  - Scale to the size required by the model input size 640x640
  - INT8  NHWC image 640x640 convert to NCHW FP32 tensor [1，3，640，640] 
@@ -108,7 +107,6 @@ Use SNPE C++ API for AI inferencing
 
 ```C++
 bool ObjectDetectionImpl::Detect(shared_ptr<DetectionItem> &item)
-
 ```
 
 # Post Process
@@ -119,18 +117,14 @@ Take the Yolov5 model trained on the different datasets as an example.
 SNPE currently does not support 5D operator. It requires specific output nodes before 5D Reshape in convert command. The output nodes can be checked in the https://netron.app/.
 
 To check the output layer nodes, Open the model in the Netron app and click on Conv layer.
-![heatmap_model](https://github.qualcomm.com/storage/user/30177/files/7ea84a33-ba60-4b8c-8591-6cc555ed3a0a)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/4c8afc19-335d-4897-a23e-fbc5d53316a8)
 
 In attached snapshot, the output nodes before 5D is onnx::326 (Conv_198), 365 (Conv_216) and 404 (Conv_234)
-![heatmap_nodes](https://github.qualcomm.com/storage/user/30177/files/0fd4147c-762b-4714-b29f-59631321d08b)
-
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/76c5ffd5-97f5-41c1-afcd-b1983c96ad86)
 
 ## This implementation does below functions on CPU after SNPE inferencing:
 * anchorBoxProcess: 
 Get raw data from out nodes before 5D (Conv_198, Conv_216, Conv_234), convert to meaning data (scores, class, bounding boxes).
 * doNMS: (non-max suppression): remove overlap boxes
 * ShowDetectionOverlay: Overlay detection result at output video/Image
-![image](https://github.qualcomm.com/storage/user/30177/files/7c1dbc76-5fd8-4ca3-b1eb-33111a9bd45c)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/76f1d52e-3709-4511-a2a3-f0a37bbbcacc)
