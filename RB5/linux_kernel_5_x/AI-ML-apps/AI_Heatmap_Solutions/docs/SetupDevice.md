@@ -92,13 +92,10 @@ source bin/envsetup.sh -o $ONNX_DIR
 SNPE currently does not support 5D operator. It requires specify output nodes before 5D Reshape in convert command. The output nodes can be checked in the https://netron.app/.
 
 To check the output layer nodes, Open the model in the Netron app and click on Conv layer.
-![heatmap_model](https://github.qualcomm.com/storage/user/30177/files/85831d83-833a-4920-91e9-e0643d12bb9d)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/00cbe02c-f77d-4666-9988-c06df056f51a)
 
 In attached snapshot, the output nodes before 5D is onnx::326 (Conv_198), 365 (Conv_216) and 404 (Conv_234)
-![heatmap_nodes](https://github.qualcomm.com/storage/user/30177/files/53f8bc1a-75fc-4718-bc0f-ad8cbfde4a4f)
-
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/7e7cf54a-546d-40a4-890b-49a0877f3694)
 
 ## This implementation does below functions:
 * anchorBoxProcess: 
@@ -180,6 +177,6 @@ cd ./live/mediaServer
 Launch VLC player, choose "Media->Open Network Stream"
 input RTSP url rtsp://192.168.4.111:8554/Big_Buck_Bunny_1080_10s_1MB.264
 
-![vlc_01](https://github.qualcomm.com/storage/user/27150/files/3818d7dc-9a6b-4644-b9cb-a2845bd48ef2)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/cdfad9f9-6c7d-40ab-828a-744f7abcc098)
 
  Click play to test if live555 server work.<mark>Note: Make sure the network address is reachable </mark>
