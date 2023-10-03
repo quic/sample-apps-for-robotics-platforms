@@ -87,33 +87,30 @@ The output nodes can be checked in the https://netron.app/.
 
 ### Centerface
 
-![centerface_model](https://github.qualcomm.com/storage/user/30177/files/61a5d048-575e-4c2a-a10a-ee7ff5348534)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/a7c4eda6-75b9-4ca0-9cae-532078c3ead0)
 
 In attached snapshot, the output nodes 536 (Conv2d_39), 538 (Conv2d_40), 539 (Conv2d_41) and 540 (Conv2d_42)
-![centerface_nodes](https://github.qualcomm.com/storage/user/30177/files/2ba0bdcb-1946-4975-968f-9b4054efacc6)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/a43410e1-3464-4324-b95f-e90bdb0e076b)
 
 ### Age
-![image](https://github.qualcomm.com/storage/user/31436/files/58b12f6b-40a2-465b-af82-4c3869accbc9)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/fdd249cb-731d-490d-9db1-140bb07558a4)
 
 In attached snapshot, the output node is prob.
 
 ### Gender
-![image](https://github.qualcomm.com/storage/user/31436/files/f8508246-cb15-4daa-9b50-3d88cc7af3f9)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/4837b8be-7afe-4b0a-93bf-dc37c2bb7602)
 
 In attached snapshot, the output nodes is loss3/loss3_Y(loss3/loss3)
 
-![image](https://github.qualcomm.com/storage/user/31436/files/c9abc494-c650-4612-a5e2-883d2de7b43e)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/f777e840-6782-46fb-9a85-3f41e6c21e3e)
 
 
 ### Emotion
-![image](https://github.qualcomm.com/storage/user/31436/files/995596a0-2e50-4fa8-a6e5-3ea4b377ad64)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/0102c6be-5387-4401-a493-2867cc6fa163)
 
 In attached snapshot, the output node is 95
 
-![image](https://github.qualcomm.com/storage/user/31436/files/5d59f3a0-9aa2-40f5-8d3d-615d5eefc038)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/96cd35b9-f64d-44a5-bf38-f34faecb94fc)
 
 ## This implementation does below functions:
 Get raw data from out nodes 536 (Conv2d_39), 538 (Conv2d_40), 539 (Conv2d_41) and 540 (Conv2d_42), convert to meaning data (bounding boxes) which is further processed to provide age at prob, gender at loss3/loss3_Y and emotion at 94.
@@ -227,6 +224,6 @@ rtsp://192.168.4.111:8554/<filename> is the rtsp url.
 Launch VLC player, choose "Media->Open Network Stream"
 input RTSP url rtsp://192.168.4.111:8554/Big_Buck_Bunny_1080_10s_1MB.264
 
-![vlc_01](https://github.qualcomm.com/storage/user/27150/files/3818d7dc-9a6b-4644-b9cb-a2845bd48ef2)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/5e9c1410-cb85-4a04-9a3a-b3211f484cea)
 
  Click play to test if live555 server work.<mark>Note: Make sure the network address is reachable </mark>
