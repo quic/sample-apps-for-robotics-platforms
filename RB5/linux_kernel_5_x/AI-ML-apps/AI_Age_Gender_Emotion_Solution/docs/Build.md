@@ -287,11 +287,10 @@ Push model into the model directory in the application and update the config.jso
 Update the output-layers and output tensors. 
 To check the output-layers and output-tensors nodes, Open the model in the Netron app and click on Conv layer as mentioned in the image.
 In centerface.onnx, the output-nodes are onnx::536, 538, 539 and 540.
-![centerface_model](https://github.qualcomm.com/storage/user/30177/files/f4d75e2c-7989-48b0-819a-9b59a5767dae)
-
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/7ee4e9f5-4357-4402-9ede-814c98ed9ea5)
 
 In centerface.dlc the output-layers and output-tensors are 536(Conv2d_39), 538(Conv2d_40), 539(Conv2d_41) and 540(Conv2d_42)
-![centerface_nodes](https://github.qualcomm.com/storage/user/30177/files/9aa15f53-8584-4bd3-b561-34aeb18cd2a3)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/723cb29b-2593-47a7-8c78-6a096a89ed75)
 
 
 ```console
@@ -325,7 +324,7 @@ In centerface.dlc the output-layers and output-tensors are 536(Conv2d_39), 538(C
 
 # 4 Steps to download and deploy SNPE libraries on target device
 
-Download Qualcomm® Neural Processing Software Development Kit (SDK) from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk.
+Download Qualcomm® Neural Processing Software Development Kit (SDK) from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools-archive.
 
 **Windows**
 
@@ -427,7 +426,7 @@ adb shell
 cd /home/CE2.0_SI_Age_Gender_Emotion_Solution
 mkdir build 
 cd build
-cmake ..
+cmake -DSNPE_SDK_BASE_DIR=<SDK Directory Path>/snpe-1.68.0.3932 ..
 make -j8
 ```
 # 5.3 Running the application
