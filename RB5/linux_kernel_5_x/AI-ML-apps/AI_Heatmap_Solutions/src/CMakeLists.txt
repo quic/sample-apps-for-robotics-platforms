@@ -14,6 +14,8 @@ file(GLOB_RECURSE SRC_FILE
     ../src/*.cpp
 )
 
+set(SNPE_INCDIR ${SNPE_SDK_BASE_DIR}/include/zdl)
+
 set(SOURCE_FILE
     ${SRC_FILE}
 )
@@ -29,7 +31,7 @@ include_directories(
     "/usr/include/gstreamer-1.0"
     "/usr/local/include/opencv4"
     ${OpenCV_INCLUDE_DIRS}
-    "/root/snpe-1.61.0.3358/include/zdl"
+     ${SNPE_INCDIR}
     ${JSON_INCLUDE_DIRS}
     ${JSONCPP_INCLUDE_DIRS}
 )
