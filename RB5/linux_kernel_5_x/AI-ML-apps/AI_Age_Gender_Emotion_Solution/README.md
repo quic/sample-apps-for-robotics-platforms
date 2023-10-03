@@ -24,7 +24,7 @@ Refer to the installation steps given in the detailed documentation from the SDK
 4.	A USB camera
 5.	A display monitor
 
-![image](https://github.qualcomm.com/storage/user/12959/files/2d85cec3-913e-43af-9a06-e539690bb30c)
+![image](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/fc1defbe-d04b-403b-967e-f43c9b713234)
 
 ### Solution Details
 The application implemented following vision-based face detection solutions:
@@ -32,8 +32,7 @@ The application implemented following vision-based face detection solutions:
 2.Gender detection
 3.Emotion detection
 
-
-![face](https://github.qualcomm.com/storage/user/31436/files/ec5993fb-6637-4bb7-8ed8-b5a0ac18e322)
+![ec5993fb-6637-4bb7-8ed8-b5a0ac18e322](https://github.com/quic/sample-apps-for-robotics-platforms/assets/131336334/cb3e7367-9c59-4561-aa89-d0fcd8d1d2a2)
 
 Video reference: https://www.youtube.com/watch?v=Q5gQmjxBSb0
 
