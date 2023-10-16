@@ -1,4 +1,4 @@
-﻿# AI Age, Gender, Emotion prediction Solution 
+﻿# Age, Gender and Emotion prediction Solution 
 
 ### Introduction
 AI have enabled remarkable progress in age, gender, and emotion detection using face detection. There are various deep learning models which extracts the meaningful features and perform operations like age prediction, gender prediction,emotion detection, face recognition etc. without any human interaction to reduce the time consumed while checkout at stores.
