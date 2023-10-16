@@ -322,114 +322,18 @@ In centerface.dlc the output-layers and output-tensors are 536(Conv2d_39), 538(C
       },
 ```
 
-# 4 Steps to download and deploy SNPE libraries on target device
-
-Download Qualcomm® Neural Processing Software Development Kit (SDK) from https://developer.qualcomm.com/software/qualcomm-neural-processing-sdk/tools-archive.
-
-**Windows**
-
-```console
-cd snpe-1.68.0\snpe-1.68.0.3932
-adb push lib\aarch64-ubuntu-gcc7.5\. /usr/lib/
-adb push lib\aarch64-ubuntu-gcc7.5\libsnpe_dsp_domains_v2.so /usr/lib/rfsa/adsp/
-adb push lib\dsp\. /usr/lib/rfsa/adsp/
-adb push bin\aarch64-ubuntu-gcc7.5\snpe-net-run /usr/bin/
-```
-
-**Linux**
-
-```console
-cd snpe-1.68.0/snpe-1.68.0.3932/
-adb push lib/aarch64-ubuntu-gcc7.5/* /usr/lib/
-adb push lib/aarch64-ubuntu-gcc7.5/libsnpe_dsp_domains_v2.so /usr/lib/rfsa/adsp/
-adb push lib/dsp/* /usr/lib/rfsa/adsp/
-adb push bin/aarch64-ubuntu-gcc7.5/snpe-net-run /usr/bin/
-```
-
-**Verify SNPE version**
+# Executing application 
+## 4.1 Building the application
 
 ```console
 adb shell
-chmod +x /usr/bin/snpe-net-run
-snpe-net-run --version
-```
-
-# 5 Steps to execute the application
-
-## 5.1 Installing OpenCV 4.5.5
-
-Download OpenCV 4.5.5 source code from
-https://codeload.github.com/opencv/opencv/tar.gz/refs/tags/4.5.5
-
-```console
-adb shell
-wget https://codeload.github.com/opencv/opencv/tar.gz/refs/tags/4.5.5 -O opencv-4.5.5.tar.gz
-tar  -zxvf opencv-4.5.5.tar.gz
-cd ./opencv-4.5.5
-```
-
-Install dependencies
-
-```console
-apt install build-essential cmake unzip git pkg-config
-apt install libjpeg-dev libpng-dev libtiff-dev
-apt-get install libjsoncpp-dev libjson-glib-dev libgflags-dev libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
-apt install libjasper-dev
-apt-get install libeigen3-dev
-```
-if you receive an error about libjasper-dev being missing then follow the following instructions:
-```console
-wget http://ports.ubuntu.com/ubuntu-ports/pool/main/j/jasper/libjasper-dev_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
-dpkg -i libjasper-dev_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
-
-wget http://ports.ubuntu.com/ubuntu-ports/pool/main/j/jasper/libjasper1_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
-dpkg -i libjasper1_1.900.1-debian1-2.4ubuntu1.3_arm64.deb
-```
-
-Otherwise (or once libjasper-dev is installed), keep going.
-```console
-apt install libavcodec-dev libavformat-dev libswscale-dev libv4l-dev
-apt install libxvidcore-dev libx264-dev
-```
-
-OpenCV’s highgui module relies on the GTK library for GUI operations. Install GTK command:
-```console
-apt install libgtk-3-dev
-```
-install Python 3 headers and libraries
-```console
-apt install libatlas-base-dev gfortran
-```
-Build and install
-```console
-
-mkdir build && cd build
-
-cmake -D CMAKE_BUILD_TYPE=RELEASE \
-      -D CMAKE_INSTALL_PREFIX=/usr/local/opencv4.5 \
-      -D OPENCV_ENABLE_NONFREE=ON \
-      -D OPENCV_GENERATE_PKGCONFIG=YES \
-      -D WITH_QT=ON \
-      -D WITH_OPENGL=ON \
-      -D BUILD_EXAMPLES=OFF \
-      -D INSTALL_PYTHON_EXAMPLES=OFF \
-      ..
-make -j8
-make install      
-
-```
-
-## 5.2 Building the application
-
-```console
-adb shell
-cd /home/CE2.0_SI_Age_Gender_Emotion_Solution
+cd sample-apps-for-robotics-platforms/RB5/linux_kernel_5_x/AI-ML-apps/AI-Age_Gender_Emotion-Solutions/
 mkdir build 
 cd build
 cmake -DSNPE_SDK_BASE_DIR=<SDK Directory Path>/snpe-1.68.0.3932 ..
 make -j8
 ```
-# 5.3 Running the application
+## 4.2 Running the application
 
 To display the output on monitor. Please connect the monitor to the device via HDMI cable. Follow below instructions to enable weston:
 ```console
