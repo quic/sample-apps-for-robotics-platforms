@@ -48,6 +48,8 @@ Refer [DesignDetails.md](./docs/DesignDetails.md) to understand the implementati
 
 There are prerequisite and some packages need to be installed to run the application. Please refer [SetupDevice.md](./docs/SetupDevice.md) to prepare the setup.
 
+#### Model Preperation
+Need to prepare model for the solution. Refer ModelPreperation.md for model generation. [ModelPreperation.md](./docs/ModelPreperation.md)
 
 #### Deploy and execute
 
