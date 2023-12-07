@@ -21,10 +21,11 @@ int main(int argc, char *argv[]) {
     /* Create the pipeline */
     pipeline = gst_parse_launch("qtiqmmfsrc name=camsrc ! video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1 ! \
                                  queue ! tee name=split ! queue ! qtimetamux name=metamux ! queue ! qtioverlay ! queue ! \
-				 waylandsink sync=false fullscreen=true split. ! queue ! qtimlvconverter ! queue ! \
-				 qtimltflite delegate=hexagon model=/data/posenet_mobilenet_v1_075_481_641_quant.tflite ! \
-				 queue ! qtimlvpose threshold=10.0 results=2 module=posenet labels=/data/posenet.labels ! \
-				 text/x-raw ! queue ! metamux.", NULL);
+                 waylandsink sync=false fullscreen=true split. ! queue ! qtimlvconverter ! queue ! \
+                 qtimltflite delegate=hexagon model=/data/posenet_mobilenet_v1_075_481_641_quant.tflite ! \
+                 queue ! qtimlvpose threshold=40.0 results=2 module=posenet labels=/data/posenet.labels \
+                 constants=\"Posenet,q-offsets=<128.0,128.0,117.0>,q-scales=<0.0784313753247261,0.0784313753247261,1.3875764608383179>;\" ! \
+                 text/x-raw ! queue ! metamux.", NULL);
 
     /* Start playing */
     ret = gst_element_set_state (pipeline, GST_STATE_PLAYING);
@@ -95,8 +96,10 @@ int main(int argc, char *argv[]) {
     g_object_set (capsfilter, "caps",
             gst_caps_from_string ("video/x-raw,format=NV12,width=1920,height=1080,framerate=30/1,camera=0"), NULL);
     g_object_set (qtimltflite, "model", "/data/posenet_mobilenet_v1_075_481_641_quant.tflite", "delegate", 4, NULL);
-    g_object_set (qtimlvpose, "threshold", 20.0, "results",2, "module",1,
-		  "labels", "/data/posenet.labels", NULL);
+    g_object_set (qtimlvpose, "threshold", 40.0, "results",2, "module",1,
+          "labels", "/data/posenet.labels",
+          "constants", "Posenet,q-offsets=<128.0,128.0,117.0>,q-scales=<0.0784313753247261,0.0784313753247261,1.3875764608383179>;",
+          NULL);
     g_object_set (sink, "fullscreen", TRUE, "sync", FALSE, "enable-last-sample", FALSE, NULL);
 
     /* Link Tee which has On Request src pads */
