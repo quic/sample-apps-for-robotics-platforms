@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo ""
+echo "Done installing rb5-sensor-collection-system"
+echo ""
