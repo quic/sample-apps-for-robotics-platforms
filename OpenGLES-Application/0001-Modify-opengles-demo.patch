@@ -1,0 +1,146 @@
+From 2d1e25f321a6f844389b4d9f68e7803342706aec Mon Sep 17 00:00:00 2001
+From: Wanghao Wei <quic_wanghaow@quicinc.com>
+Date: Fri, 29 Jan 2021 12:20:29 +0800
+Subject: [PATCH] Modify opengles demo
+
+---
+ examples/CMakeLists.txt | 42 ++++++++++++-----------------------------
+ examples/heightmap.c    | 11 ++---------
+ examples/simple.c       |  7 -------
+ 3 files changed, 14 insertions(+), 46 deletions(-)
+
+diff --git a/examples/CMakeLists.txt b/examples/CMakeLists.txt
+index 138a781..4f8cc8b 100644
+--- a/examples/CMakeLists.txt
++++ b/examples/CMakeLists.txt
+@@ -12,6 +12,7 @@ if (MSVC)
+ endif()
+ 
+ include_directories("${GLFW_SOURCE_DIR}/deps")
++include_directories("${GLFW_SOURCE_DIR}/examples/include")
+ 
+ if (WIN32)
+     set(ICON glfw.rc)
+@@ -28,40 +29,21 @@ set(GETOPT "${GLFW_SOURCE_DIR}/deps/getopt.h"
+ set(TINYCTHREAD "${GLFW_SOURCE_DIR}/deps/tinycthread.h"
+                 "${GLFW_SOURCE_DIR}/deps/tinycthread.c")
+ 
+-add_executable(boing WIN32 MACOSX_BUNDLE boing.c ${ICON} ${GLAD})
+-add_executable(gears WIN32 MACOSX_BUNDLE gears.c ${ICON} ${GLAD})
+ add_executable(heightmap WIN32 MACOSX_BUNDLE heightmap.c ${ICON} ${GLAD})
+-add_executable(particles WIN32 MACOSX_BUNDLE particles.c ${ICON} ${TINYCTHREAD} ${GETOPT} ${GLAD})
+ add_executable(simple WIN32 MACOSX_BUNDLE simple.c ${ICON} ${GLAD})
+-add_executable(splitview WIN32 MACOSX_BUNDLE splitview.c ${ICON} ${GLAD})
+-add_executable(wave WIN32 MACOSX_BUNDLE wave.c ${ICON} ${GLAD})
++add_executable(sharing WIN32 MACOSX_BUNDLE sharing.c ${ICON})
++add_executable(offscreen offscreen.c ${ICON})
+ 
+-target_link_libraries(particles "${CMAKE_THREAD_LIBS_INIT}" "${RT_LIBRARY}")
++add_executable(magic_box magic_box.cpp ${ICON})
+ 
+-set(WINDOWS_BINARIES boing gears heightmap particles simple splitview wave)
++target_link_libraries(heightmap "${CMAKE_THREAD_LIBS_INIT}" "${RT_LIBRARY}" -lGLESv2 -lGLESv1_CM)
++target_link_libraries(simple "${CMAKE_THREAD_LIBS_INIT}" "${RT_LIBRARY}" -lGLESv2 -lGLESv1_CM)
++target_link_libraries(sharing "${CMAKE_THREAD_LIBS_INIT}" "${RT_LIBRARY}" -lGLESv2 -lGLESv1_CM)
++target_link_libraries(offscreen "${CMAKE_THREAD_LIBS_INIT}" "${RT_LIBRARY}" -lGLESv2 -lGLESv1_CM)
+ 
+-set_target_properties(${WINDOWS_BINARIES} PROPERTIES FOLDER "GLFW3/Examples")
+-
+-if (MSVC)
+-    # Tell MSVC to use main instead of WinMain for Windows subsystem executables
+-    set_target_properties(${WINDOWS_BINARIES} PROPERTIES
+-                          LINK_FLAGS "/ENTRY:mainCRTStartup")
+-endif()
++target_link_libraries(magic_box "${CMAKE_THREAD_LIBS_INIT}" "${RT_LIBRARY}" -lGLESv2 -lGLESv1_CM)
+ 
+-if (APPLE)
+-    set_target_properties(boing PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Boing")
+-    set_target_properties(gears PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Gears")
+-    set_target_properties(heightmap PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Heightmap")
+-    set_target_properties(particles PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Particles")
+-    set_target_properties(simple PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Simple")
+-    set_target_properties(splitview PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "SplitView")
+-    set_target_properties(wave PROPERTIES MACOSX_BUNDLE_BUNDLE_NAME "Wave")
+-
+-    set_target_properties(${WINDOWS_BINARIES} PROPERTIES
+-                          RESOURCE glfw.icns
+-                          MACOSX_BUNDLE_SHORT_VERSION_STRING ${GLFW_VERSION}
+-                          MACOSX_BUNDLE_LONG_VERSION_STRING ${GLFW_VERSION_FULL}
+-                          MACOSX_BUNDLE_ICON_FILE glfw.icns
+-                          MACOSX_BUNDLE_INFO_PLIST "${GLFW_SOURCE_DIR}/CMake/MacOSXBundleInfo.plist.in")
+-endif()
++set(WINDOWS_BINARIES heightmap simple sharing magic_box)
++set(CONSOLE_BINARIES offscreen)
+ 
++set_target_properties(${WINDOWS_BINARIES} PROPERTIES FOLDER "GLFW3/Examples")
+diff --git a/examples/heightmap.c b/examples/heightmap.c
+index b57815e..a3cb5c0 100644
+--- a/examples/heightmap.c
++++ b/examples/heightmap.c
+@@ -52,7 +52,7 @@
+  *********************************************************************/
+ 
+ static const char* vertex_shader_text =
+-"#version 150\n"
++"#version 300 es\n"
+ "uniform mat4 project;\n"
+ "uniform mat4 modelview;\n"
+ "in float x;\n"
+@@ -65,7 +65,7 @@ static const char* vertex_shader_text =
+ "}\n";
+ 
+ static const char* fragment_shader_text =
+-"#version 150\n"
++"#version 300 es\n"
+ "out vec4 color;\n"
+ "void main()\n"
+ "{\n"
+@@ -391,11 +391,6 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action,
+     }
+ }
+ 
+-static void error_callback(int error, const char* description)
+-{
+-    fprintf(stderr, "Error: %s\n", description);
+-}
+-
+ int main(int argc, char** argv)
+ {
+     GLFWwindow* window;
+@@ -410,8 +405,6 @@ int main(int argc, char** argv)
+ 
+     GLuint shader_program;
+ 
+-    glfwSetErrorCallback(error_callback);
+-
+     if (!glfwInit())
+         exit(EXIT_FAILURE);
+ 
+diff --git a/examples/simple.c b/examples/simple.c
+index 43d11fa..6254b33 100644
+--- a/examples/simple.c
++++ b/examples/simple.c
+@@ -61,11 +61,6 @@ static const char* fragment_shader_text =
+ "    gl_FragColor = vec4(color, 1.0);\n"
+ "}\n";
+ 
+-static void error_callback(int error, const char* description)
+-{
+-    fprintf(stderr, "Error: %s\n", description);
+-}
+-
+ static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods)
+ {
+     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+@@ -78,8 +73,6 @@ int main(void)
+     GLuint vertex_buffer, vertex_shader, fragment_shader, program;
+     GLint mvp_location, vpos_location, vcol_location;
+ 
+-    glfwSetErrorCallback(error_callback);
+-
+     if (!glfwInit())
+         exit(EXIT_FAILURE);
+ 
+-- 
+2.26.2
+
