@@ -110,6 +110,11 @@ void InferenceThread(void *sol_conf,int model_id, int size)
     uint32_t frames = 0;
     do
     {  
+	unique_lock<mutex> lock(mu);
+	cond.wait(lock, [&](){
+		return model_id == current_model;
+	}
+        );
         if(current_model == face_detect)
         {
             ret = gDecodeQueue->Dequeue(item, 300);
@@ -117,12 +122,6 @@ void InferenceThread(void *sol_conf,int model_id, int size)
         if (ret == 0)
         {
             frames += 1;
-            
-            unique_lock<mutex> lock(mu);
-            cond.wait(lock, [&](){
-                return model_id == current_model;
-                }
-            );
             auto start1 = chrono::steady_clock::now();
             shInference->Inference(item);
             auto end1 = chrono::steady_clock::now();
