@@ -75,6 +75,11 @@ Contains instructions on how to enable and test various AWS services on the plat
 
   
 
+## 16. Sensor-collection-system
+```
+The sensor collection system is an application that utilizes a collection of drivers in order to concurrently collect data from different sensors.
+```
+
 ## Getting Started
 
 * [Quick start guide](https://developer.qualcomm.com/qualcomm-robotics-rb5-kit/quick-start-guide)

@@ -1,0 +1,5 @@
+Package: rb5-scs
+Version: 0.0.1
+Architecture: all
+Maintainer: devops@modalai.com
+Description: RB5 Sensor Collection System
