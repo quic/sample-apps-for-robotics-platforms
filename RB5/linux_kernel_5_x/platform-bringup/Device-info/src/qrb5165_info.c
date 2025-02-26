@@ -20,7 +20,7 @@
 #define FILE_HDMISTATE "/sys/class/drm/card0-DSI-1/status"
 #define FILE_CAN_FLAGS "/sys/class/net/can0/flags"
 #define FILE_IOMEM     "/proc/iomem"
-#define FILE_GPUINFO   "/sys/devices/platform/soc/5900000.qcom,kgsl-3d0/devfreq/5900000.qcom,kgsl-3d0/%s"
+#define FILE_GPUINFO   "/sys/devices/platform/soc/3d00000.qcom,kgsl-3d0/devfreq/3d00000.qcom,kgsl-3d0/%s"
 
 #define GPU_GOVERNOR   "governor"
 #define GPU_CUR_FREQ   "cur_freq"
