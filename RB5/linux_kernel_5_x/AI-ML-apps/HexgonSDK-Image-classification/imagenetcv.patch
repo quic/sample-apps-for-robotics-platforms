@@ -1,0 +1,67 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 4dc5ad0..dd8761f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,6 +1,6 @@
+ cmake_minimum_required(VERSION 2.8)
+ project( ImagenetCv )
+-find_package( OpenCV REQUIRED )
++find_package( OpenCV REQUIRED PATHS /data/opencv/build NO_DEFAULT_PATH)
+ include_directories( ${OpenCV_INCLUDE_DIRS} ./include/ )
+ link_directories( /home/linaro/apps )
+ add_executable( ImagenetCv ImagenetCv.cpp )
+diff --git a/ImagenetCv.cpp b/ImagenetCv.cpp
+index 6361636..6aee5ec 100644
+--- a/ImagenetCv.cpp
++++ b/ImagenetCv.cpp
+@@ -1194,7 +1194,7 @@ static int imagenet_run(uint32_t id, void *input, void *output, void *finput)
+ int main(int, char**)
+ {
+ 	uint32_t graph_id;
+-	Mat frame, frame1, cFrame;
++	Mat frame, frame1, frame2;
+ 	void *data, *output, *fdata;
+ 	char label[256];
+ 	int ret, idx = 0;
+@@ -1231,9 +1231,16 @@ int main(int, char**)
+ 		printf("malloc failed\n");
+ 		return -1;
+ 	}
++	cv::namedWindow("USB-Camera", cv::WINDOW_AUTOSIZE | cv::WINDOW_KEEPRATIO);
+ 	Mat rgb_mat(IMG_HEIGHT, IMG_WIDTH, CV_8UC3, data);
+ 
+-	VideoCapture capture(2); // open the first camera
++	VideoCapture capture(
++		"qtiqmmfsrc name=qmmf camera=0 ! "
++		"video/x-raw,format=NV12,width=1280,height=720,framerate=30/1 ! "
++		"videoconvert ! video/x-raw,format=I420 ! appsink drop=true "
++		"max-buffers=10",
++		cv::CAP_GSTREAMER
++	);  // open the first camera
+ 	if (!capture.isOpened())
+ 	{
+ 		cerr << "ERROR: Can't initialize camera capture" << endl;
+@@ -1248,15 +1255,15 @@ int main(int, char**)
+ 			break;
+ 		}
+ 
+-		cv::resize(frame, frame1, cv::Size(IMG_HEIGHT, IMG_WIDTH));
+-		cv::cvtColor(frame1, rgb_mat, cv::COLOR_BGR2RGB);
+-		/* Pass resize image buffers to imagenet graph */
+-		if (imagenet_run(graph_id, data, output, fdata) != 0)
+-			return -1;
++		cv::cvtColor(frame, frame2, cv::COLOR_YUV2BGR_I420);
++		cv::resize(frame2, frame1, cv::Size(IMG_HEIGHT, IMG_WIDTH));
++		cv::cvtColor(frame1, rgb_mat, cv::COLOR_BGR2RGB);
++		/* Pass resize image buffers to imagenet graph */
++		if (imagenet_run(graph_id, data, output, fdata) != 0) return -1;
+ 
+-		get_top5((float *)output, &frame);
+-		imshow("USB-Camera", frame);
+-		waitKey(1);
++		get_top5((float *)output, &frame2);
++		imshow("USB-Camera", frame2);
++		waitKey(1);
+ 	}
+ 
+ 	/* Free rpmsg buffers */
