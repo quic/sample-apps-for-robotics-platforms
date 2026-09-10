@@ -1,8 +1,5 @@
 /*
  * * Copyright (c) 2020 Qualcomm Innovation Center, Inc. All Rights Reserved.
- *
- * *
- *
  * * SPDX-License-Identifier: BSD-3-Clause-Clear
  *
  * */

@@ -1,8 +1,5 @@
 /*
  * * Copyright (c) 2020 Qualcomm Innovation Center, Inc. All Rights Reserved.
- *
- * *
- *
  * * SPDX-License-Identifier: BSD-3-Clause-Clear
  *
  * */
@@ -16,11 +13,6 @@
 
 @brief
    Public API
-
-
-Copyright (c) 2011-2016 Qualcomm Technologies, Inc.
-All Rights Reserved.
-Confidential and Proprietary - Qualcomm Technologies, Inc.
 
 =============================================================================**/
 

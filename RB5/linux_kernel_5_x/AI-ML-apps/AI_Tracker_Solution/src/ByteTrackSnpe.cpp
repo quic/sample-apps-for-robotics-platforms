@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
+ */
+
 /* 
 Copyright (c) 2021 Yifu Zhang
 Permission is hereby granted, free of charge, to any person obtaining a copy

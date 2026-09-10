@@ -1,14 +1,15 @@
+/*
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
+ */
+
 /*=============================================================================
 	@file sns_client_example.cpp
 
 	Example client written in C++, using libssc.  Client requests Accel SUID,
 	and subsequently sends an enable request to it.  Data will stream for 10
 	seconds.
-
-	Copyright (c) 2017-2020 Qualcomm Technologies, Inc.
-	All Rights Reserved.
-	Confidential and Proprietary - Qualcomm Technologies, Inc.
-	===========================================================================*/
 
 /*=============================================================================
 	Include Files

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
+ */
+
 #ifndef __BYTETRACK_IMPL_H__
 #define __BYTETRACK_IMPL_H__
 

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
+ */
+
 #include "StreamEncode.h"
 
 int StreamEncode::gst_filesink_pipeline_init(string output_type, string output_path) 

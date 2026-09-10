@@ -1,3 +1,6 @@
+# Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+# SPDX-License-Identifier: BSD-3-Clause-Clear
+
 import gi
 from gi.repository import Gst, GLib
 from PyQt5.QtWidgets import QAction, QApplication, QGridLayout, QWidget, QComboBox, QGroupBox, QLabel, QLineEdit, QPushButton, QSpinBox, QCheckBox, QVBoxLayout, QHBoxLayout, QBoxLayout, QFileDialog

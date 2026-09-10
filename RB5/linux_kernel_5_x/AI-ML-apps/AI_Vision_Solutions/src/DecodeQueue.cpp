@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
+ */
+
 #include "DecodeQueue.h"
 
 int DecodeQueue::Dequeue(shared_ptr<DetectionItem> &item, unsigned int timeOutMs)

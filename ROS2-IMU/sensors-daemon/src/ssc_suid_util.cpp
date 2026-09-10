@@ -1,8 +1,9 @@
 /*
- * Copyright (c) 2020 Qualcomm Technologies, Inc.
- * All Rights Reserved.
- * Confidential and Proprietary - Qualcomm Technologies, Inc.
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
  */
+
 #include <string>
 #include "google/protobuf/io/zero_copy_stream_impl_lite.h"
 #include "sns_client.pb.h"

@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) Qualcomm Innovation Center, Inc. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause-Clear
+ */
+
 #ifndef MODEL_INFERENCE_H_
 #define MODEL_INFERENCE_H_
 #include "DecodeQueue.h"
